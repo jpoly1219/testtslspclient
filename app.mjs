@@ -270,6 +270,16 @@ const resInlayHint2 = await c.inlayHint({
     }
   }
 });
+
+const resHover = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
+  },
+  position: {
+    character: 8,
+    line: 1
+  }
+});
 // const resTypeHierarchy = await c.prepareTypeHierarchy({
 //   textDocument: {
 //     uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
@@ -298,6 +308,7 @@ const resSignatureHelp = await c.signatureHelp({
 // console.log(resComp)
 console.log(resInlayHint)
 console.log(resSignatureHelp)
+console.log(resHover)
 
 // console.log(JSON.stringify(response))
 // console.log(JSON.stringify(response2))
