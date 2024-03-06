@@ -1,6 +1,6 @@
-Content-Length: 216
+Content-Length: 245
 
-{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":3,"message":"Using Typescript version (bundled) 5.3.3 from path \"/home/jacob/.nvm/versions/node/v21.6.2/lib/node_modules/typescript/lib/tsserver.js\""}}Content-Length: 1554
+{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":3,"message":"Using Typescript version (bundled) 5.3.3 from path \"/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js\""}}Content-Length: 1554
 
 {"jsonrpc":"2.0","id":0,"result":{"capabilities":{"textDocumentSync":2,"completionProvider":{"triggerCharacters":[".","\"","'","/","@","<"],"resolveProvider":true},"codeActionProvider":true,"codeLensProvider":{"resolveProvider":true},"definitionProvider":true,"documentFormattingProvider":true,"documentRangeFormattingProvider":true,"documentHighlightProvider":true,"documentSymbolProvider":true,"executeCommandProvider":{"commands":["_typescript.applyWorkspaceEdit","_typescript.applyCodeAction","_typescript.applyRefactoring","_typescript.configurePlugin","_typescript.organizeImports","_typescript.applyRenameFile","_typescript.goToSourceDefinition"]},"hoverProvider":true,"inlayHintProvider":true,"linkedEditingRangeProvider":false,"renameProvider":true,"referencesProvider":true,"selectionRangeProvider":true,"signatureHelpProvider":{"triggerCharacters":["(",",","<"],"retriggerCharacters":[")"]},"workspaceSymbolProvider":true,"implementationProvider":true,"typeDefinitionProvider":true,"foldingRangeProvider":true,"semanticTokensProvider":{"documentSelector":null,"legend":{"tokenTypes":["class","enum","interface","namespace","typeParameter","type","parameter","variable","enumMember","property","function","member"],"tokenModifiers":["declaration","static","async","readonly","defaultLibrary","local"]},"full":true,"range":true},"workspace":{"fileOperations":{"willRename":{"filters":[{"scheme":"file","pattern":{"glob":"**/*.{ts,js,jsx,tsx,mjs,mts,cjs,cts}","matches":"file"}},{"scheme":"file","pattern":{"glob":"**","matches":"folder"}}]}}}}}}Content-Length: 207
 
@@ -12,6 +12,8 @@ Content-Length: 216
 
 {"jsonrpc":"2.0","id":3,"result":[{"position":{"line":3,"character":9},"label":[{"value":": "},{"value":"("},{"value":")"},{"value":" => "},{"value":"number"}],"kind":1,"paddingLeft":true}]}Content-Length: 36
 
-{"jsonrpc":"2.0","id":4,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":4,"result":[]}Content-Length: 289
 
-{"jsonrpc":"2.0","id":5,"result":null}
+{"jsonrpc":"2.0","id":5,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(method) Console.log(...data: any[]): void\n```\n[MDN Reference](https://developer.mozilla.org/docs/Web/API/console/log)"},"range":{"start":{"line":1,"character":8},"end":{"line":1,"character":11}}}}Content-Length: 38
+
+{"jsonrpc":"2.0","id":6,"result":null}
