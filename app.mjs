@@ -210,7 +210,7 @@ const resInit = await c.initialize({
   }
 });
 
-const notiOpen = await c.didOpen({
+const notifOpenTest1 = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test.ts',
     languageId: 'ts',
@@ -305,9 +305,11 @@ const resSignatureHelp = await c.signatureHelp({
   }
 });
 // console.log(resInit)
-// console.log(resComp)
+console.log("=== Completion ===")
+console.log(resComp)
+console.log("=== Inlay Hint ===")
 console.log(resInlayHint)
-console.log(resSignatureHelp)
+console.log("=== Hover ===")
 console.log(resHover)
 
 // console.log(JSON.stringify(response))
@@ -321,3 +323,58 @@ console.log(resHover)
 //   workspaceFolders: []
 // };
 // e.send('initialize', message);
+
+console.log("=========Test 2==========");
+
+const notifOpenTest2 = await c.didOpen({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts',
+    languageId: 'ts',
+    text: 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/',
+    version: 1
+  }
+});
+
+const resCompTest2 = await c.completion({
+  context: {
+    triggerKind: 1,
+  },
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  position: {
+    character: 19,
+    line: 9
+  }
+});
+
+const resInlayHintTest2 = await c.inlayHint({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  range: {
+    start: {
+      line: 9, character: 6
+    },
+    end: {
+      line: 9, character: 12
+    }
+  }
+});
+
+const resHoverTest2 = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  position: {
+    character: 8,
+    line: 9
+  }
+});
+
+console.log("=== Completion ===")
+console.log(resCompTest2)
+console.log("=== Inlay Hint ===")
+console.log(resInlayHintTest2)
+console.log("=== Hover ===")
+console.log(resHoverTest2)
