@@ -1,4 +1,4 @@
-const x = 1;
+const x: number = 1;
 console.log(x)
 x.
 const fun = () => {
