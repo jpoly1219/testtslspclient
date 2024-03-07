@@ -326,6 +326,8 @@ console.log(resHover)
 
 console.log("=========Test 2==========");
 
+const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
+
 const notifOpenTest2 = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test2.ts',
@@ -378,3 +380,31 @@ console.log("=== Inlay Hint ===")
 console.log(resInlayHintTest2)
 console.log("=== Hover ===")
 console.log(resHoverTest2)
+
+// Getting context of the hole
+
+// method 1: match for common patterns
+// from corpus, find the first instance of __HOLE__
+// loop backwards to see if we can regex match a pattern
+const holeNumOfChars = 8;
+const firstHoleIndex = corpus.indexOf("__HOLE__");
+const pattern = /const .*: .* =\n  __HOLE__/;
+const firstPatternIndex = corpus.search(pattern);
+console.log(firstHoleIndex, firstPatternIndex)
+// const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
+let fromBeginning = corpus.substring(0, firstPatternIndex);
+let lineNumber = (fromBeginning.match(/\n/g)).length;
+
+const resHoverFunctionTypeMatch = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  position: {
+    character: 6,
+    line: lineNumber
+  }
+});
+
+console.log(resHoverMatch.contents.value);
+const patternTypeSignature = resHoverMatch.contents.value.split("\n")[2];
+console.log(patternTypeSignature)

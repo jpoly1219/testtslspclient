@@ -24,4 +24,6 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":8,"result":[]}Content-Length: 203
 
-{"jsonrpc":"2.0","id":9,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}
+{"jsonrpc":"2.0","id":9,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}Content-Length: 204
+
+{"jsonrpc":"2.0","id":10,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}
