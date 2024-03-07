@@ -388,8 +388,15 @@ console.log(resHoverTest2)
 // loop backwards to see if we can regex match a pattern
 const holeNumOfChars = 8;
 const firstHoleIndex = corpus.indexOf("__HOLE__");
-const pattern = /const .*: .* =\n  __HOLE__/;
+const pattern = /const (.+): \((.+): (.+)\) => (.+) =\n  __HOLE__/;
 const firstPatternIndex = corpus.search(pattern);
+const match = corpus.match(pattern);
+const matchedFunctionName = match[1];
+const matchedArgName = match[2];
+const matchedArgTypeName = match[3];
+const matchedReturnTypeName = match[4];
+console.log(match);
+console.log(matchedFunctionName, matchedArgName, matchedArgTypeName, matchedReturnTypeName);
 console.log(firstHoleIndex, firstPatternIndex)
 // const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
 let fromBeginning = corpus.substring(0, firstPatternIndex);
@@ -405,6 +412,5 @@ const resHoverFunctionTypeMatch = await c.hover({
   }
 });
 
-console.log(resHoverMatch.contents.value);
-const patternTypeSignature = resHoverMatch.contents.value.split("\n")[2];
-console.log(patternTypeSignature)
+console.log(resHoverFunctionTypeMatch.contents.value);
+const patternTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n")[2];
