@@ -386,31 +386,45 @@ console.log(resHoverTest2)
 // method 1: match for common patterns
 // from corpus, find the first instance of __HOLE__
 // loop backwards to see if we can regex match a pattern
-const holeNumOfChars = 8;
+const indexOfGroup = (match, n) => {
+  let ix = match.index;
+  for (let i = 1; i < n; i++)
+    ix += match[i].length;
+  return ix;
+}
+
+
 const firstHoleIndex = corpus.indexOf("__HOLE__");
-const pattern = /const (.+): \((.+): (.+)\) => (.+) =\n  __HOLE__/;
+// pattern 1: const myFunc: (_: T1) => T2 =\n  __HOLE__
+// divided into groups: const .+: \(.+: .+\) => .+ =\n __HOLE__
+//                      1^^^^^2^3^^^4^5^6^7^^^^^8^9^^^^^^^^^^^^
+const pattern = /(const )(.+)(: \()(.+)(: )(.+)(\) => )(.+)( =\n  __HOLE__)/;
+
 const firstPatternIndex = corpus.search(pattern);
 const match = corpus.match(pattern);
-const matchedFunctionName = match[1];
-const matchedArgName = match[2];
-const matchedArgTypeName = match[3];
-const matchedReturnTypeName = match[4];
-console.log(match);
+const matchedFunctionName = match[2];
+const matchedArgName = match[4];
+const matchedArgTypeName = match[6];
+const matchedReturnTypeName = match[8];
+
+console.log(match)
 console.log(matchedFunctionName, matchedArgName, matchedArgTypeName, matchedReturnTypeName);
 console.log(firstHoleIndex, firstPatternIndex)
 // const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
 let fromBeginning = corpus.substring(0, firstPatternIndex);
 let lineNumber = (fromBeginning.match(/\n/g)).length;
 
+// type of function
 const resHoverFunctionTypeMatch = await c.hover({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
   },
   position: {
-    character: 6,
+    character: indexOfGroup(match, 2) - firstPatternIndex,
     line: lineNumber
   }
 });
 
 console.log(resHoverFunctionTypeMatch.contents.value);
 const patternTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n")[2];
+console.log(patternTypeSignature);
