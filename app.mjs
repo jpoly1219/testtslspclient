@@ -443,7 +443,7 @@ const resHoverArgumentTypeMatch = await c.hover({
     uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
   },
   position: {
-    character: indexOfGroup(match, 4) - firstPatternIndex,
+    character: indexOfGroup(match, 6) - firstPatternIndex,
     line: lineNumber
   }
 });
@@ -463,7 +463,7 @@ const resHoverReturnTypeMatch = await c.hover({
     uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
   },
   position: {
-    character: indexOfGroup(match, 6) - firstPatternIndex,
+    character: indexOfGroup(match, 8) - firstPatternIndex,
     line: lineNumber
   }
 });
