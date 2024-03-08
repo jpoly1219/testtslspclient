@@ -403,13 +403,13 @@ const pattern = /(const )(.+)(: \()(.+)(: )(.+)(\) => )(.+)( =\n  __HOLE__)/;
 const firstPatternIndex = corpus.search(pattern);
 const match = corpus.match(pattern);
 const matchedFunctionName = match[2];
-const matchedArgName = match[4];
-const matchedArgTypeName = match[6];
+const matchedArgumentName = match[4];
+const matchedArgumentTypeName = match[6];
 const matchedReturnTypeName = match[8];
 
-console.log(match)
-console.log(matchedFunctionName, matchedArgName, matchedArgTypeName, matchedReturnTypeName);
-console.log(firstHoleIndex, firstPatternIndex)
+// console.log(match)
+// console.log(matchedFunctionName, matchedArgumentName, matchedArgumentTypeName, matchedReturnTypeName);
+// console.log(firstHoleIndex, firstPatternIndex)
 // const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
 let fromBeginning = corpus.substring(0, firstPatternIndex);
 let lineNumber = (fromBeginning.match(/\n/g)).length;
@@ -425,9 +425,17 @@ const resHoverFunctionTypeMatch = await c.hover({
   }
 });
 
-console.log(resHoverFunctionTypeMatch.contents.value);
-const functionTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n")[2];
-console.log(functionTypeSignature);
+// console.log(resHoverFunctionTypeMatch.contents.value);
+// console.log(resHoverFunctionTypeMatch.contents.value.split("\n"));
+const functionTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
+  if (curr != "" && curr != "```typescript" && curr != "```") {
+    return acc + curr;
+  } else {
+    return acc;
+  }
+}, "");
+
+console.log(`function ${matchedFunctionName}'s type signature: ${functionTypeSignature}`);
 
 // type of argument
 const resHoverArgumentTypeMatch = await c.hover({
@@ -440,6 +448,33 @@ const resHoverArgumentTypeMatch = await c.hover({
   }
 });
 
-console.log(resHoverArgumentTypeMatch.contents.value);
-const argumentTypeSignature = resHoverArgumentTypeMatch.contents.value.split("\n")[2];
-console.log(argumentTypeSignature);
+// console.log(resHoverArgumentTypeMatch.contents.value);
+const argumentTypeSignature = resHoverArgumentTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
+  if (curr != "" && curr != "```typescript" && curr != "```") {
+    return acc + curr;
+  } else {
+    return acc;
+  }
+}, "");
+console.log(`argument ${matchedArgumentName}'s type signature: ${argumentTypeSignature}`);
+
+// type of return
+const resHoverReturnTypeMatch = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  position: {
+    character: indexOfGroup(match, 6) - firstPatternIndex,
+    line: lineNumber
+  }
+});
+
+// console.log(resHoverReturnTypeMatch.contents.value);
+const returnTypeSignature = resHoverReturnTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
+  if (curr != "" && curr != "```typescript" && curr != "```") {
+    return acc + curr;
+  } else {
+    return acc;
+  }
+}, "");
+console.log(`return's type signature: ${returnTypeSignature}`);

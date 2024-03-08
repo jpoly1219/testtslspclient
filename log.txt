@@ -26,4 +26,8 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":9,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}Content-Length: 204
 
-{"jsonrpc":"2.0","id":10,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}
+{"jsonrpc":"2.0","id":10,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: T1) => T3\n```\n"},"range":{"start":{"line":9,"character":6},"end":{"line":9,"character":12}}}}Content-Length: 195
+
+{"jsonrpc":"2.0","id":11,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(parameter) _: T1\n```\n"},"range":{"start":{"line":9,"character":15},"end":{"line":9,"character":16}}}}Content-Length: 224
+
+{"jsonrpc":"2.0","id":12,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T1 = {\n    name: string;\n    t2: T2;\n}\n```\n"},"range":{"start":{"line":9,"character":18},"end":{"line":9,"character":20}}}}
