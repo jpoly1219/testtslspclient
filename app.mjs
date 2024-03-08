@@ -426,5 +426,20 @@ const resHoverFunctionTypeMatch = await c.hover({
 });
 
 console.log(resHoverFunctionTypeMatch.contents.value);
-const patternTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n")[2];
-console.log(patternTypeSignature);
+const functionTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n")[2];
+console.log(functionTypeSignature);
+
+// type of argument
+const resHoverArgumentTypeMatch = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+  },
+  position: {
+    character: indexOfGroup(match, 4) - firstPatternIndex,
+    line: lineNumber
+  }
+});
+
+console.log(resHoverArgumentTypeMatch.contents.value);
+const argumentTypeSignature = resHoverArgumentTypeMatch.contents.value.split("\n")[2];
+console.log(argumentTypeSignature);
