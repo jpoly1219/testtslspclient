@@ -379,6 +379,9 @@ console.log(resCompTest2)
 console.log("=== Inlay Hint ===")
 console.log(resInlayHintTest2)
 console.log("=== Hover ===")
+console.log("\n=== Current File ===\n")
+console.log(corpus)
+console.log("\n=== Testing Hover Capabilities ===\n")
 console.log(resHoverTest2)
 
 // Getting context of the hole
@@ -407,12 +410,11 @@ const matchedArgumentName = match[4];
 const matchedArgumentTypeName = match[6];
 const matchedReturnTypeName = match[8];
 
-// console.log(match)
-// console.log(matchedFunctionName, matchedArgumentName, matchedArgumentTypeName, matchedReturnTypeName);
-// console.log(firstHoleIndex, firstPatternIndex)
-// const corpus = 'type T2 = number;\n\ntype T1 = {\n  name: string;\n  t2: T2;\n}\n\ntype T3 = boolean;\n\nconst myFunc: (_: T1) => T3 =\n  __HOLE__;\n\n/* should return \n\ntype B = number;\ntype A = {\n  name: string;\n  b: B;\n}\ntype C = boolean;\n\n*/';
 let fromBeginning = corpus.substring(0, firstPatternIndex);
 let lineNumber = (fromBeginning.match(/\n/g)).length;
+
+
+console.log("\n=== Programmatically Extracted Types Using Pattern << const myFunc: (_: T1) => T2 =\\n  __HOLE__ >> ===\n")
 
 // type of function
 const resHoverFunctionTypeMatch = await c.hover({
@@ -425,8 +427,6 @@ const resHoverFunctionTypeMatch = await c.hover({
   }
 });
 
-// console.log(resHoverFunctionTypeMatch.contents.value);
-// console.log(resHoverFunctionTypeMatch.contents.value.split("\n"));
 const functionTypeSignature = resHoverFunctionTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
   if (curr != "" && curr != "```typescript" && curr != "```") {
     return acc + curr;
@@ -448,7 +448,6 @@ const resHoverArgumentTypeMatch = await c.hover({
   }
 });
 
-// console.log(resHoverArgumentTypeMatch.contents.value);
 const argumentTypeSignature = resHoverArgumentTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
   if (curr != "" && curr != "```typescript" && curr != "```") {
     return acc + curr;
@@ -469,7 +468,6 @@ const resHoverReturnTypeMatch = await c.hover({
   }
 });
 
-// console.log(resHoverReturnTypeMatch.contents.value);
 const returnTypeSignature = resHoverReturnTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
   if (curr != "" && curr != "```typescript" && curr != "```") {
     return acc + curr;
