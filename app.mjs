@@ -483,6 +483,7 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 // recurse
 
 const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
+  // base case: primitive, simple types
   for (let i = 0; i < typeSpan.length; i++) {
     c.typeDefinition({
       range: {
@@ -496,9 +497,29 @@ const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
         }
       },
       uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-    }).then((hoverResult) => {
-      if (hoverResult != null) {
+    }).then((typeDefinitionResult) => {
+      // textDocument: {
+      //   uri: 'file:///fake-file.js'
+      // },
+      // position: {
+      //   character: 1,
+      //   line: 1
+      // }
+      if (typeDefinitionResult != null) {
         // try hover on the goto result
+        c.hover({
+          textDocument: {
+            uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+          },
+          position: {
+            character: typeDefinitionResult.position.character,
+            line: typeDefinitionResult.position.line
+          }
+        }).then((hoverResult) => {
+          if (hoverResult != null) {
+            recursiveDefine(someTypeSpan, typeDefinitionResult.position.line, typeDefinitionResult.position.character)
+          }
+        })
       } else {
         // pass
         // maybe do something
