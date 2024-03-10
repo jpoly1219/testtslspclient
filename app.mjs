@@ -480,10 +480,9 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 // recursive type definitions
 // given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
 // find the span of a type definition: specialize to the case where it is a single struct
-// recurse
+// recurse through array, tuple, object
 
 const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
-  // base case: primitive, simple types
   for (let i = 0; i < typeSpan.length; i++) {
     c.typeDefinition({
       range: {
@@ -526,4 +525,8 @@ const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
       }
     })
   }
+  // base case - type can no longer be stepped into
+  // boolean, number, string, enum, unknown, any, void, null, undefined, never
+  // ideally this should be checked for before we do the for loop
+  return typeSpan;
 }
