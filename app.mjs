@@ -476,3 +476,33 @@ const returnTypeSignature = resHoverReturnTypeMatch.contents.value.split("\n").r
   }
 }, "");
 console.log(`return's type signature: ${returnTypeSignature}`);
+
+// recursive type definitions
+// given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
+// find the span of a type definition: specialize to the case where it is a single struct
+// recurse
+
+const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
+  for (let i = 0; i < typeSpan.length; i++) {
+    c.typeDefinition({
+      range: {
+        start: {
+          line: linePosition,
+          character: characterPosition
+        },
+        end: {
+          line: linePosition,
+          character: characterPosition
+        }
+      },
+      uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+    }).then((hoverResult) => {
+      if (hoverResult != null) {
+        // try hover on the goto result
+      } else {
+        // pass
+        // maybe do something
+      }
+    })
+  }
+}
