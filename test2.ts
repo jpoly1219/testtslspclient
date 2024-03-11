@@ -16,7 +16,7 @@ type C = boolean;
 
 /* FILE 3 */
 /* code ... */
-const f: (_: A) => C =
+const myFunc: (_: A) => C =
   __HOLE__;
 /* code ... */
 
