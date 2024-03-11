@@ -477,7 +477,6 @@ const returnTypeSignature = resHoverReturnTypeMatch.contents.value.split("\n").r
 }, "");
 console.log(`return's type signature: ${returnTypeSignature}`);
 
-<<<<<<< HEAD
 // recursive type definitions
 // given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
 // find the span of a type definition: specialize to the case where it is a single struct
@@ -531,7 +530,3 @@ const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
   // ideally this should be checked for before we do the for loop
   return typeSpan;
 }
-=======
-
-// get types from different files
->>>>>>> 313af61 (update tests)
