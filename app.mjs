@@ -485,14 +485,29 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 
 const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
   console.log(`typeSpan: ${typeSpan}`);
+  let formattedTypeSpan = typeSpan;
+  let formattedCharacterPos = characterPosition;
+  if (typeSpan.indexOf("=>") != -1) {
 
-  for (let i = 0; i < typeSpan.length; i++) {
+  } else if (typeSpan.indexOf("{") != -1) {
+    const interestingIndex = typeSpan.indexOf("{");
+    formattedTypeSpan = typeSpan.slice(interestingIndex);
+    formattedCharacterPos += interestingIndex;
+    // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
+  } else if (typeSpan.indexOf("=") != -1) {
+    const interestingIndex = typeSpan.indexOf("{");
+    formattedTypeSpan = typeSpan.slice(interestingIndex);
+    formattedCharacterPos += interestingIndex;
+    // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
+  }
+
+  for (let i = 0; i < formattedTypeSpan.length; i++) {
     const typeDefinitionResult = await c.typeDefinition({
       textDocument: {
         uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
       },
       position: {
-        character: characterPosition + i,
+        character: formattedCharacterPos + i,
         line: linePosition
       }
     });
@@ -508,7 +523,7 @@ const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
     // },
     // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
 
-    console.log(`typeDefinitionResult: ${JSON.stringify(typeDefinitionResult)}`);
+    // console.log(`typeDefinitionResult: ${JSON.stringify(typeDefinitionResult)}`);
     if (typeDefinitionResult.length != 0) {
       // try hover on the goto result
       const hoverResult = await c.hover({
@@ -516,12 +531,12 @@ const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
           uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
         },
         position: {
-          character: typeDefinitionResult.range.start.character,
-          line: typeDefinitionResult.range.start.line
+          character: typeDefinitionResult[0].range.start.character,
+          line: typeDefinitionResult[0].range.start.line
         }
       });
 
-      console.log(`hoverResult: ${JSON.stringify(hoverResult)}`);
+      // console.log(`hoverResult: ${JSON.stringify(hoverResult)}`);
 
       if (hoverResult != null) {
         const someTypeSpan = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
@@ -531,14 +546,16 @@ const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
             return acc;
           }
         }, "");
+        console.log(`someTypeSpan: ${someTypeSpan}`);
+        // type T1 = {    name: string;    t2: T2;}
 
-        await recursiveDefine(someTypeSpan, typeDefinitionResult.position.line, typeDefinitionResult.position.character)
+        await recursiveDefine(someTypeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character)
         // console.log(`recursiveTypeDefinition: ${recursiveTypeDefinition}`);
       }
     } else {
       // pass
       // maybe do something
-      console.log("else path reached");
+      // console.log("else path reached");
     }
   }
   // base case - type can no longer be stepped into
