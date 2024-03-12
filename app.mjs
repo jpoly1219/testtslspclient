@@ -2,6 +2,7 @@ import { JSONRPCEndpoint, LspClient } from "../ts-lsp-client/build/src/main.js"
 import { Readable, Writable } from "stream"
 import { spawn } from "child_process";
 import * as fs from "fs"
+import { type } from "os";
 
 class WriteMemory extends Writable {
   _buffer = "";
@@ -482,51 +483,70 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = (typeSpan, linePosition, characterPosition) => {
+const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
+  console.log(`typeSpan: ${typeSpan}`);
+
   for (let i = 0; i < typeSpan.length; i++) {
-    c.typeDefinition({
-      range: {
-        start: {
-          line: linePosition,
-          character: characterPosition
-        },
-        end: {
-          line: linePosition,
-          character: characterPosition
-        }
+    const typeDefinitionResult = await c.typeDefinition({
+      textDocument: {
+        uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
       },
-      uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-    }).then((typeDefinitionResult) => {
-      // textDocument: {
-      //   uri: 'file:///fake-file.js'
-      // },
-      // position: {
-      //   character: 1,
-      //   line: 1
-      // }
-      if (typeDefinitionResult != null) {
-        // try hover on the goto result
-        c.hover({
-          textDocument: {
-            uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-          },
-          position: {
-            character: typeDefinitionResult.position.character,
-            line: typeDefinitionResult.position.line
-          }
-        }).then((hoverResult) => {
-          if (hoverResult != null) {
-            recursiveDefine(someTypeSpan, typeDefinitionResult.position.line, typeDefinitionResult.position.character)
-          }
-        })
-      } else {
-        // pass
-        // maybe do something
+      position: {
+        character: characterPosition + i,
+        line: linePosition
       }
-    })
+    });
+    // range: {
+    //   start: {
+    //     line: linePosition,
+    //     character: characterPosition
+    //   },
+    //   end: {
+    //     line: linePosition,
+    //     character: characterPosition
+    //   }
+    // },
+    // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+
+    console.log(`typeDefinitionResult: ${JSON.stringify(typeDefinitionResult)}`);
+    if (typeDefinitionResult.length != 0) {
+      // try hover on the goto result
+      const hoverResult = await c.hover({
+        textDocument: {
+          uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+        },
+        position: {
+          character: typeDefinitionResult.range.start.character,
+          line: typeDefinitionResult.range.start.line
+        }
+      });
+
+      console.log(`hoverResult: ${JSON.stringify(hoverResult)}`);
+
+      if (hoverResult != null) {
+        const someTypeSpan = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+          if (curr != "" && curr != "```typescript" && curr != "```") {
+            return acc + curr;
+          } else {
+            return acc;
+          }
+        }, "");
+
+        await recursiveDefine(someTypeSpan, typeDefinitionResult.position.line, typeDefinitionResult.position.character)
+        // console.log(`recursiveTypeDefinition: ${recursiveTypeDefinition}`);
+      }
+    } else {
+      // pass
+      // maybe do something
+      console.log("else path reached");
+    }
   }
   // base case - type can no longer be stepped into
   // boolean, number, string, enum, unknown, any, void, null, undefined, never
   // ideally this should be checked for before we do the for loop
-  return typeSpan;
+  // return typeSpan;
 }
+
+const functionTypeSpan = functionTypeSignature.slice(functionTypeSignature.indexOf(":") + 1);
+console.log("start with: ", functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
+recursiveDefine(functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
