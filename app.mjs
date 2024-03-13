@@ -484,6 +484,18 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 // boolean, number, string, enum, unknown, any, void, null, undefined, never
 // ideally this should be checked for before we do the for loop
 // return typeSpan;
+const checkBasic = (typeDefinition) => {
+  // type _ = boolean
+  const interestingIndex = typeDefinition.indexOf("=");
+  if (interestingIndex != -1) {
+    const typeName = typeDefinition.slice(0, interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex);
+    console.log("checkBasic: ", typeName, typeSpan, interestingIndex);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  }
+  return {}
+}
+
 const checkBoolean = (typeDefinition) => {
   // type _ = boolean
   const interestingIndex = typeDefinition.indexOf("= boolean");
@@ -493,7 +505,7 @@ const checkBoolean = (typeDefinition) => {
     console.log("checkBoolean: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return None
+  return {}
 }
 
 const checkNumber = (typeDefinition) => {
@@ -505,7 +517,7 @@ const checkNumber = (typeDefinition) => {
     console.log("checkNumber: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return None
+  return {}
 }
 
 const checkString = (typeDefinition) => {
@@ -517,7 +529,7 @@ const checkString = (typeDefinition) => {
     console.log("checkString: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return None
+  return {}
 }
 
 const checkObject = (typeDefinition) => {
@@ -532,7 +544,51 @@ const checkObject = (typeDefinition) => {
     console.log("checkObject: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return None
+  return {}
+}
+
+const checkFunction = (typeDefinition) => {
+  // const _ : () => _ = {
+  //   body
+  // }
+  const pattern1 = /(const )(.+)(: )(\()(.+)(: )(.+)(\))( => )(.+)/;
+  const match1 = typeDefinition.match(pattern1);
+  let interestingIndex1 = -1;
+  if (match1) {
+    interestingIndex1 = indexOfGroup(match1, 4);
+  }
+
+  // type _ = (_: t1) => t2
+  const pattern2 = /(type )(.+)( = )(\()(.+)(: )(.+)(\))( => )(.+)/;
+  const match2 = typeDefinition.match(pattern2);
+  let interestingIndex2 = -1;
+  if (match2) {
+    interestingIndex2 = indexOfGroup(match2, 4);
+  }
+
+  if (interestingIndex1 != -1) {
+    const typeName = match1[2];
+    const typeSpan = typeDefinition.slice(interestingIndex1);
+    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
+  } else if (interestingIndex2 != -1) {
+    const typeName = match2[2];
+    const typeSpan = typeDefinition.slice(interestingIndex2);
+    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
+  }
+
+  return {}
+}
+
+const checkType = (typeDefinition) => {
+  if (checkFunction(typeDefinition) != {}) {
+    return checkFunction(typeDefinition);
+  } else if (checkObject(typeDefinition) != {}) {
+    return checkObject(typeDefinition);
+  } else {
+    return checkBasic(typeDefinition);
+  }
 }
 
 // recursive type definitions
@@ -540,90 +596,97 @@ const checkObject = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
-  console.log(`typeSpan: ${typeSpan}`);
-  let formattedTypeSpan = typeSpan;
-  let formattedCharacterPos = characterPosition;
-  if (typeSpan.indexOf("=>") != -1) {
+const recursiveDefine = async (typeDefinition, linePosition, characterPosition) => {
+  const obj = checkType(typeDefinition);
+  if (obj != {}) {
+    console.log(`typeDefinition: ${typeDefinition}`);
+    console.log(obj)
 
-  } else if (typeSpan.indexOf("{") != -1) {
-    const interestingIndex = typeSpan.indexOf("{");
-    formattedTypeSpan = typeSpan.slice(interestingIndex);
-    formattedCharacterPos += interestingIndex;
-    // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
-  } else if (typeSpan.indexOf("=") != -1) {
-    const interestingIndex = typeSpan.indexOf("{");
-    formattedTypeSpan = typeSpan.slice(interestingIndex);
-    formattedCharacterPos += interestingIndex;
-    // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
-  }
+    // console.log(`typeSpan: ${typeSpan}`);
+    // let formattedTypeSpan = typeSpan;
+    // let formattedCharacterPos = characterPosition;
+    // if (typeSpan.indexOf("=>") != -1) {
+    //
+    // } else if (typeSpan.indexOf("{") != -1) {
+    //   const interestingIndex = typeSpan.indexOf("{");
+    //   formattedTypeSpan = typeSpan.slice(interestingIndex);
+    //   formattedCharacterPos += interestingIndex;
+    //   // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
+    // } else if (typeSpan.indexOf("=") != -1) {
+    //   const interestingIndex = typeSpan.indexOf("{");
+    //   formattedTypeSpan = typeSpan.slice(interestingIndex);
+    //   formattedCharacterPos += interestingIndex;
+    //   // console.log("sliced: ", formattedTypeSpan, formattedCharacterPos);
+    // }
 
-  for (let i = 0; i < formattedTypeSpan.length; i++) {
-    const typeDefinitionResult = await c.typeDefinition({
-      textDocument: {
-        uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-      },
-      position: {
-        character: formattedCharacterPos + i,
-        line: linePosition
-      }
-    });
-    // range: {
-    //   start: {
-    //     line: linePosition,
-    //     character: characterPosition
-    //   },
-    //   end: {
-    //     line: linePosition,
-    //     character: characterPosition
-    //   }
-    // },
-    // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-
-    // console.log(`typeDefinitionResult: ${JSON.stringify(typeDefinitionResult)}`);
-    if (typeDefinitionResult.length != 0) {
-      // try hover on the goto result
-      const hoverResult = await c.hover({
+    for (let i = 0; i < obj.typeSpan.length; i++) {
+      const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
           uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
         },
         position: {
-          character: typeDefinitionResult[0].range.start.character,
-          line: typeDefinitionResult[0].range.start.line
+          character: obj.interestingIndex + i,
+          line: linePosition
         }
       });
+      // range: {
+      //   start: {
+      //     line: linePosition,
+      //     character: characterPosition
+      //   },
+      //   end: {
+      //     line: linePosition,
+      //     character: characterPosition
+      //   }
+      // },
+      // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
 
-      // console.log(`hoverResult: ${JSON.stringify(hoverResult)}`);
-
-      if (hoverResult != null) {
-        const someTypeSpan = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-          if (curr != "" && curr != "```typescript" && curr != "```") {
-            return acc + curr;
-          } else {
-            return acc;
+      // console.log(`typeDefinitionResult: ${JSON.stringify(typeDefinitionResult)}`);
+      if (typeDefinitionResult.length != 0) {
+        // try hover on the goto result
+        const hoverResult = await c.hover({
+          textDocument: {
+            uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+          },
+          position: {
+            character: typeDefinitionResult[0].range.start.character,
+            line: typeDefinitionResult[0].range.start.line
           }
-        }, "");
-        console.log(`someTypeSpan: ${someTypeSpan}`);
-        // type T1 = {    name: string;    t2: T2;}
+        });
 
-        await recursiveDefine(someTypeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character)
-        // console.log(`recursiveTypeDefinition: ${recursiveTypeDefinition}`);
+        // console.log(`hoverResult: ${JSON.stringify(hoverResult)}`);
+
+        if (hoverResult != null) {
+          const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+            if (curr != "" && curr != "```typescript" && curr != "```") {
+              return acc + curr;
+            } else {
+              return acc;
+            }
+          }, "");
+          // console.log(`someTypeSpan: ${someTypeSpan}`);
+          console.log(`someTypeDefinition: ${someTypeDefinition}`);
+          // type T1 = {    name: string;    t2: T2;}
+
+          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character)
+          // console.log(`recursiveTypeDefinition: ${recursiveTypeDefinition}`);
+        }
+      } else {
+        // pass
+        // maybe do something
+        // console.log("else path reached");
       }
-    } else {
-      // pass
-      // maybe do something
-      // console.log("else path reached");
     }
+    // base case - type can no longer be stepped into
+    // boolean, number, string, enum, unknown, any, void, null, undefined, never
+    // ideally this should be checked for before we do the for loop
+    // return typeSpan;
   }
-  // base case - type can no longer be stepped into
-  // boolean, number, string, enum, unknown, any, void, null, undefined, never
-  // ideally this should be checked for before we do the for loop
-  // return typeSpan;
 }
 
-const functionTypeSpan = functionTypeSignature.slice(functionTypeSignature.indexOf(":") + 1);
-const foundTypesMap = new Map();
-foundTypesMap.set(matchedFunctionName, functionTypeSpan);
-console.log("start with: ", functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
-await recursiveDefine(functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
-console.log(foundTypesMap)
+console.log("start with: ", functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
+await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
+// const functionTypeSpan = functionTypeSignature.slice(functionTypeSignature.indexOf(":") + 1);
+// const foundTypesMap = new Map();
+// foundTypesMap.set(matchedFunctionName, functionTypeSpan);
+// console.log(foundTypesMap)
