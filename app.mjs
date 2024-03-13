@@ -489,7 +489,7 @@ const checkBasic = (typeDefinition) => {
   const interestingIndex = typeDefinition.indexOf("=");
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
-    const typeSpan = typeDefinition.slice(interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex + 2);
     // console.log("checkBasic: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
@@ -603,12 +603,12 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (typeDefinition, linePosition, characterPosition) => {
-  console.log("new iteration")
+const recursiveDefine = async (typeDefinition, linePosition, characterPosition, foundSoFar) => {
+  // console.log("new iteration")
   const obj = checkType(typeDefinition);
-  console.log(obj)
-  if (obj != {}) {
-    console.log(`typeDefinition: ${typeDefinition}`);
+  if (obj != {} || foundSoFar.get(obj.typeName) != undefined) {
+    // console.log(`typeDefinition: ${typeDefinition}`);
+    foundSoFar.set(obj.typeName, obj.typeSpan);
 
     // console.log(`typeSpan: ${typeSpan}`);
     // let formattedTypeSpan = typeSpan;
@@ -673,10 +673,10 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition) 
             }
           }, "");
           // console.log(`someTypeSpan: ${someTypeSpan}`);
-          console.log(`someTypeDefinition: ${someTypeDefinition}`);
+          // console.log(`someTypeDefinition: ${someTypeDefinition}`);
           // type T1 = {    name: string;    t2: T2;}
 
-          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character)
+          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar);
           // console.log(`recursiveTypeDefinition: ${recursiveTypeDefinition}`);
         }
       } else {
@@ -693,7 +693,9 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition) 
 }
 
 console.log("start with: ", functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
-await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
+const foundSoFar = new Map();
+await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex, foundSoFar);
+console.log(foundSoFar);
 // const functionTypeSpan = functionTypeSignature.slice(functionTypeSignature.indexOf(":") + 1);
 // const foundTypesMap = new Map();
 // foundTypesMap.set(matchedFunctionName, functionTypeSpan);
