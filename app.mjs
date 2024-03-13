@@ -486,10 +486,11 @@ console.log(`return's type signature: ${returnTypeSignature}`);
 // return typeSpan;
 const checkBoolean = (typeDefinition) => {
   // type _ = boolean
-  const interestingIndex = typeDefinition.indexOf("=");
+  const interestingIndex = typeDefinition.indexOf("= boolean");
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
     const typeSpan = typeDefinition.slice(interestingIndex);
+    console.log("checkBoolean: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
   return None
@@ -497,10 +498,38 @@ const checkBoolean = (typeDefinition) => {
 
 const checkNumber = (typeDefinition) => {
   // type _ = number
-  const interestingIndex = typeDefinition.indexOf("=");
+  const interestingIndex = typeDefinition.indexOf("= number");
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
-    const typeSpan = typeDefinition.slice(interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex + 2);
+    console.log("checkNumber: ", typeName, typeSpan, interestingIndex);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  }
+  return None
+}
+
+const checkString = (typeDefinition) => {
+  // type _ = string
+  const interestingIndex = typeDefinition.indexOf("= string");
+  if (interestingIndex != -1) {
+    const typeName = typeDefinition.slice(0, interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex + 2);
+    console.log("checkString: ", typeName, typeSpan, interestingIndex);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  }
+  return None
+}
+
+const checkObject = (typeDefinition) => {
+  // type _ = {
+  //   _: t1;
+  //   _: t2;
+  // }
+  const interestingIndex = typeDefinition.indexOf("= {");
+  if (interestingIndex != -1) {
+    const typeName = typeDefinition.slice(0, interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex + 2);
+    console.log("checkObject: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
   return None
