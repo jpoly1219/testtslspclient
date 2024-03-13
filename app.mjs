@@ -490,10 +490,10 @@ const checkBasic = (typeDefinition) => {
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
     const typeSpan = typeDefinition.slice(interestingIndex);
-    console.log("checkBasic: ", typeName, typeSpan, interestingIndex);
+    // console.log("checkBasic: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return {}
+  return null;
 }
 
 const checkBoolean = (typeDefinition) => {
@@ -502,10 +502,10 @@ const checkBoolean = (typeDefinition) => {
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
     const typeSpan = typeDefinition.slice(interestingIndex);
-    console.log("checkBoolean: ", typeName, typeSpan, interestingIndex);
+    // console.log("checkBoolean: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return {}
+  return null;
 }
 
 const checkNumber = (typeDefinition) => {
@@ -514,10 +514,10 @@ const checkNumber = (typeDefinition) => {
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
     const typeSpan = typeDefinition.slice(interestingIndex + 2);
-    console.log("checkNumber: ", typeName, typeSpan, interestingIndex);
+    // console.log("checkNumber: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return {}
+  return null;
 }
 
 const checkString = (typeDefinition) => {
@@ -526,10 +526,10 @@ const checkString = (typeDefinition) => {
   if (interestingIndex != -1) {
     const typeName = typeDefinition.slice(0, interestingIndex);
     const typeSpan = typeDefinition.slice(interestingIndex + 2);
-    console.log("checkString: ", typeName, typeSpan, interestingIndex);
+    // console.log("checkString: ", typeName, typeSpan, interestingIndex);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return {}
+  return null;
 }
 
 const checkObject = (typeDefinition) => {
@@ -537,14 +537,21 @@ const checkObject = (typeDefinition) => {
   //   _: t1;
   //   _: t2;
   // }
-  const interestingIndex = typeDefinition.indexOf("= {");
+
+  const pattern = /(type )(.+)( = )(\{)(.+)(\})/;
+  const match = typeDefinition.match(pattern);
+  let interestingIndex = -1;
+  if (match) {
+    interestingIndex = indexOfGroup(match, 4);
+  }
+
   if (interestingIndex != -1) {
-    const typeName = typeDefinition.slice(0, interestingIndex);
-    const typeSpan = typeDefinition.slice(interestingIndex + 2);
-    console.log("checkObject: ", typeName, typeSpan, interestingIndex);
+    const typeName = match[2];
+    const typeSpan = typeDefinition.slice(interestingIndex);
+    // console.log(`checkObject: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex: ${interestingIndex}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
   }
-  return {}
+  return null;
 }
 
 const checkFunction = (typeDefinition) => {
@@ -569,22 +576,22 @@ const checkFunction = (typeDefinition) => {
   if (interestingIndex1 != -1) {
     const typeName = match1[2];
     const typeSpan = typeDefinition.slice(interestingIndex1);
-    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
   } else if (interestingIndex2 != -1) {
     const typeName = match2[2];
     const typeSpan = typeDefinition.slice(interestingIndex2);
-    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
+    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
   }
 
-  return {}
+  return null;
 }
 
 const checkType = (typeDefinition) => {
-  if (checkFunction(typeDefinition) != {}) {
+  if (checkFunction(typeDefinition)) {
     return checkFunction(typeDefinition);
-  } else if (checkObject(typeDefinition) != {}) {
+  } else if (checkObject(typeDefinition)) {
     return checkObject(typeDefinition);
   } else {
     return checkBasic(typeDefinition);
@@ -597,10 +604,11 @@ const checkType = (typeDefinition) => {
 // recurse through array, tuple, object
 
 const recursiveDefine = async (typeDefinition, linePosition, characterPosition) => {
+  console.log("new iteration")
   const obj = checkType(typeDefinition);
+  console.log(obj)
   if (obj != {}) {
     console.log(`typeDefinition: ${typeDefinition}`);
-    console.log(obj)
 
     // console.log(`typeSpan: ${typeSpan}`);
     // let formattedTypeSpan = typeSpan;
