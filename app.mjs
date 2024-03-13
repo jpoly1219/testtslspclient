@@ -478,6 +478,34 @@ const returnTypeSignature = resHoverReturnTypeMatch.contents.value.split("\n").r
 }, "");
 console.log(`return's type signature: ${returnTypeSignature}`);
 
+// pattern matching
+// attempts to match strings to corresponding types, then returns an object containing the name, type span, and an interesting index
+// base case - type can no longer be stepped into
+// boolean, number, string, enum, unknown, any, void, null, undefined, never
+// ideally this should be checked for before we do the for loop
+// return typeSpan;
+const checkBoolean = (typeDefinition) => {
+  // type _ = boolean
+  const interestingIndex = typeDefinition.indexOf("=");
+  if (interestingIndex != -1) {
+    const typeName = typeDefinition.slice(0, interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  }
+  return None
+}
+
+const checkNumber = (typeDefinition) => {
+  // type _ = number
+  const interestingIndex = typeDefinition.indexOf("=");
+  if (interestingIndex != -1) {
+    const typeName = typeDefinition.slice(0, interestingIndex);
+    const typeSpan = typeDefinition.slice(interestingIndex);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  }
+  return None
+}
+
 // recursive type definitions
 // given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
 // find the span of a type definition: specialize to the case where it is a single struct
@@ -565,5 +593,8 @@ const recursiveDefine = async (typeSpan, linePosition, characterPosition) => {
 }
 
 const functionTypeSpan = functionTypeSignature.slice(functionTypeSignature.indexOf(":") + 1);
+const foundTypesMap = new Map();
+foundTypesMap.set(matchedFunctionName, functionTypeSpan);
 console.log("start with: ", functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
-recursiveDefine(functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
+await recursiveDefine(functionTypeSpan, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex)
+console.log(foundTypesMap)
