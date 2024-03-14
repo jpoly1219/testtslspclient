@@ -573,7 +573,8 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (typeDefinition, linePosition, characterPosition, foundSoFar) => {
+const recursiveDefine = async (typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
+  console.log("new iteration");
   const obj = checkType(typeDefinition);
   if (obj != {} || foundSoFar.get(obj.typeName) != undefined) {
     foundSoFar.set(obj.typeName, obj.typeSpan);
@@ -581,7 +582,7 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
     for (let i = 0; i < obj.typeSpan.length; i++) {
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
-          uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+          uri: testFile
         },
         position: {
           character: obj.interestingIndex + i,
@@ -604,7 +605,7 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
         // try hover on the goto result
         const hoverResult = await c.hover({
           textDocument: {
-            uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+            uri: testFile
           },
           position: {
             character: typeDefinitionResult[0].range.start.character,
@@ -621,7 +622,12 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
             }
           }, "");
 
-          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar);
+          let targetFile = testFile;
+          console.log(typeDefinitionResult)
+          if ('targetUri' in typeDefinitionResult[0]) {
+            targetFile = typeDefinitionResult[0].targetUri
+          }
+          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, targetFile);
         }
       } else {
         // pass
@@ -634,5 +640,73 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
 
 console.log("start with: ", functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
 const foundSoFar = new Map();
-await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex, foundSoFar);
+await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex, foundSoFar, 'file:///home/jacob/projects/testtslspclient/test2.ts');
 console.log(foundSoFar);
+
+console.log("\n=== Testing Scattered Type Definitions ===\n")
+
+const notifOpenDefAC = await c.didOpen({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/def_ac.ts',
+    languageId: 'ts',
+    text: '/* FILE 2: */\n/* code ... *./\ntype Alpha = {\n  name: string;\n  b: Bravo;\n}\n/* code ... */\ntype Charlie = boolean;\n/* code ... */',
+    version: 1
+  }
+});
+
+const notifOpenDefB = await c.didOpen({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/def_b.ts',
+    languageId: 'ts',
+    text: '/* FILE 1: */\n/* code ... */\ntype Bravo = number;\n/* code ... */',
+    version: 1
+  }
+});
+
+const notifOpenTestTogether = await c.didOpen({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts',
+    languageId: 'ts',
+    text: '/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */',
+    version: 1
+  }
+});
+
+const ttcorpus = '/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */';
+// pattern 1: const myFunc: (_: T1) => T2 =\n  __HOLE__
+// divided into groups: const .+: \(.+: .+\) => .+ =\n __HOLE__
+//                      1^^^^^2^3^^^4^5^6^7^^^^^8^9^^^^^^^^^^^^
+const ttpattern = /(const )(.+)(: \()(.+)(: )(.+)(\) => )(.+)( =\n  __HOLE__)/;
+
+const ttfirstPatternIndex = ttcorpus.search(ttpattern);
+const ttmatch = ttcorpus.match(pattern);
+const ttmatchedFunctionName = ttmatch[2];
+
+let ttfromBeginning = ttcorpus.substring(0, ttfirstPatternIndex);
+let ttlineNumber = (ttfromBeginning.match(/\n/g)).length;
+
+// type of function
+const ttresHoverFunctionTypeMatch = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
+  },
+  position: {
+    character: indexOfGroup(ttmatch, 2) - ttfirstPatternIndex,
+    line: ttlineNumber
+  }
+});
+
+const ttfunctionTypeSignature = ttresHoverFunctionTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
+  if (curr != "" && curr != "```typescript" && curr != "```") {
+    return acc + curr;
+  } else {
+    return acc;
+  }
+}, "");
+
+console.log(`function ${ttmatchedFunctionName}'s type signature: ${ttfunctionTypeSignature}`);
+
+console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
+const ttfoundSoFar = new Map();
+await recursiveDefine(ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
+console.log(ttfoundSoFar);
