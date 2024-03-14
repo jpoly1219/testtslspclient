@@ -502,6 +502,38 @@ const checkBasic = (typeDefinition) => {
   return null;
 }
 
+const checkImports = (typeDefinition) => {
+  // import { _, _ };
+  const pattern1 = /(import )(\{ )(.+)(, )(.+)( \})/;
+  const match1 = typeDefinition.match(pattern1);
+  let interestingIndex1 = -1;
+  if (match1) {
+    interestingIndex1 = indexOfGroup(match1, 2);
+  }
+
+  // import _;
+  const pattern2 = /(import )(.+)/;
+  const match2 = typeDefinition.match(pattern2);
+  let interestingIndex2 = -1;
+  if (match2) {
+    interestingIndex2 = indexOfGroup(match2, 2);
+  }
+
+  if (interestingIndex1 != -1) {
+    const typeName = match1[1];
+    const typeSpan = typeDefinition.slice(interestingIndex1);
+    console.log(`checkImports: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
+  } else if (interestingIndex2 != -1) {
+    const typeName = match2[2];
+    const typeSpan = typeDefinition.slice(interestingIndex2);
+    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
+  }
+
+  return null;
+}
+
 const checkObject = (typeDefinition) => {
   // type _ = {
   //   _: t1;
@@ -563,6 +595,8 @@ const checkType = (typeDefinition) => {
     return checkFunction(typeDefinition);
   } else if (checkObject(typeDefinition)) {
     return checkObject(typeDefinition);
+  } else if (checkImports(typeDefinition)) {
+    return checkImports(typeDefinition);
   } else {
     return checkBasic(typeDefinition);
   }
@@ -576,65 +610,67 @@ const checkType = (typeDefinition) => {
 const recursiveDefine = async (c, typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
   console.log("new iteration");
   const obj = checkType(typeDefinition);
-  if (obj != {} || foundSoFar.get(obj.typeName) != undefined) {
-    console.log("obj: ", obj)
-    foundSoFar.set(obj.typeName, obj.typeSpan);
+  console.log("obj", obj)
+  if (obj != null) {
+    // console.log("set, ", foundSoFar.get(obj.typeName))
+    if (foundSoFar.get(obj.typeName) == undefined) {
+      // console.log("obj: ", obj)
+      foundSoFar.set(obj.typeName, obj.typeSpan);
 
-    for (let i = 0; i < obj.typeSpan.length; i++) {
-      const typeDefinitionResult = await c.typeDefinition({
-        textDocument: {
-          uri: testFile
-        },
-        position: {
-          character: obj.interestingIndex + i,
-          line: linePosition
-        }
-      });
-      // range: {
-      //   start: {
-      //     line: linePosition,
-      //     character: characterPosition
-      //   },
-      //   end: {
-      //     line: linePosition,
-      //     character: characterPosition
-      //   }
-      // },
-      // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-      console.log(typeDefinitionResult)
-
-      if (typeDefinitionResult.length != 0) {
-        // try hover on the goto result
-        const hoverResult = await c.hover({
+      for (let i = 0; i < obj.typeSpan.length; i++) {
+        console.log(obj.typeSpan[i]);
+        const typeDefinitionResult = await c.definition({
           textDocument: {
             uri: testFile
           },
           position: {
-            character: typeDefinitionResult[0].range.start.character,
-            line: typeDefinitionResult[0].range.start.line
+            character: obj.interestingIndex + i,
+            line: linePosition
           }
         });
+        // range: {
+        //   start: {
+        //     line: linePosition,
+        //     character: characterPosition
+        //   },
+        //   end: {
+        //     line: linePosition,
+        //     character: characterPosition
+        //   }
+        // },
+        // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+        console.log(JSON.stringify(typeDefinitionResult, "", 4))
 
-        if (hoverResult != null) {
-          const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-            if (curr != "" && curr != "```typescript" && curr != "```") {
-              return acc + curr;
-            } else {
-              return acc;
+        if (typeDefinitionResult.length != 0) {
+          // try hover on the goto result
+          const hoverResult = await c.hover({
+            textDocument: {
+              uri: typeDefinitionResult[0].uri
+            },
+            position: {
+              character: typeDefinitionResult[0].range.start.character,
+              line: typeDefinitionResult[0].range.start.line
             }
-          }, "");
+          });
+          console.log(hoverResult)
 
-          let targetFile = testFile;
-          console.log(typeDefinitionResult)
-          if ('targetUri' in typeDefinitionResult[0]) {
-            targetFile = typeDefinitionResult[0].targetUri
+          if (hoverResult != null) {
+            const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+              if (curr != "" && curr != "```typescript" && curr != "```") {
+                return acc + curr;
+              } else {
+                return acc;
+              }
+            }, "");
+
+            await recursiveDefine(c, someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri);
+            // await recursiveDefine(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
           }
-          await recursiveDefine(c, someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, targetFile);
+        } else {
+          // pass
+          console.log("else path reached");
+          console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
         }
-      } else {
-        // pass
-        // maybe do something
-        // console.log("else path reached");
       }
     }
   }
@@ -708,11 +744,6 @@ const ttfunctionTypeSignature = ttresHoverFunctionTypeMatch.contents.value.split
 
 console.log(`function ${ttmatchedFunctionName}'s type signature: ${ttfunctionTypeSignature}`);
 
-console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
-const ttfoundSoFar = new Map();
-await recursiveDefine(c, ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
-console.log(ttfoundSoFar);
-
 const ttresHoverArgumentTypeMatch = await c.hover({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
@@ -722,6 +753,7 @@ const ttresHoverArgumentTypeMatch = await c.hover({
     line: ttlineNumber
   }
 });
+console.log(ttresHoverArgumentTypeMatch)
 
 const ttargumentTypeSignature = ttresHoverArgumentTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
   if (curr != "" && curr != "```typescript" && curr != "```") {
@@ -731,3 +763,20 @@ const ttargumentTypeSignature = ttresHoverArgumentTypeMatch.contents.value.split
   }
 }, "");
 console.log(`argument's type signature: ${ttargumentTypeSignature}`);
+
+const argumentTypeDefinitionResult = await c.definition({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
+  },
+  position: {
+    character: indexOfGroup(ttmatch, 6) - ttfirstPatternIndex,
+    line: ttlineNumber
+  }
+});
+
+
+
+console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
+const ttfoundSoFar = new Map();
+await recursiveDefine(c, ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
+console.log(ttfoundSoFar);

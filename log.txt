@@ -1,6 +1,6 @@
-Content-Length: 245
+Content-Length: 216
 
-{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":3,"message":"Using Typescript version (bundled) 5.3.3 from path \"/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js\""}}Content-Length: 1554
+{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":3,"message":"Using Typescript version (bundled) 5.3.3 from path \"/home/jacob/.nvm/versions/node/v21.6.2/lib/node_modules/typescript/lib/tsserver.js\""}}Content-Length: 1554
 
 {"jsonrpc":"2.0","id":0,"result":{"capabilities":{"textDocumentSync":2,"completionProvider":{"triggerCharacters":[".","\"","'","/","@","<"],"resolveProvider":true},"codeActionProvider":true,"codeLensProvider":{"resolveProvider":true},"definitionProvider":true,"documentFormattingProvider":true,"documentRangeFormattingProvider":true,"documentHighlightProvider":true,"documentSymbolProvider":true,"executeCommandProvider":{"commands":["_typescript.applyWorkspaceEdit","_typescript.applyCodeAction","_typescript.applyRefactoring","_typescript.configurePlugin","_typescript.organizeImports","_typescript.applyRenameFile","_typescript.goToSourceDefinition"]},"hoverProvider":true,"inlayHintProvider":true,"linkedEditingRangeProvider":false,"renameProvider":true,"referencesProvider":true,"selectionRangeProvider":true,"signatureHelpProvider":{"triggerCharacters":["(",",","<"],"retriggerCharacters":[")"]},"workspaceSymbolProvider":true,"implementationProvider":true,"typeDefinitionProvider":true,"foldingRangeProvider":true,"semanticTokensProvider":{"documentSelector":null,"legend":{"tokenTypes":["class","enum","interface","namespace","typeParameter","type","parameter","variable","enumMember","property","function","member"],"tokenModifiers":["declaration","static","async","readonly","defaultLibrary","local"]},"full":true,"range":true},"workspace":{"fileOperations":{"willRename":{"filters":[{"scheme":"file","pattern":{"glob":"**/*.{ts,js,jsx,tsx,mjs,mts,cjs,cts}","matches":"file"}},{"scheme":"file","pattern":{"glob":"**","matches":"folder"}}]}}}}}}Content-Length: 207
 
@@ -32,15 +32,15 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":12,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T3 = boolean\n```\n"},"range":{"start":{"line":9,"character":25},"end":{"line":9,"character":27}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":13,"result":[]}Content-Length: 174
+{"jsonrpc":"2.0","id":13,"result":[]}Content-Length: 175
 
-{"jsonrpc":"2.0","id":14,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":10},"end":{"line":5,"character":1}}}]}Content-Length: 39
+{"jsonrpc":"2.0","id":14,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":15},"end":{"line":9,"character":16}}}]}Content-Length: 195
 
-{"jsonrpc":"2.0","id":15,"result":null}Content-Length: 174
+{"jsonrpc":"2.0","id":15,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(parameter) _: T1\n```\n"},"range":{"start":{"line":9,"character":15},"end":{"line":9,"character":16}}}}Content-Length: 175
 
-{"jsonrpc":"2.0","id":16,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":10},"end":{"line":5,"character":1}}}]}Content-Length: 39
+{"jsonrpc":"2.0","id":16,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":15},"end":{"line":9,"character":16}}}]}Content-Length: 195
 
-{"jsonrpc":"2.0","id":17,"result":null}Content-Length: 37
+{"jsonrpc":"2.0","id":17,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(parameter) _: T1\n```\n"},"range":{"start":{"line":9,"character":15},"end":{"line":9,"character":16}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":18,"result":[]}Content-Length: 173
 
@@ -54,27 +54,27 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":23,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":24,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":24,"result":[]}Content-Length: 173
 
-{"jsonrpc":"2.0","id":25,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":25,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}]}Content-Length: 199
 
-{"jsonrpc":"2.0","id":26,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":26,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) name: string\n```\n"},"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":27,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":27,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}]}Content-Length: 199
 
-{"jsonrpc":"2.0","id":28,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":28,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) name: string\n```\n"},"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":29,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":29,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}]}Content-Length: 199
 
-{"jsonrpc":"2.0","id":30,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":30,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) name: string\n```\n"},"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":31,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":31,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}]}Content-Length: 199
 
-{"jsonrpc":"2.0","id":32,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":32,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) name: string\n```\n"},"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":33,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":33,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}]}Content-Length: 199
 
-{"jsonrpc":"2.0","id":34,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":34,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) name: string\n```\n"},"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":6}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":35,"result":[]}Content-Length: 37
 
@@ -94,21 +94,21 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":43,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":44,"result":[]}Content-Length: 173
+{"jsonrpc":"2.0","id":44,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":45,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 192
+{"jsonrpc":"2.0","id":45,"result":[]}Content-Length: 173
 
-{"jsonrpc":"2.0","id":46,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":46,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}]}Content-Length: 197
 
-{"jsonrpc":"2.0","id":47,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":47,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) t2: number\n```\n"},"range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":48,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":48,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}]}Content-Length: 197
 
-{"jsonrpc":"2.0","id":49,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":49,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) t2: number\n```\n"},"range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":50,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":50,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}]}Content-Length: 197
 
-{"jsonrpc":"2.0","id":51,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":51,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(property) t2: number\n```\n"},"range":{"start":{"line":4,"character":2},"end":{"line":4,"character":4}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":52,"result":[]}Content-Length: 173
 
@@ -130,41 +130,41 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":61,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 192
 
-{"jsonrpc":"2.0","id":62,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":62,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":63,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":63,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 192
 
-{"jsonrpc":"2.0","id":64,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":64,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":65,"result":[]}Content-Length: 37
 
 {"jsonrpc":"2.0","id":66,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":67,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":67,"result":[]}Content-Length: 173
 
-{"jsonrpc":"2.0","id":68,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":68,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}]}Content-Length: 222
 
-{"jsonrpc":"2.0","id":69,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":69,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T1 = {\n    name: string;\n    t2: T2;\n}\n```\n"},"range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}}Content-Length: 173
 
-{"jsonrpc":"2.0","id":70,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":70,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}]}Content-Length: 222
 
-{"jsonrpc":"2.0","id":71,"result":[]}Content-Length: 173
+{"jsonrpc":"2.0","id":71,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T1 = {\n    name: string;\n    t2: T2;\n}\n```\n"},"range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":72,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}]}Content-Length: 222
+{"jsonrpc":"2.0","id":72,"result":[]}Content-Length: 175
 
-{"jsonrpc":"2.0","id":73,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T1 = {\n    name: string;\n    t2: T2;\n}\n```\n"},"range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":73,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":14},"end":{"line":9,"character":27}}}]}Content-Length: 39
 
-{"jsonrpc":"2.0","id":74,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":74,"result":null}Content-Length: 175
 
-{"jsonrpc":"2.0","id":75,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":75,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":14},"end":{"line":9,"character":27}}}]}Content-Length: 39
 
-{"jsonrpc":"2.0","id":76,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":76,"result":null}Content-Length: 37
 
-{"jsonrpc":"2.0","id":77,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":77,"result":[]}Content-Length: 173
 
-{"jsonrpc":"2.0","id":78,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":78,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}]}Content-Length: 193
 
-{"jsonrpc":"2.0","id":79,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":79,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T3 = boolean\n```\n"},"range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":80,"result":[]}Content-Length: 37
 
@@ -178,300 +178,146 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":85,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":86,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":86,"result":[]}Content-Length: 173
 
-{"jsonrpc":"2.0","id":87,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":87,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}]}Content-Length: 193
 
-{"jsonrpc":"2.0","id":88,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":89,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":90,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":91,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":92,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":93,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":94,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":95,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":96,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":97,"result":[]}Content-Length: 173
-
-{"jsonrpc":"2.0","id":98,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 192
-
-{"jsonrpc":"2.0","id":99,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":100,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":101,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":102,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":103,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":104,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":105,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":106,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 193
-
-{"jsonrpc":"2.0","id":107,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":108,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":109,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":110,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":111,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":112,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":113,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":114,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 193
-
-{"jsonrpc":"2.0","id":115,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":116,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":117,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":118,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":119,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":120,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":121,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":122,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":123,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":124,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":125,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":126,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T1 = {\n    name: string;\n    t2: T2;\n}\n```\n"},"range":{"start":{"line":2,"character":5},"end":{"line":2,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":127,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":128,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":129,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":130,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":131,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":132,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":133,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":134,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":135,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":136,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":137,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":138,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":139,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":140,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":141,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":142,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":143,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":144,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":145,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":146,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":147,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":148,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":149,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":150,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":151,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 193
-
-{"jsonrpc":"2.0","id":152,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":153,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":154,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":155,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":156,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":157,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":158,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":159,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 193
-
-{"jsonrpc":"2.0","id":160,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":161,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":162,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":163,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":164,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":165,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":166,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":167,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}]}Content-Length: 193
-
-{"jsonrpc":"2.0","id":168,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T2 = number\n```\n"},"range":{"start":{"line":0,"character":5},"end":{"line":0,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":169,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":170,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":171,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":172,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":173,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":174,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":175,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":176,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":177,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":178,"result":[]}Content-Length: 176
-
-{"jsonrpc":"2.0","id":179,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":14},"end":{"line":9,"character":27}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":180,"result":null}Content-Length: 176
-
-{"jsonrpc":"2.0","id":181,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":9,"character":14},"end":{"line":9,"character":27}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":182,"result":null}Content-Length: 38
-
-{"jsonrpc":"2.0","id":183,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":184,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":185,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T3 = boolean\n```\n"},"range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":186,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":187,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":188,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":189,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":190,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":191,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":192,"result":[]}Content-Length: 174
-
-{"jsonrpc":"2.0","id":193,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":194,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T3 = boolean\n```\n"},"range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":195,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":196,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":197,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":198,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":199,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":200,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":201,"result":[]}Content-Length: 209
+{"jsonrpc":"2.0","id":88,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype T3 = boolean\n```\n"},"range":{"start":{"line":7,"character":5},"end":{"line":7,"character":7}}}}Content-Length: 209
 
 {"jsonrpc":"2.0","method":"window/logMessage","params":{"type":2,"message":"Invalid langaugeId \"ts\" provided for uri \"file:///home/jacob/projects/testtslspclient/def_ac.ts\". Correcting to \"typescript\""}}Content-Length: 208
 
 {"jsonrpc":"2.0","method":"window/logMessage","params":{"type":2,"message":"Invalid langaugeId \"ts\" provided for uri \"file:///home/jacob/projects/testtslspclient/def_b.ts\". Correcting to \"typescript\""}}Content-Length: 216
 
-{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":2,"message":"Invalid langaugeId \"ts\" provided for uri \"file:///home/jacob/projects/testtslspclient/test_together.ts\". Correcting to \"typescript\""}}Content-Length: 213
+{"jsonrpc":"2.0","method":"window/logMessage","params":{"type":2,"message":"Invalid langaugeId \"ts\" provided for uri \"file:///home/jacob/projects/testtslspclient/test_together.ts\". Correcting to \"typescript\""}}Content-Length: 212
 
-{"jsonrpc":"2.0","id":202,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: Alpha) => Charlie\n```\n"},"range":{"start":{"line":2,"character":6},"end":{"line":2,"character":12}}}}Content-Length: 38
+{"jsonrpc":"2.0","id":89,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nconst myFunc: (_: Alpha) => Charlie\n```\n"},"range":{"start":{"line":3,"character":6},"end":{"line":3,"character":12}}}}Content-Length: 190
 
-{"jsonrpc":"2.0","id":203,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":90,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":3,"character":18},"end":{"line":3,"character":23}}}}Content-Length: 182
 
-{"jsonrpc":"2.0","id":204,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":91,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":205,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":92,"result":[]}Content-Length: 183
 
-{"jsonrpc":"2.0","id":206,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":93,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":3,"character":15},"end":{"line":3,"character":16}}}]}Content-Length: 198
 
-{"jsonrpc":"2.0","id":207,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":94,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(parameter) _: Alpha\n```\n"},"range":{"start":{"line":3,"character":15},"end":{"line":3,"character":16}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":208,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":95,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":3,"character":15},"end":{"line":3,"character":16}}}]}Content-Length: 198
 
-{"jsonrpc":"2.0","id":209,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":96,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(parameter) _: Alpha\n```\n"},"range":{"start":{"line":3,"character":15},"end":{"line":3,"character":16}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":210,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":97,"result":[]}Content-Length: 182
 
-{"jsonrpc":"2.0","id":211,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":98,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 189
 
-{"jsonrpc":"2.0","id":212,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":99,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 38
 
-{"jsonrpc":"2.0","id":213,"result":[]}Content-Length: 184
+{"jsonrpc":"2.0","id":100,"result":[]}Content-Length: 38
 
-{"jsonrpc":"2.0","id":214,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":2,"character":14},"end":{"line":2,"character":35}}}]}Content-Length: 40
+{"jsonrpc":"2.0","id":101,"result":[]}Content-Length: 183
 
-{"jsonrpc":"2.0","id":215,"result":null}Content-Length: 184
+{"jsonrpc":"2.0","id":102,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":216,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":2,"character":14},"end":{"line":2,"character":35}}}]}Content-Length: 40
+{"jsonrpc":"2.0","id":103,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":217,"result":null}Content-Length: 38
+{"jsonrpc":"2.0","id":104,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":218,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":105,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":219,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":106,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":220,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":107,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":221,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":108,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":222,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":109,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":223,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":110,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":224,"result":[]}Content-Length: 38
+{"jsonrpc":"2.0","id":111,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","id":225,"result":[]}Content-Length: 210
+{"jsonrpc":"2.0","id":112,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","id":226,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Alpha = /*unresolved*/ any\n```\n"},"range":{"start":{"line":2,"character":18},"end":{"line":2,"character":23}}}}Content-Length: 303
+{"jsonrpc":"2.0","id":113,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test.ts","diagnostics":[{"range":{"start":{"line":2,"character":2},"end":{"line":2,"character":2}},"message":"Identifier expected.","severity":1,"code":1003,"source":"typescript"}]}}Content-Length: 315
+{"jsonrpc":"2.0","id":114,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","diagnostics":[{"range":{"start":{"line":10,"character":2},"end":{"line":10,"character":10}},"message":"Cannot find name '__HOLE__'.","severity":1,"code":2304,"source":"typescript"}]}}Content-Length: 150
+{"jsonrpc":"2.0","id":115,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
 
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/def_ac.ts","diagnostics":[]}}Content-Length: 149
+{"jsonrpc":"2.0","id":116,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
 
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/def_b.ts","diagnostics":[]}}Content-Length: 649
+{"jsonrpc":"2.0","id":117,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 38
 
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","diagnostics":[{"range":{"start":{"line":2,"character":18},"end":{"line":2,"character":23}},"message":"Cannot find name 'Alpha'.","severity":1,"code":2304,"source":"typescript"},{"range":{"start":{"line":2,"character":28},"end":{"line":2,"character":35}},"message":"Cannot find name 'Charlie'.","severity":1,"code":2304,"source":"typescript"},{"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":10}},"message":"Cannot find name '__HOLE__'.","severity":1,"code":2304,"source":"typescript"}]}}
+{"jsonrpc":"2.0","id":118,"result":[]}Content-Length: 184
+
+{"jsonrpc":"2.0","id":119,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":35}}}]}Content-Length: 40
+
+{"jsonrpc":"2.0","id":120,"result":null}Content-Length: 184
+
+{"jsonrpc":"2.0","id":121,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":35}}}]}Content-Length: 40
+
+{"jsonrpc":"2.0","id":122,"result":null}Content-Length: 38
+
+{"jsonrpc":"2.0","id":123,"result":[]}Content-Length: 184
+
+{"jsonrpc":"2.0","id":124,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":125,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 38
+
+{"jsonrpc":"2.0","id":126,"result":[]}Content-Length: 38
+
+{"jsonrpc":"2.0","id":127,"result":[]}Content-Length: 183
+
+{"jsonrpc":"2.0","id":128,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
+
+{"jsonrpc":"2.0","id":129,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
+
+{"jsonrpc":"2.0","id":130,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
+
+{"jsonrpc":"2.0","id":131,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
+
+{"jsonrpc":"2.0","id":132,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
+
+{"jsonrpc":"2.0","id":133,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
+
+{"jsonrpc":"2.0","id":134,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
+
+{"jsonrpc":"2.0","id":135,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 183
+
+{"jsonrpc":"2.0","id":136,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}]}Content-Length: 190
+
+{"jsonrpc":"2.0","id":137,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Alpha\n```\n"},"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":14}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":138,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":139,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":140,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":141,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":142,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":143,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":144,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":145,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":146,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":147,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 184
+
+{"jsonrpc":"2.0","id":148,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}]}Content-Length: 193
+
+{"jsonrpc":"2.0","id":149,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nimport Charlie\n```\n"},"range":{"start":{"line":0,"character":16},"end":{"line":0,"character":23}}}}Content-Length: 315
+
+{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test2.ts","diagnostics":[{"range":{"start":{"line":10,"character":2},"end":{"line":10,"character":10}},"message":"Cannot find name '__HOLE__'.","severity":1,"code":2304,"source":"typescript"}]}}Content-Length: 498
+
+{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/def_ac.ts","diagnostics":[{"range":{"start":{"line":10,"character":9},"end":{"line":10,"character":14}},"message":"Cannot find name 'Alpha'.","severity":1,"code":2304,"source":"typescript"},{"range":{"start":{"line":0,"character":0},"end":{"line":0,"character":32}},"message":"'Bravo' is declared but its value is never read.","severity":4,"code":6133,"source":"typescript"}]}}Content-Length: 149
+
+{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/def_b.ts","diagnostics":[]}}Content-Length: 507
+
+{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test_together.ts","diagnostics":[{"range":{"start":{"line":4,"character":2},"end":{"line":4,"character":10}},"message":"Cannot find name '__HOLE__'.","severity":1,"code":2304,"source":"typescript"},{"range":{"start":{"line":3,"character":6},"end":{"line":3,"character":12}},"message":"'myFunc' is declared but its value is never read.","severity":4,"code":6133,"source":"typescript"}]}}Content-Length: 303
+
+{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/test.ts","diagnostics":[{"range":{"start":{"line":2,"character":2},"end":{"line":2,"character":2}},"message":"Identifier expected.","severity":1,"code":1003,"source":"typescript"}]}}
