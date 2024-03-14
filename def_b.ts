@@ -2,3 +2,4 @@
 /* code ... */
 type Bravo = number;
 /* code ... */
+export { Bravo };

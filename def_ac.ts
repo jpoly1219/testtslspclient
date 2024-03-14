@@ -1,3 +1,4 @@
+import { Bravo } from "./def_b";
 /* FILE 2: */
 /* code ... */
 type Alpha = {
@@ -7,3 +8,4 @@ type Alpha = {
 /* code ... */
 type Charlie = boolean;
 /* code ... */
+export { Alpha, Charlie };

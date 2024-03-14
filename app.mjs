@@ -651,7 +651,7 @@ const notifOpenDefAC = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/def_ac.ts',
     languageId: 'ts',
-    text: '/* FILE 2: */\n/* code ... *./\ntype Alpha = {\n  name: string;\n  b: Bravo;\n}\n/* code ... */\ntype Charlie = boolean;\n/* code ... */',
+    text: 'import { Bravo } from "./def_b";\n/* FILE 2: */\n/* code ... *./\ntype Alpha = {\n  name: string;\n  b: Bravo;\n}\n/* code ... */\ntype Charlie = boolean;\n/* code ... */\nexport { Alpha, Charlie };',
     version: 1
   }
 });
@@ -660,7 +660,7 @@ const notifOpenDefB = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/def_b.ts',
     languageId: 'ts',
-    text: '/* FILE 1: */\n/* code ... */\ntype Bravo = number;\n/* code ... */',
+    text: '/* FILE 1: */\n/* code ... */\ntype Bravo = number;\n/* code ... */\nexport { Bravo };',
     version: 1
   }
 });
@@ -669,12 +669,12 @@ const notifOpenTestTogether = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts',
     languageId: 'ts',
-    text: '/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */',
+    text: 'import { Alpha, Charlie } from "./def_ac.ts";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */',
     version: 1
   }
 });
 
-const ttcorpus = '/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */';
+const ttcorpus = 'import { Alpha, Charlie } from "./def_ac.ts";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */';
 // pattern 1: const myFunc: (_: T1) => T2 =\n  __HOLE__
 // divided into groups: const .+: \(.+: .+\) => .+ =\n __HOLE__
 //                      1^^^^^2^3^^^4^5^6^7^^^^^8^9^^^^^^^^^^^^
