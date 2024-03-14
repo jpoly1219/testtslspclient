@@ -146,7 +146,7 @@ const capabilities = {
       'willSave': true,
       'willSaveWaitUntil': true
     },
-    'typeDefinition': { 'dynamicRegistration': true },
+    'typeDefinition': { 'dynamicRegistration': true, 'linkSupport': true },
     'typeHierarchy': { 'dynamicRegistration': true }
   },
   'workspace': {
@@ -201,7 +201,7 @@ const resInit = await c.initialize({
   processId: process.pid,
   // rootPath: '.',
   // rootUri: null,
-  capabilities: {},
+  capabilities: capabilities,
   trace: 'off',
   workspaceFolders: workspaceFolders,
   initializationOptions: {
@@ -546,7 +546,7 @@ const checkFunction = (typeDefinition) => {
   if (interestingIndex1 != -1) {
     const typeName = match1[2];
     const typeSpan = typeDefinition.slice(interestingIndex1);
-    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
   } else if (interestingIndex2 != -1) {
     const typeName = match2[2];
@@ -573,10 +573,11 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
+const recursiveDefine = async (c, typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
   console.log("new iteration");
   const obj = checkType(typeDefinition);
   if (obj != {} || foundSoFar.get(obj.typeName) != undefined) {
+    console.log("obj: ", obj)
     foundSoFar.set(obj.typeName, obj.typeSpan);
 
     for (let i = 0; i < obj.typeSpan.length; i++) {
@@ -600,6 +601,7 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
       //   }
       // },
       // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+      console.log(typeDefinitionResult)
 
       if (typeDefinitionResult.length != 0) {
         // try hover on the goto result
@@ -627,7 +629,7 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
           if ('targetUri' in typeDefinitionResult[0]) {
             targetFile = typeDefinitionResult[0].targetUri
           }
-          await recursiveDefine(someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, targetFile);
+          await recursiveDefine(c, someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, targetFile);
         }
       } else {
         // pass
@@ -640,7 +642,7 @@ const recursiveDefine = async (typeDefinition, linePosition, characterPosition, 
 
 console.log("start with: ", functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex);
 const foundSoFar = new Map();
-await recursiveDefine(functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex, foundSoFar, 'file:///home/jacob/projects/testtslspclient/test2.ts');
+await recursiveDefine(c, functionTypeSignature, lineNumber, indexOfGroup(match, 3) + 2 - firstPatternIndex, foundSoFar, 'file:///home/jacob/projects/testtslspclient/test2.ts');
 console.log(foundSoFar);
 
 console.log("\n=== Testing Scattered Type Definitions ===\n")
@@ -708,5 +710,24 @@ console.log(`function ${ttmatchedFunctionName}'s type signature: ${ttfunctionTyp
 
 console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
 const ttfoundSoFar = new Map();
-await recursiveDefine(ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
+await recursiveDefine(c, ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
 console.log(ttfoundSoFar);
+
+const ttresHoverArgumentTypeMatch = await c.hover({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
+  },
+  position: {
+    character: indexOfGroup(ttmatch, 6) - ttfirstPatternIndex,
+    line: ttlineNumber
+  }
+});
+
+const ttargumentTypeSignature = ttresHoverArgumentTypeMatch.contents.value.split("\n").reduce((acc, curr) => {
+  if (curr != "" && curr != "```typescript" && curr != "```") {
+    return acc + curr;
+  } else {
+    return acc;
+  }
+}, "");
+console.log(`argument's type signature: ${ttargumentTypeSignature}`);
