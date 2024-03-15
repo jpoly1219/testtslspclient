@@ -1,6 +1,6 @@
-import { Alpha, Charlie } from "./def_ac";
+import { Apple, Cherry } from "./def_ac";
 /* FILE 3 */
 /* code ... */
-const myFunc: (_: Alpha) => Charlie =
+const myFunc: (_: Apple) => Cherry =
   __HOLE__;
 /* code ... */

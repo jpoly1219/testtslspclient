@@ -1,5 +1,5 @@
 /* FILE 1: */
 /* code ... */
-type Bravo = number;
+type Banana = number;
 /* code ... */
-export { Bravo };
+export { Banana };

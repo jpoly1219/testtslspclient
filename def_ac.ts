@@ -1,11 +1,11 @@
-import { Bravo } from "./def_b";
+import { Banana } from "./def_b";
 /* FILE 2: */
 /* code ... */
-type Alpha = {
+type Apple = {
   name: string;
-  b: Bravo;
+  b: Banana;
 }
 /* code ... */
-type Charlie = boolean;
+type Cherry = boolean;
 /* code ... */
-export { Alpha, Charlie };
+export { Apple, Cherry };
