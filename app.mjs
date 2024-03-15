@@ -608,10 +608,10 @@ const checkType = (typeDefinition) => {
 // recurse through array, tuple, object
 
 const recursiveDefine = async (c, typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
-  console.log("new iteration");
-  console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
+  // console.log("new iteration");
+  // console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
   const obj = checkType(typeDefinition);
-  console.log("obj", obj)
+  // console.log("obj", obj)
   if (obj != null) {
     // console.log("set, ", foundSoFar.get(obj.typeName))
     if (foundSoFar.get(obj.typeName) == undefined && obj.typeName != obj.typeSpan) {
@@ -640,7 +640,7 @@ const recursiveDefine = async (c, typeDefinition, linePosition, characterPositio
         //   }
         // },
         // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-        console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+        // console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
 
         if (typeDefinitionResult.length != 0) {
           // try hover on the goto result
@@ -653,7 +653,7 @@ const recursiveDefine = async (c, typeDefinition, linePosition, characterPositio
               line: typeDefinitionResult[0].range.start.line
             }
           });
-          console.log("hoverResult: ", hoverResult)
+          // console.log("hoverResult: ", hoverResult)
 
           if (hoverResult != null) {
             const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
@@ -669,8 +669,8 @@ const recursiveDefine = async (c, typeDefinition, linePosition, characterPositio
           }
         } else {
           // pass
-          console.log("else path reached");
-          console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
+          // console.log("else path reached");
+          // console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
         }
       }
     }
