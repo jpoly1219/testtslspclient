@@ -522,12 +522,12 @@ const checkImports = (typeDefinition) => {
   if (interestingIndex1 != -1) {
     const typeName = match1[1];
     const typeSpan = typeDefinition.slice(interestingIndex1);
-    console.log(`checkImports: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    // console.log(`checkImports: typeName: ${typeName}, typeSpan: ${typeSpan}, interestinIndex1: ${interestingIndex1}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
   } else if (interestingIndex2 != -1) {
     const typeName = match2[2];
     const typeSpan = typeDefinition.slice(interestingIndex2);
-    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
+    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
   }
 
@@ -578,7 +578,7 @@ const checkFunction = (typeDefinition) => {
   if (interestingIndex1 != -1) {
     const typeName = match1[2];
     const typeSpan = typeDefinition.slice(interestingIndex1);
-    console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
+    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
   } else if (interestingIndex2 != -1) {
     const typeName = match2[2];
@@ -609,17 +609,18 @@ const checkType = (typeDefinition) => {
 
 const recursiveDefine = async (c, typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
   console.log("new iteration");
+  console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
   const obj = checkType(typeDefinition);
   console.log("obj", obj)
   if (obj != null) {
     // console.log("set, ", foundSoFar.get(obj.typeName))
-    if (foundSoFar.get(obj.typeName) == undefined) {
+    if (foundSoFar.get(obj.typeName) == undefined && obj.typeName != obj.typeSpan) {
       // console.log("obj: ", obj)
       foundSoFar.set(obj.typeName, obj.typeSpan);
 
       for (let i = 0; i < obj.typeSpan.length; i++) {
-        console.log(obj.typeSpan[i]);
-        const typeDefinitionResult = await c.definition({
+        // console.log(obj.typeSpan[i]);
+        const typeDefinitionResult = await c.typeDefinition({
           textDocument: {
             uri: testFile
           },
@@ -639,7 +640,7 @@ const recursiveDefine = async (c, typeDefinition, linePosition, characterPositio
         //   }
         // },
         // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-        console.log(JSON.stringify(typeDefinitionResult, "", 4))
+        console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
 
         if (typeDefinitionResult.length != 0) {
           // try hover on the goto result
@@ -652,7 +653,7 @@ const recursiveDefine = async (c, typeDefinition, linePosition, characterPositio
               line: typeDefinitionResult[0].range.start.line
             }
           });
-          console.log(hoverResult)
+          console.log("hoverResult: ", hoverResult)
 
           if (hoverResult != null) {
             const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
@@ -683,11 +684,11 @@ console.log(foundSoFar);
 
 console.log("\n=== Testing Scattered Type Definitions ===\n")
 
-const notifOpenDefAC = await c.didOpen({
+const notifOpenDefAC = c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/def_ac.ts',
     languageId: 'ts',
-    text: 'import { Bravo } from "./def_b";\n/* FILE 2: */\n/* code ... *./\ntype Alpha = {\n  name: string;\n  b: Bravo;\n}\n/* code ... */\ntype Charlie = boolean;\n/* code ... */\nexport { Alpha, Charlie };',
+    text: 'import { Banana } from "./def_b";\n/* FILE 2: */\n/* code ... */\ntype Apple = {\n  name: string;\n  b: Banana;\n}\n/* code ... */\ntype Cherry = boolean;\n/* code ... */\nexport { Apple, Cherry };',
     version: 1
   }
 });
@@ -696,7 +697,7 @@ const notifOpenDefB = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/def_b.ts',
     languageId: 'ts',
-    text: '/* FILE 1: */\n/* code ... */\ntype Bravo = number;\n/* code ... */\nexport { Bravo };',
+    text: '/* FILE 1: *a\n/* code ... */\ntype Banana = number;\n/* code ... */\nexport { Banana };',
     version: 1
   }
 });
@@ -705,12 +706,13 @@ const notifOpenTestTogether = await c.didOpen({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts',
     languageId: 'ts',
-    text: 'import { Alpha, Charlie } from "./def_ac.ts";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */',
+    text: 'import { Apple, Cherry } from "./def_ac";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Apple) => Cherry =\n  __HOLE__;\n/* code ... */',
     version: 1
   }
 });
+console.log(notifOpenDefAC, notifOpenDefB, notifOpenTestTogether)
 
-const ttcorpus = 'import { Alpha, Charlie } from "./def_ac.ts";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Alpha) => Charlie =\n  __HOLE__;\n/* code ... */';
+const ttcorpus = 'import { Apple, Cherry } from "./def_ac";\n/* FILE 3: */\n/* code ... */\nconst myFunc: (_: Apple) => Cherry =\n  __HOLE__;\n/* code ... */';
 // pattern 1: const myFunc: (_: T1) => T2 =\n  __HOLE__
 // divided into groups: const .+: \(.+: .+\) => .+ =\n __HOLE__
 //                      1^^^^^2^3^^^4^5^6^7^^^^^8^9^^^^^^^^^^^^
@@ -764,7 +766,8 @@ const ttargumentTypeSignature = ttresHoverArgumentTypeMatch.contents.value.split
 }, "");
 console.log(`argument's type signature: ${ttargumentTypeSignature}`);
 
-const argumentTypeDefinitionResult = await c.definition({
+
+const ttresTypeDefinitionArgumentTypeMatch = await c.typeDefinition({
   textDocument: {
     uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
   },
@@ -773,8 +776,19 @@ const argumentTypeDefinitionResult = await c.definition({
     line: ttlineNumber
   }
 });
+console.log(JSON.stringify(ttresTypeDefinitionArgumentTypeMatch, "", 2))
 
 
+const ttresDefinitionArgumentTypeMatch = await c.definition({
+  textDocument: {
+    uri: 'file:///home/jacob/projects/testtslspclient/test_together.ts'
+  },
+  position: {
+    character: indexOfGroup(ttmatch, 6) - ttfirstPatternIndex,
+    line: ttlineNumber
+  }
+});
+console.log(JSON.stringify(ttresDefinitionArgumentTypeMatch, "", 2))
 
 console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
 const ttfoundSoFar = new Map();
