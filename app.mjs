@@ -1,12 +1,13 @@
 import { JSONRPCEndpoint, LspClient } from "../ts-lsp-client/build/src/main.js"
 import { spawn } from "child_process";
 import * as fs from "fs"
+import * as path from "path"
 import { indexOfRegexGroup } from "./utils.mjs";
 import { recursiveDefine } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
 const outputfile = fs.createWriteStream("log.txt")
-let rootUri = "";
+let rootUri = "file://";
 let workspaceFolders = [];
 let sketchFile = "";
 if (process.argv.length < 3) {
@@ -19,7 +20,7 @@ if (process.argv.length < 3) {
   console.error("error: too many arguments given");
   process.exit(1);
 } else {
-  rootUri = process.argv[2];
+  rootUri += process.argv[2];
   workspaceFolders = [{ 'name': 'testtslspclient', 'uri': rootUri }];
   sketchFile = process.argv[3];
 }
@@ -172,10 +173,9 @@ const capabilities = {
   },
 }
 
-
 r.stdout.on('data', (d) => outputfile.write(d))
 
-const resInit = await c.initialize({
+const initResult = await c.initialize({
   processId: process.pid,
   // rootPath: '.',
   // rootUri: null,
@@ -189,6 +189,18 @@ const resInit = await c.initialize({
   }
 });
 
-
 // get context of the hole
 // recursively define relevant types
+
+const sketchFilePath = rootUri + sketchFile;
+const readableSketchFilePath = sketchFilePath.slice(7);
+const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
+
+const openNotification = c.didOpen({
+  textDocument: {
+    uri: path.join(rootUri, sketchFile),
+    languageId: 'typescript',
+    text: sketchFileContent,
+    version: 1
+  }
+});
