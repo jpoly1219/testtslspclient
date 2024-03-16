@@ -1,53 +1,10 @@
 import { JSONRPCEndpoint, LspClient } from "../ts-lsp-client/build/src/main.js"
-import { Readable, Writable } from "stream"
 import { spawn } from "child_process";
 import * as fs from "fs"
-import { type } from "os";
 
-class WriteMemory extends Writable {
-  _buffer = "";
-
-  constructor() {
-    super();
-    this._buffer = '';
-  }
-
-  _write(chunk, _, next) {
-    this._buffer += chunk;
-    next();
-  }
-
-  reset() {
-    this._buffer = '';
-  }
-
-  buffer() {
-    return this._buffer;
-  }
-}
-const mockReadStreamOK = (jsonRPC, eof) => {
-  const readable = new Readable();
-  const jsonRPCs = Array.isArray(jsonRPC) ? jsonRPC : [jsonRPC];
-  jsonRPCs.forEach(j => {
-    if ((typeof (j) !== 'string')) {
-      const jsonRPCStr = JSON.stringify(j);
-      readable.push(`Content-Length: ${jsonRPCStr.length}\r\n\r\n${jsonRPCStr}`);
-    } else {
-      console.log(`j is string: ${j}`)
-      readable.push(j);
-    }
-  })
-  if (eof) {
-    readable.push(null);
-  }
-
-  return readable;
-};
-const r = mockReadStreamOK([], true)
-const w = new WriteMemory()
-const r2 = spawn('typescript-language-server', ['--stdio'])
-const e = new JSONRPCEndpoint(r2.stdin, r2.stdout)
-const c = new LspClient(e)
+const r = spawn('typescript-language-server', ['--stdio'])
+const e = new JSONRPCEndpoint(r.stdin, r.stdout)
+export const c = new LspClient(e)
 
 const capabilities = {
   'textDocument': {
@@ -195,7 +152,7 @@ const capabilities = {
 const root_uri = 'file:///home/jacob/projects/testtslspclient/'
 const workspaceFolders = [{ 'name': 'testtslspclient', 'uri': root_uri }]
 const outputfile = fs.createWriteStream("log.txt")
-r2.stdout.on('data', (d) => outputfile.write(d))
+r.stdout.on('data', (d) => outputfile.write(d))
 
 const resInit = await c.initialize({
   processId: process.pid,
@@ -211,107 +168,6 @@ const resInit = await c.initialize({
   }
 });
 
-const notifOpenTest1 = await c.didOpen({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts',
-    languageId: 'ts',
-    text: 'const x = 1;\nconsole.log(x)\nx. \nconst fun = () => {\n  return 1 + x;\n}',
-    version: 1
-  }
-});
-
-const resDef = await c.definition({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  position: {
-    character: 12,
-    line: 1
-  }
-});
-
-const resComp = await c.completion({
-  context: {
-    triggerKind: 2,
-    triggerCharacter: "."
-  },
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  position: {
-    character: 2,
-    line: 2
-  }
-});
-
-const resInlayHint = await c.inlayHint({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  range: {
-    start: {
-      line: 3, character: 8
-    },
-    end: {
-      line: 3, character: 9
-    }
-  }
-});
-
-const resInlayHint2 = await c.inlayHint({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  range: {
-    start: {
-      line: 0, character: 6
-    },
-    end: {
-      line: 0, character: 7
-    }
-  }
-});
-
-const resHover = await c.hover({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  position: {
-    character: 8,
-    line: 1
-  }
-});
-// const resTypeHierarchy = await c.prepareTypeHierarchy({
-//   textDocument: {
-//     uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-//   },
-//   position: {
-//     character: 0,
-//     line: 2
-//   }
-// });
-
-const resSignatureHelp = await c.signatureHelp({
-  textDocument: {
-    uri: 'file:///home/jacob/projects/testtslspclient/test.ts'
-  },
-  position: {
-    character: 2,
-    line: 2
-  },
-  context: {
-    triggerKind: 2,
-    triggerCharacter: ".",
-    isRetrigger: false,
-  }
-});
-// console.log(resInit)
-console.log("=== Completion ===")
-console.log(resComp)
-console.log("=== Inlay Hint ===")
-console.log(resInlayHint)
-console.log("=== Hover ===")
-console.log(resHover)
 
 // console.log(JSON.stringify(response))
 // console.log(JSON.stringify(response2))
