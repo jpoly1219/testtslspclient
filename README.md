@@ -39,7 +39,11 @@ npm install
 
 Run the following command to start the program:
 ```
-node app.mjs
+node app.mjs <target directory with the code sketch> <code sketch file name>
+```
+Note that the target directory must be the full path that follows the `DocumentUri` format. For example, if the target directory is in `~/target/` and the code sketch file is `sketch.ts`, you would call the following:
+```
+node app.js file:///home/<your username>/target/ sketch.ts
 ```
 
 ## Diagram
