@@ -129,71 +129,72 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (c, typeDefinition, linePosition, characterPosition, foundSoFar, testFile) => {
+const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile) => {
   // console.log("new iteration");
   // console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
-  const obj = checkType(typeDefinition);
+  // const obj = checkType(typeSpan);
   // console.log("obj", obj)
-  if (obj != null) {
-    // console.log("set, ", foundSoFar.get(obj.typeName))
-    if (foundSoFar.get(obj.typeName) == undefined && obj.typeName != obj.typeSpan) {
-      // console.log("obj: ", obj)
-      foundSoFar.set(obj.typeName, obj.typeSpan);
+  // console.log("set, ", foundSoFar.get(obj.typeName))
+  if (foundSoFar.get(typeName) === undefined && typeName !== typeSpan) {
+    // console.log("obj: ", obj)
+    foundSoFar.set(typeName, typeSpan);
 
-      for (let i = 0; i < obj.typeSpan.length; i++) {
-        // console.log(obj.typeSpan[i]);
-        const typeDefinitionResult = await c.typeDefinition({
+    for (let i = 0; i < typeSpan.length; i++) {
+      // console.log(obj.typeSpan[i]);
+      const typeDefinitionResult = await c.typeDefinition({
+        textDocument: {
+          uri: testFile
+        },
+        position: {
+          character: characterPosition + i,
+          line: linePosition
+        }
+      });
+      // range: {
+      //   start: {
+      //     line: linePosition,
+      //     character: characterPosition
+      //   },
+      //   end: {
+      //     line: linePosition,
+      //     character: characterPosition
+      //   }
+      // },
+      // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
+      console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+
+      if (typeDefinitionResult.length != 0) {
+        // try hover on the goto result
+        const hoverResult = await c.hover({
           textDocument: {
-            uri: testFile
+            uri: typeDefinitionResult[0].uri
           },
           position: {
-            character: obj.interestingIndex + i,
-            line: linePosition
+            character: typeDefinitionResult[0].range.start.character,
+            line: typeDefinitionResult[0].range.start.line
           }
         });
-        // range: {
-        //   start: {
-        //     line: linePosition,
-        //     character: characterPosition
-        //   },
-        //   end: {
-        //     line: linePosition,
-        //     character: characterPosition
-        //   }
-        // },
-        // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
-        // console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+        console.log("hoverResult: ", hoverResult)
 
-        if (typeDefinitionResult.length != 0) {
-          // try hover on the goto result
-          const hoverResult = await c.hover({
-            textDocument: {
-              uri: typeDefinitionResult[0].uri
-            },
-            position: {
-              character: typeDefinitionResult[0].range.start.character,
-              line: typeDefinitionResult[0].range.start.line
+        if (hoverResult != null) {
+          const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+            if (curr != "" && curr != "```typescript" && curr != "```") {
+              return acc + curr;
+            } else {
+              return acc;
             }
-          });
-          // console.log("hoverResult: ", hoverResult)
+          }, "");
 
-          if (hoverResult != null) {
-            const someTypeDefinition = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-              if (curr != "" && curr != "```typescript" && curr != "```") {
-                return acc + curr;
-              } else {
-                return acc;
-              }
-            }, "");
+          const obj = checkType(formattedHoverResult);
+          console.log(obj);
 
-            await recursiveDefine(c, someTypeDefinition, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri);
-            // await recursiveDefine(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
-          }
-        } else {
-          // pass
-          // console.log("else path reached");
-          // console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
+          await recursiveDefine(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri);
+          // await recursiveDefine(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
         }
+      } else {
+        // pass
+        // console.log("else path reached");
+        // console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
       }
     }
   }
