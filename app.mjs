@@ -190,19 +190,24 @@ const initResult = await c.initialize({
   }
 });
 
-// sync client and server by notifying that the client has opened the sketch file
+// doucment sync client and server by notifying that the client has opened all the files inside the target directory
 const sketchFilePath = rootUri + sketchFile;
+const readableRootUri = rootUri.slice(7);
 const readableSketchFilePath = sketchFilePath.slice(7);
 const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 
-const openNotification = await c.didOpen({
-  textDocument: {
-    uri: path.join(rootUri, sketchFile),
-    languageId: 'typescript',
-    text: sketchFileContent,
-    version: 1
+fs.readdirSync(readableRootUri).map(fileName => {
+  if (fs.lstatSync(readableRootUri + fileName).isFile()) {
+    const openNotification = c.didOpen({
+      textDocument: {
+        uri: "file://" + readableRootUri + fileName,
+        languageId: 'typescript',
+        text: fs.readFileSync(readableRootUri + fileName, 'utf8'),
+        version: 1
+      }
+    });
   }
-});
+})
 
 // get context of the hole
 // currently only matching ES6 arrow functions
@@ -213,9 +218,9 @@ const match = sketchFileContent.match(es6ArrowFunctionPattern);
 const functionName = match[2];
 const functionTypeSpan = match[4];
 const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
+const characterPosition = indexOfRegexGroup(match, 4) - firstPatternIndex;
 
 // recursively define relevant types
-console.log(functionTypeSpan, linePosition, sketchFilePath)
 const foundSoFar = new Map();
-await recursiveDefine(c, functionTypeSpan, linePosition, 0, foundSoFar, sketchFilePath);
-console.log(foundSoFar)
+await recursiveDefine(c, functionName, functionTypeSpan, linePosition, characterPosition, foundSoFar, sketchFilePath);
+console.log(foundSoFar);
