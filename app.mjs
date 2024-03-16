@@ -196,7 +196,7 @@ const sketchFilePath = rootUri + sketchFile;
 const readableSketchFilePath = sketchFilePath.slice(7);
 const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 
-const openNotification = c.didOpen({
+const openNotification = await c.didOpen({
   textDocument: {
     uri: path.join(rootUri, sketchFile),
     languageId: 'typescript',
