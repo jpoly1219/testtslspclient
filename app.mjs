@@ -25,6 +25,7 @@ if (process.argv.length < 3) {
   sketchFile = process.argv[3];
 }
 
+// initialize LS client and server
 const r = spawn('typescript-language-server', ['--stdio'])
 const e = new JSONRPCEndpoint(r.stdin, r.stdout)
 const c = new LspClient(e)
@@ -189,9 +190,7 @@ const initResult = await c.initialize({
   }
 });
 
-// get context of the hole
-// recursively define relevant types
-
+// sync client and server by notifying that the client has opened the sketch file
 const sketchFilePath = rootUri + sketchFile;
 const readableSketchFilePath = sketchFilePath.slice(7);
 const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
@@ -204,3 +203,19 @@ const openNotification = await c.didOpen({
     version: 1
   }
 });
+
+// get context of the hole
+// currently only matching ES6 arrow functions
+const es6ArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/; // move to patterns
+
+const firstPatternIndex = sketchFileContent.search(es6ArrowFunctionPattern);
+const match = sketchFileContent.match(es6ArrowFunctionPattern);
+const functionName = match[2];
+const functionTypeSpan = match[4];
+const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
+
+// recursively define relevant types
+console.log(functionTypeSpan, linePosition, sketchFilePath)
+const foundSoFar = new Map();
+await recursiveDefine(c, functionTypeSpan, linePosition, 0, foundSoFar, sketchFilePath);
+console.log(foundSoFar)
