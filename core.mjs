@@ -1,5 +1,19 @@
 import { indexOfRegexGroup } from "./utils.mjs";
 
+// get context of the hole
+// currently only matching ES6 arrow functions
+const getFunctionHoleContext = (sketchFileContent) => {
+  const es6ArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/;
+  const firstPatternIndex = sketchFileContent.search(es6ArrowFunctionPattern);
+  const match = sketchFileContent.match(es6ArrowFunctionPattern);
+  const functionName = match[2];
+  const functionTypeSpan = match[4];
+  const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
+  const characterPosition = indexOfRegexGroup(match, 4) - firstPatternIndex;
+
+  return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
+}
+
 // pattern matching
 // attempts to match strings to corresponding types, then returns an object containing the name, type span, and an interesting index
 // base case - type can no longer be stepped into
@@ -129,7 +143,7 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile, outputFile) => {
+const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile, outputFile) => {
   // console.log("new iteration");
   // console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
   // const obj = checkType(typeSpan);
@@ -189,8 +203,8 @@ const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPos
           const obj = checkType(formattedHoverResult);
           console.log(obj);
 
-          await recursiveDefine(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
-          // await recursiveDefine(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
+          await extractRelevantTypes(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          // await extractRelevantTypes(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
         }
       } else {
         // pass
@@ -201,4 +215,4 @@ const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPos
   }
 }
 
-export { checkType, recursiveDefine };
+export { getFunctionHoleContext, checkType, extractRelevantTypes };
