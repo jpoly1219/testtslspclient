@@ -3,7 +3,7 @@ import { spawn } from "child_process";
 import * as fs from "fs"
 import * as path from "path"
 import { indexOfRegexGroup } from "./utils.mjs";
-import { recursiveDefine } from "./core.mjs";
+import { getFunctionHoleContext, extractRelevantTypes } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
 const logFile = fs.createWriteStream("log.txt")
@@ -209,19 +209,12 @@ fs.readdirSync(readableRootUri).map(fileName => {
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-const es6ArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/; // move to patterns
-
-const firstPatternIndex = sketchFileContent.search(es6ArrowFunctionPattern);
-const match = sketchFileContent.match(es6ArrowFunctionPattern);
-const functionName = match[2];
-const functionTypeSpan = match[4];
-const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
-const characterPosition = indexOfRegexGroup(match, 4) - firstPatternIndex;
+const holeContext = getFunctionHoleContext(sketchFileContent);
 
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt")
 const foundSoFar = new Map();
-await recursiveDefine(c, functionName, functionTypeSpan, linePosition, characterPosition, foundSoFar, sketchFilePath, outputFile);
+await extractRelevantTypes(c, holeContext.functionName, holeContext.functionTypeSpan, holeContext.linePosition, holeContext.characterPosition, foundSoFar, sketchFilePath, outputFile);
 console.log(foundSoFar);
 
 logFile.end();
