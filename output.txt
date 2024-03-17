@@ -1,0 +1,4 @@
+myFunc: (a: Apple, c: Cherry, b: Banana) => Cherry
+Apple: {    name: string;    b: Banana;    bc: {        b: Banana;        c: Cherry;    };}
+Banana: number
+Cherry: boolean
