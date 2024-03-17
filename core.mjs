@@ -129,7 +129,7 @@ const checkType = (typeDefinition) => {
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
 
-const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile) => {
+const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile, outputFile) => {
   // console.log("new iteration");
   // console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
   // const obj = checkType(typeSpan);
@@ -138,6 +138,7 @@ const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPos
   if (foundSoFar.get(typeName) === undefined && typeName !== typeSpan) {
     // console.log("obj: ", obj)
     foundSoFar.set(typeName, typeSpan);
+    outputFile.write(`${typeName}: ${typeSpan}\n`);
 
     for (let i = 0; i < typeSpan.length; i++) {
       // console.log(obj.typeSpan[i]);
@@ -188,7 +189,7 @@ const recursiveDefine = async (c, typeName, typeSpan, linePosition, characterPos
           const obj = checkType(formattedHoverResult);
           console.log(obj);
 
-          await recursiveDefine(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri);
+          await recursiveDefine(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
           // await recursiveDefine(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
         }
       } else {
