@@ -2,7 +2,7 @@ import { JSONRPCEndpoint, LspClient } from "../../ts-lsp-client/build/src/main.j
 import { spawn } from "child_process";
 import * as fs from "fs"
 import { indexOfRegexGroup } from "../utils.mjs";
-import { recursiveDefine } from "../core.mjs";
+import { extractRelevantTypes } from "../core.mjs";
 
 const r = spawn('typescript-language-server', ['--stdio'])
 const e = new JSONRPCEndpoint(r.stdin, r.stdout)
@@ -280,5 +280,5 @@ console.log(JSON.stringify(ttresDefinitionArgumentTypeMatch, "", 2))
 
 console.log("start with: ", ttfunctionTypeSignature, ttlineNumber, indexOfRegexGroup(ttmatch, 3) + 2 - ttfirstPatternIndex);
 const ttfoundSoFar = new Map();
-await recursiveDefine(c, ttfunctionTypeSignature, ttlineNumber, indexOfRegexGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
+await extractRelevantTypes(c, ttfunctionTypeSignature, ttlineNumber, indexOfRegexGroup(ttmatch, 3) + 2 - ttfirstPatternIndex, ttfoundSoFar, 'file:///home/jacob/projects/testtslspclient/test_together.ts');
 console.log(ttfoundSoFar);

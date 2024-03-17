@@ -400,9 +400,7 @@ Content-Length: 216
 
 {"jsonrpc":"2.0","id":198,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target4/test_together.ts","range":{"start":{"line":4,"character":14},"end":{"line":4,"character":56}}}]}Content-Length: 40
 
-{"jsonrpc":"2.0","id":199,"result":null}Content-Length: 166
-
-{"jsonrpc":"2.0","method":"textDocument/publishDiagnostics","params":{"uri":"file:///home/jacob/projects/testtslspclient/targets/target4/def_ac.ts","diagnostics":[]}}Content-Length: 38
+{"jsonrpc":"2.0","id":199,"result":null}Content-Length: 38
 
 {"jsonrpc":"2.0","id":200,"result":[]}Content-Length: 194
 
@@ -428,3 +426,4 @@ Content-Length: 216
 
 {"jsonrpc":"2.0","id":211,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target4/def_ac.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":11}}}]}Content-Length: 201
 
+{"jsonrpc":"2.0","id":212,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Cherry = boolean\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":11}}}}
