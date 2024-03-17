@@ -6,7 +6,7 @@ import { indexOfRegexGroup } from "./utils.mjs";
 import { recursiveDefine } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
-const outputfile = fs.createWriteStream("log.txt")
+const logFile = fs.createWriteStream("log.txt")
 let rootUri = "file://";
 let workspaceFolders = [];
 let sketchFile = "";
@@ -174,12 +174,10 @@ const capabilities = {
   },
 }
 
-r.stdout.on('data', (d) => outputfile.write(d))
+r.stdout.on('data', (d) => logFile.write(d))
 
-const initResult = await c.initialize({
+await c.initialize({
   processId: process.pid,
-  // rootPath: '.',
-  // rootUri: null,
   capabilities: capabilities,
   trace: 'off',
   workspaceFolders: workspaceFolders,
@@ -198,7 +196,7 @@ const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 
 fs.readdirSync(readableRootUri).map(fileName => {
   if (fs.lstatSync(readableRootUri + fileName).isFile()) {
-    const openNotification = c.didOpen({
+    c.didOpen({
       textDocument: {
         uri: "file://" + readableRootUri + fileName,
         languageId: 'typescript',
@@ -221,6 +219,14 @@ const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\
 const characterPosition = indexOfRegexGroup(match, 4) - firstPatternIndex;
 
 // recursively define relevant types
+const outputFile = fs.createWriteStream("output.txt")
 const foundSoFar = new Map();
-await recursiveDefine(c, functionName, functionTypeSpan, linePosition, characterPosition, foundSoFar, sketchFilePath);
+await recursiveDefine(c, functionName, functionTypeSpan, linePosition, characterPosition, foundSoFar, sketchFilePath, outputFile);
 console.log(foundSoFar);
+
+logFile.end();
+logFile.close();
+outputFile.end();
+outputFile.close();
+
+process.exit(0);
