@@ -29,7 +29,7 @@ Clone this `testtslspclient` repo:
 https://github.com/jpoly1219/testtslspclient
 ```
 
-... and run these commands inside the repo root:
+... and run these commands:
 ```
 cd testtslspclient
 npm install
@@ -41,9 +41,9 @@ Run the following command to start the program:
 ```
 node app.mjs <target directory with the code sketch> <code sketch file name>
 ```
-Note that the target directory must be the full path that follows the `DocumentUri` format. For example, if the target directory is in `~/target/` and the code sketch file is `sketch.ts`, you would call the following:
+Note that the target directory must be the full path. For example, if the target directory is in `~/target/` and the code sketch file is `sketch.ts`, you would call the following:
 ```
-node app.js file:///home/<your username>/target/ sketch.ts
+node app.mjs /home/<your username>/target/ sketch.ts
 ```
 
 ## Diagram
@@ -53,11 +53,11 @@ This is a top-level view of how data flows throughout the program.
 flowchart LR
   n1[Input: A directory containing a code sketch with a hole]
   n1 --> n2
-  n2[detectHoleType]
+  n2[getFunctionHoleContext]
   n2 --> n3
   n3[extractRelevantTypes]
   n3 --> n4
-  n4[Output: A map of types relevant to the hole]
+  n4[Output: A map and file of types relevant to the hole]
 ```
 
 We first try to see where the hole is located at. Then we detect the type of the hole.
