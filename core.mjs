@@ -40,31 +40,29 @@ const checkBasic = (typeDefinition) => {
 
 const checkImports = (typeDefinition) => {
   // import { _, _ };
-  const pattern1 = /(import )(\{ )(.+)(, )(.+)( \})/;
-  const match1 = typeDefinition.match(pattern1);
-  let interestingIndex1 = -1;
-  if (match1) {
-    interestingIndex1 = indexOfRegexGroup(match1, 2);
+  const importPattern = /(import )(\{.+\})/;
+  const importMatch = typeDefinition.match(importPattern);
+  let importInterestingIndex = -1;
+  if (importMatch) {
+    importInterestingIndex = indexOfRegexGroup(importMatch, 2);
   }
 
   // import _;
-  const pattern2 = /(import )(.+)/;
-  const match2 = typeDefinition.match(pattern2);
-  let interestingIndex2 = -1;
-  if (match2) {
-    interestingIndex2 = indexOfRegexGroup(match2, 2);
+  const defaultImportPattern = /(import )(.+)/;
+  const defaultImportMatch = typeDefinition.match(defaultImportPattern);
+  let defaultImportInterestingIndex = -1;
+  if (defaultImportMatch) {
+    defaultImportInterestingIndex = indexOfRegexGroup(defaultImportMatch, 2);
   }
 
-  if (interestingIndex1 != -1) {
-    const typeName = match1[1];
-    const typeSpan = typeDefinition.slice(interestingIndex1);
-    // console.log(`checkImports: typeName: ${typeName}, typeSpan: ${typeSpan}, interestinIndex1: ${interestingIndex1}`);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
-  } else if (interestingIndex2 != -1) {
-    const typeName = match2[2];
-    const typeSpan = typeDefinition.slice(interestingIndex2);
-    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
+  if (importInterestingIndex != -1) {
+    const typeName = importMatch[2];
+    const typeSpan = importMatch[2];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: importInterestingIndex }
+  } else if (defaultImportInterestingIndex != -1) {
+    const typeName = defaultImportMatch[2];
+    const typeSpan = defaultImportMatch[2];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: defaultImportInterestingIndex }
   }
 
   return null;
