@@ -22,18 +22,17 @@ const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
 // return typeSpan;
 const checkBasic = (typeDefinition) => {
   // type _ = boolean
-  const pattern = /(type )(.+)( = )(.+)/;
-  const match = typeDefinition.match(pattern);
-  let interestingIndex = -1;
-  if (match) {
-    interestingIndex = indexOfRegexGroup(match, 4);
+  const basicPattern = /(type )(.+)( = )(.+)/;
+  const basicMatch = typeDefinition.match(basicPattern);
+  let basicInterestingIndex = -1;
+  if (basicMatch) {
+    basicInterestingIndex = indexOfRegexGroup(basicMatch, 4);
   }
 
-  if (interestingIndex != -1) {
-    const typeName = match[2];
-    const typeSpan = typeDefinition.slice(interestingIndex);
-    // console.log("checkBasic: ", typeName, typeSpan, interestingIndex);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  if (basicInterestingIndex != -1) {
+    const typeName = basicMatch[2];
+    const typeSpan = basicMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: basicInterestingIndex }
   }
   return null;
 }
