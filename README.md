@@ -50,8 +50,8 @@ node app.mjs /home/<your username>/target/ sketch.ts
 
 This is a top-level view of how data flows throughout the program.
 ```mermaid
-flowchart LR
-  n1[Input: A directory containing a code sketch with a hole]
+flowchart TD
+  n1[Input: A directory containing a code sketch with a hole, and the sketch itself]
   n1 --> n2
   n2[getFunctionHoleContext]
   n2 --> n3
