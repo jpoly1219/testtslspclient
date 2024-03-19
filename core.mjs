@@ -2,8 +2,8 @@ import { indexOfRegexGroup } from "./utils.mjs";
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-const getFunctionHoleContext = (sketchFileContent) => {
-  const es6ArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/;
+const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
+  const es6AnnotatedArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/;
   const firstPatternIndex = sketchFileContent.search(es6ArrowFunctionPattern);
   const match = sketchFileContent.match(es6ArrowFunctionPattern);
   const functionName = match[2];
@@ -215,4 +215,4 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
   }
 }
 
-export { getFunctionHoleContext, checkType, extractRelevantTypes };
+export { getAnnotatedFunctionHoleContext, checkType, extractRelevantTypes };

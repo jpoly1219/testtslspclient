@@ -1,12 +1,10 @@
 import { JSONRPCEndpoint, LspClient } from "../ts-lsp-client/build/src/main.js"
 import { spawn } from "child_process";
 import * as fs from "fs"
-import * as path from "path"
-import { indexOfRegexGroup } from "./utils.mjs";
-import { getFunctionHoleContext, extractRelevantTypes } from "./core.mjs";
+import { getAnnotatedFunctionHoleContext, extractRelevantTypes } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
-const logFile = fs.createWriteStream("log.txt")
+const logFile = fs.createWriteStream("log.txt");
 let rootUri = "file://";
 let workspaceFolders = [];
 let sketchFile = "";
@@ -26,9 +24,9 @@ if (process.argv.length < 3) {
 }
 
 // initialize LS client and server
-const r = spawn('typescript-language-server', ['--stdio'])
-const e = new JSONRPCEndpoint(r.stdin, r.stdout)
-const c = new LspClient(e)
+const r = spawn('typescript-language-server', ['--stdio']);
+const e = new JSONRPCEndpoint(r.stdin, r.stdout);
+const c = new LspClient(e);
 
 const capabilities = {
   'textDocument': {
@@ -172,9 +170,9 @@ const capabilities = {
   'general': {
     'positionEncodings': ['utf-8']
   },
-}
+};
 
-r.stdout.on('data', (d) => logFile.write(d))
+r.stdout.on('data', (d) => logFile.write(d));
 
 await c.initialize({
   processId: process.pid,
@@ -205,14 +203,14 @@ fs.readdirSync(readableRootUri).map(fileName => {
       }
     });
   }
-})
+});
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-const holeContext = getFunctionHoleContext(sketchFileContent);
+const holeContext = getAnnotatedFunctionHoleContext(sketchFileContent);
 
 // recursively define relevant types
-const outputFile = fs.createWriteStream("output.txt")
+const outputFile = fs.createWriteStream("output.txt");
 const foundSoFar = new Map();
 await extractRelevantTypes(c, holeContext.functionName, holeContext.functionTypeSpan, holeContext.linePosition, holeContext.characterPosition, foundSoFar, sketchFilePath, outputFile);
 console.log(foundSoFar);
