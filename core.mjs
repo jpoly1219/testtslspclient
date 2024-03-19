@@ -4,8 +4,8 @@ import { indexOfRegexGroup } from "./utils.mjs";
 // currently only matching ES6 arrow functions
 const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
   const es6AnnotatedArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/;
-  const firstPatternIndex = sketchFileContent.search(es6ArrowFunctionPattern);
-  const match = sketchFileContent.match(es6ArrowFunctionPattern);
+  const firstPatternIndex = sketchFileContent.search(es6AnnotatedArrowFunctionPattern);
+  const match = sketchFileContent.match(es6AnnotatedArrowFunctionPattern);
   const functionName = match[2];
   const functionTypeSpan = match[4];
   const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
@@ -75,58 +75,52 @@ const checkObject = (typeDefinition) => {
   //   _: t1;
   //   _: t2;
   // }
-
-  const pattern = /(type )(.+)( = )(\{)(.+)(\})/;
-  const match = typeDefinition.match(pattern);
-  let interestingIndex = -1;
-  if (match) {
-    interestingIndex = indexOfRegexGroup(match, 4);
+  const objectTypeDefPattern = /(type )(.+)( = )(\{.+\})/;
+  const objectTypeDefMatch = typeDefinition.match(objectTypeDefPattern);
+  let objectTypeDefInterestingIndex = -1;
+  if (objectTypeDefMatch) {
+    objectTypeDefInterestingIndex = indexOfRegexGroup(objectTypeDefMatch, 4);
   }
 
-  if (interestingIndex != -1) {
-    const typeName = match[2];
-    const typeSpan = typeDefinition.slice(interestingIndex);
-    // console.log(`checkObject: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex: ${interestingIndex}`);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex }
+  if (objectTypeDefInterestingIndex != -1) {
+    const typeName = objectTypeDefMatch[2];
+    const typeSpan = objectTypeDefMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: objectTypeDefInterestingIndex }
   }
   return null;
 }
 
 const checkFunction = (typeDefinition) => {
-  // const _ : () => _ = {
-  //   body
-  // }
-  const pattern1 = /(const )(.+)(: )(\()(.+)(: )(.+)(\))( => )(.+)/;
-  const match1 = typeDefinition.match(pattern1);
-  let interestingIndex1 = -1;
-  if (match1) {
-    interestingIndex1 = indexOfRegexGroup(match1, 4);
+  // const myFunc : (arg1: typ1, ...) => _
+  const es6AnnotatedFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)/;
+  const es6AnnotatedFunctionMatch = typeDefinition.match(es6AnnotatedFunctionPattern);
+  let es6AnnotatedFunctionInterestingIndex = -1;
+  if (es6AnnotatedFunctionMatch) {
+    es6AnnotatedFunctionInterestingIndex = indexOfRegexGroup(es6AnnotatedFunctionMatch, 4);
   }
 
   // type _ = (_: t1) => t2
-  const pattern2 = /(type )(.+)( = )(\()(.+)(: )(.+)(\))( => )(.+)/;
-  const match2 = typeDefinition.match(pattern2);
-  let interestingIndex2 = -1;
-  if (match2) {
-    interestingIndex2 = indexOfRegexGroup(match2, 4);
+  const es6FunctionTypeDefPattern = /(type )(.+)( = )(\(.+\) => .+)/;
+  const es6FunctionTypeDefPatternMatch = typeDefinition.match(es6FunctionTypeDefPattern);
+  let es6FunctionTypeDefInterestingIndex = -1;
+  if (es6FunctionTypeDefPatternMatch) {
+    es6FunctionTypeDefInterestingIndex = indexOfRegexGroup(es6FunctionTypeDefPatternMatch, 4);
   }
 
-  if (interestingIndex1 != -1) {
-    const typeName = match1[2];
-    const typeSpan = typeDefinition.slice(interestingIndex1);
-    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex1: ${interestingIndex1}`);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex1 }
-  } else if (interestingIndex2 != -1) {
-    const typeName = match2[2];
-    const typeSpan = typeDefinition.slice(interestingIndex2);
-    // console.log(`checkFunction: typeName: ${typeName}, typeSpan: ${typeSpan}, interestingIndex2: ${interestingIndex2}`);
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: interestingIndex2 }
+  if (es6AnnotatedFunctionInterestingIndex != -1) {
+    const typeName = es6AnnotatedFunctionMatch[2];
+    const typeSpan = es6AnnotatedFunctionMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: es6AnnotatedFunctionInterestingIndex }
+  } else if (es6FunctionTypeDefInterestingIndex != -1) {
+    const typeName = es6FunctionTypeDefPatternMatch[2];
+    const typeSpan = es6FunctionTypeDefPatternMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: es6FunctionTypeDefInterestingIndex }
   }
 
   return null;
 }
 
-const checkType = (typeDefinition) => {
+const getTypeContext = (typeDefinition) => {
   if (checkFunction(typeDefinition)) {
     return checkFunction(typeDefinition);
   } else if (checkObject(typeDefinition)) {
@@ -200,11 +194,10 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
             }
           }, "");
 
-          const obj = checkType(formattedHoverResult);
-          console.log(obj);
+          const typeContext = getTypeContext(formattedHoverResult);
+          console.log(typeContext);
 
-          await extractRelevantTypes(c, obj.typeName, obj.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
-          // await extractRelevantTypes(c, someTypeDefinition, hoverResult.range.start.line, hoverResult.range.start.character, foundSoFar, typeDefinitionResult[0].uri);
+          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
         }
       } else {
         // pass
@@ -215,4 +208,4 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
   }
 }
 
-export { getAnnotatedFunctionHoleContext, checkType, extractRelevantTypes };
+export { getAnnotatedFunctionHoleContext, extractRelevantTypes };
