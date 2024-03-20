@@ -75,3 +75,4 @@ const num_todos: (m: Model) => number = (m) => {
 }
 
 console.assert(num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]));
+console.assert(model_eq(update(["Breath", []], "AddTodo" as AddTodo), ["", [["Breath", false]]]) === true);
