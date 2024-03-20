@@ -66,7 +66,7 @@ test  # Don't add blank description #
     model) end
 */
 
-import { Model, AddTodo, model_eq } from "./prelude.ts"
+import { Model, AddTodo, RemoveTodo, model_eq } from "./prelude.ts"
 import { update } from "./sketch.ts"
 
 // tests
@@ -76,3 +76,5 @@ const num_todos: (m: Model) => number = (m) => {
 
 console.assert(num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]));
 console.assert(model_eq(update(["Breath", []], "AddTodo" as AddTodo), ["", [["Breath", false]]]) === true);
+console.assert(model_eq(update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo), ["", [["Chop wood", false], ["Carry water", false]]]) === true);
+console.assert(model_eq(update(update(["Remove this", [["Breadth", false]]], "AddTodo" as AddTodo), 0 as RemoveTodo), ["", [["Breath", false]]]) === true);
