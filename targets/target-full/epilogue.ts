@@ -65,3 +65,13 @@ test  # Don't add blank description #
     update(model, AddTodo),
     model) end
 */
+
+import { Model, AddTodo, model_eq } from "./prelude.ts"
+import { update } from "./sketch.ts"
+
+// tests
+const num_todos: (m: Model) => number = (m) => {
+  return m[1].length;
+}
+
+console.assert(num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]));
