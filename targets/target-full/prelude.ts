@@ -277,9 +277,9 @@ let Model.init: Model = ("", []) in
 // TODO MVU
 type Todo = [string, boolean];
 
-type Model = [string, [Todo]];
+type Model = [string, Todo[]];
 
-type AddTodo = "AddTodo";
+type AddTodo = string;
 
 type RemoveTodo = number;
 
@@ -295,10 +295,12 @@ const todo_eq: (t1: Todo, t2: Todo) => Boolean = ([d1, s1], [d2, s2]) => {
   return d1 === d2 && s1 === s2;
 }
 
-const todo_array_eq: (ta1: [Todo], ta2: [Todo]) => Boolean = (ta1, ta2) => {
+const todo_array_eq: (ta1: Todo[], ta2: Todo[]) => Boolean = (ta1, ta2) => {
   return ta1.length === ta2.length && ta1.every((el, i) => { return todo_eq(el, ta2[i]); });
 }
 
 const model_eq: (m1: Model, m2: Model) => Boolean = ([b1, ts1], [b2, ts2]) => {
   return b1 === b2 && todo_array_eq(ts1, ts2);
 }
+
+export { Model, AddTodo, Action, Update, model_eq };
