@@ -66,7 +66,7 @@ test  # Don't add blank description #
     model) end
 */
 
-import { Model, AddTodo, RemoveTodo, ToggleTodo, model_eq } from "./prelude.ts"
+import { Todo, Model, AddTodo, RemoveTodo, ToggleTodo, UpdateBuffer, model_eq } from "./prelude.ts"
 import { update } from "./sketch.ts"
 
 // tests
@@ -75,37 +75,82 @@ const num_todos: (m: Model) => number = (m) => {
 }
 
 const test1 = () => {
-  return num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []])
+  return num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]);
 };
 
 const test2 = () => {
   return model_eq(
     update(["Breath", []], "AddTodo" as AddTodo),
     ["", [["Breath", false]]]
-  ) === true
+  );
 };
 
 const test3 = () => {
   return model_eq(
     update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo),
     ["", [["Chop wood", false], ["Carry water", false]]]
-  ) === true
+  );
 };
 
 const test4 = () => {
+  let todos: Todo[] = [["Breath", false]];
   return model_eq(
-    update(
-      update(
-        ["Remove this", [["Breadth", false]]],
-        "AddTodo" as AddTodo
-      ),
-      0 as RemoveTodo
-    ),
-    ["", [["Breath", false]]]
-  ) === true
+    update(update(["Remove this", todos], "AddTodo" as AddTodo), 0 as RemoveTodo),
+    ["", todos]
+  );
 };
 
 const test5 = () => {
-  const model: Model = ["", [["1", false], ["2", false]]];
+  let model: Model = ["", [["1", false], ["2", false]]];
   return num_todos(update(model, 1 as ToggleTodo)) === num_todos(model);
+}
+
+const test6 = () => {
+  return model_eq(
+    update(["", [["Chop", false], ["Carry", true]]], 1 as ToggleTodo),
+    ["", [["Chop", false], ["Carry", false]]]
+  );
+}
+
+const test7 = () => {
+  let model: Model = ["", [["Chop", false], ["Carry", false]]];
+  return model_eq(
+    update(model, 2 as ToggleTodo),
+    model
+  );
+}
+
+const test8 = () => {
+  let model: Model = ["", [["1", false]]];
+  return num_todos(update(model, 0 as RemoveTodo)) < num_todos(model);
+}
+
+const test9 = () => {
+  return model_eq(
+    update(["", [["1", false], ["2", false]]], 1 as RemoveTodo),
+    ["", [["1", false]]]
+  );
+}
+
+const test10 = () => {
+  let model: Model = ["", [["1", false]]];
+  return model_eq(
+    update(model, 2 as RemoveTodo),
+    model
+  );
+}
+
+const test11 = () => {
+  return model_eq(
+    update(["", []], "Breath" as UpdateBuffer),
+    ["Breath", []]
+  );
+}
+
+const test12 = () => {
+  let model: Model = ["", [["1", false]]];
+  return model_eq(
+    update(model, "AddTodo" as AddTodo),
+    model
+  );
 }

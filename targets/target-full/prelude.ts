@@ -303,4 +303,4 @@ const model_eq: (m1: Model, m2: Model) => Boolean = ([b1, ts1], [b2, ts2]) => {
   return b1 === b2 && todo_array_eq(ts1, ts2);
 }
 
-export { Model, AddTodo, RemoveTodo, ToggleTodo, Action, Update, model_eq };
+export { Todo, Model, AddTodo, RemoveTodo, ToggleTodo, UpdateBuffer, Action, Update, model_eq };
