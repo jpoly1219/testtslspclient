@@ -27,12 +27,13 @@ const sketchFileContent = fs.readFileSync(sketchFilePath, "utf8");
 const prompt =
   `Complete the following typescript program sketch with a hole in it.\n
   Here is the program sketch: \n ${sketchFileContent} \n
-  Here are the relevant contexts: \n ${expectedType} \n`
+  Here are the relevant contexts: \n ${expectedType} \n`;
 
-const response = None
-const completedSketch = None
+const response = None;
+const completedSketch = None;
 // write completion to sketch
-const outputFile = fs.createWriteStream("completed_sketch.ts");
+const outputFile = fs.createWriteStream(`${sourceFolder}/completed_sketch.ts`);
 outputFile.write(completedSketch);
 
 // run the prelude - completed sketch - epilogue suite on specific tests
+execSync(`node ${sourceFolder}/completed_sketch.ts`);
