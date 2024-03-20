@@ -69,15 +69,19 @@ test  # Don't add blank description #
 import { Todo, Model, AddTodo, RemoveTodo, ToggleTodo, UpdateBuffer, model_eq } from "./prelude.ts"
 import { update } from "./sketch.ts"
 
-// tests
+// utility
 const num_todos: (m: Model) => number = (m) => {
   return m[1].length;
 }
 
+// tests
+
+// Add adds
 const test1 = () => {
   return num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]);
 };
 
+// Add uses name, initial status set
 const test2 = () => {
   return model_eq(
     update(["Breath", []], "AddTodo" as AddTodo),
@@ -85,6 +89,7 @@ const test2 = () => {
   );
 };
 
+// Add nonempty (too impl spec? test add + remove eqs)
 const test3 = () => {
   return model_eq(
     update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo),
@@ -92,6 +97,7 @@ const test3 = () => {
   );
 };
 
+// add then remove doesn't change todos
 const test4 = () => {
   let todos: Todo[] = [["Breath", false]];
   return model_eq(
@@ -100,11 +106,13 @@ const test4 = () => {
   );
 };
 
+// Toggle preserves length
 const test5 = () => {
   let model: Model = ["", [["1", false], ["2", false]]];
   return num_todos(update(model, 1 as ToggleTodo)) === num_todos(model);
 }
 
+// Toggle toggles right index
 const test6 = () => {
   return model_eq(
     update(["", [["Chop", false], ["Carry", true]]], 1 as ToggleTodo),
@@ -112,6 +120,7 @@ const test6 = () => {
   );
 }
 
+// Toggle out of bounds
 const test7 = () => {
   let model: Model = ["", [["Chop", false], ["Carry", false]]];
   return model_eq(
@@ -120,11 +129,13 @@ const test7 = () => {
   );
 }
 
+// Remove removes
 const test8 = () => {
   let model: Model = ["", [["1", false]]];
   return num_todos(update(model, 0 as RemoveTodo)) < num_todos(model);
 }
 
+// Remove removes right index
 const test9 = () => {
   return model_eq(
     update(["", [["1", false], ["2", false]]], 1 as RemoveTodo),
@@ -132,6 +143,7 @@ const test9 = () => {
   );
 }
 
+// Remove out of bounds
 const test10 = () => {
   let model: Model = ["", [["1", false]]];
   return model_eq(
@@ -140,6 +152,7 @@ const test10 = () => {
   );
 }
 
+// Update Input
 const test11 = () => {
   return model_eq(
     update(["", []], "Breath" as UpdateBuffer),
@@ -147,6 +160,7 @@ const test11 = () => {
   );
 }
 
+// Don't add blank description
 const test12 = () => {
   let model: Model = ["", [["1", false]]];
   return model_eq(
