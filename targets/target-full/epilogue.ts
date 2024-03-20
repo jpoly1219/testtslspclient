@@ -66,7 +66,7 @@ test  # Don't add blank description #
     model) end
 */
 
-import { Model, AddTodo, RemoveTodo, model_eq } from "./prelude.ts"
+import { Model, AddTodo, RemoveTodo, ToggleTodo, model_eq } from "./prelude.ts"
 import { update } from "./sketch.ts"
 
 // tests
@@ -74,7 +74,38 @@ const num_todos: (m: Model) => number = (m) => {
   return m[1].length;
 }
 
-console.assert(num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]));
-console.assert(model_eq(update(["Breath", []], "AddTodo" as AddTodo), ["", [["Breath", false]]]) === true);
-console.assert(model_eq(update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo), ["", [["Chop wood", false], ["Carry water", false]]]) === true);
-console.assert(model_eq(update(update(["Remove this", [["Breadth", false]]], "AddTodo" as AddTodo), 0 as RemoveTodo), ["", [["Breath", false]]]) === true);
+const test1 = () => {
+  return num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []])
+};
+
+const test2 = () => {
+  return model_eq(
+    update(["Breath", []], "AddTodo" as AddTodo),
+    ["", [["Breath", false]]]
+  ) === true
+};
+
+const test3 = () => {
+  return model_eq(
+    update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo),
+    ["", [["Chop wood", false], ["Carry water", false]]]
+  ) === true
+};
+
+const test4 = () => {
+  return model_eq(
+    update(
+      update(
+        ["Remove this", [["Breadth", false]]],
+        "AddTodo" as AddTodo
+      ),
+      0 as RemoveTodo
+    ),
+    ["", [["Breath", false]]]
+  ) === true
+};
+
+const test5 = () => {
+  const model: Model = ["", [["1", false], ["2", false]]];
+  return num_todos(update(model, 1 as ToggleTodo)) === num_todos(model);
+}
