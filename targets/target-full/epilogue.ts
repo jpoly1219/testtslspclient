@@ -100,3 +100,9 @@ const test12 = () => {
     model
   );
 }
+
+const tests = [test1, test2, test3, test4, test5, test6, test7, test8, test9, test10, test11, test12];
+
+for (let i = 0; i < tests.length; ++i) {
+  console.assert(tests[i]() === true);
+}
