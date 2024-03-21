@@ -3,7 +3,7 @@ import { indexOfRegexGroup } from "./utils.mjs";
 // get context of the hole
 // currently only matching ES6 arrow functions
 const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
-  const es6AnnotatedArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*__HOLE__)/;
+  const es6AnnotatedArrowFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)( =[\s\S]*_())/;
   const firstPatternIndex = sketchFileContent.search(es6AnnotatedArrowFunctionPattern);
   const match = sketchFileContent.match(es6AnnotatedArrowFunctionPattern);
   const functionName = match[2];
@@ -12,6 +12,17 @@ const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
   const characterPosition = indexOfRegexGroup(match, 4) - firstPatternIndex;
 
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
+}
+
+const getHoleContext = (sketchFileContent) => {
+  // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
+  const holePattern = /_\(\)/;
+  const firstPatternIndex = sketchFileContent.search(holePattern);
+  console.log("firstPatternIndex: ", firstPatternIndex)
+  const match = sketchFileContent.match(holePattern);
+  console.log("match: ", match)
+  const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
+  console.log("linePosition: ", linePosition)
 }
 
 // pattern matching
@@ -205,4 +216,4 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
   }
 }
 
-export { getAnnotatedFunctionHoleContext, extractRelevantTypes };
+export { getAnnotatedFunctionHoleContext, getHoleContext, extractRelevantTypes };
