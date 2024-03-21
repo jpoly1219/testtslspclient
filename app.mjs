@@ -1,7 +1,7 @@
 import { JSONRPCEndpoint, LspClient } from "../ts-lsp-client/build/src/main.js"
 import { spawn } from "child_process";
 import * as fs from "fs"
-import { getAnnotatedFunctionHoleContext, extractRelevantTypes } from "./core.mjs";
+import { getAnnotatedFunctionHoleContext, extractRelevantTypes, getHoleContext } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
 const logFile = fs.createWriteStream("log.txt");
@@ -186,11 +186,29 @@ await c.initialize({
   }
 });
 
-// doucment sync client and server by notifying that the client has opened all the files inside the target directory
+// inject hole function
 const sketchFilePath = rootUri + sketchFile;
+const injectedSketchFilePath = rootUri + `injected_${sketchFile}`;
 const readableRootUri = rootUri.slice(7);
 const readableSketchFilePath = sketchFilePath.slice(7);
+const readableInjectedSketchFilePath = injectedSketchFilePath.slice(7);
+
 const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
+fs.writeFileSync(readableInjectedSketchFilePath, `declare function _<T>(): T\n${sketchFileContent}`);
+const injectedSketchFileContent = fs.readFileSync(readableInjectedSketchFilePath, "utf8");
+
+// const fd = fs.openSync(readableSketchFilePath, "w+");
+// const buffer = Buffer.from("declare function _<T>(): T\n");
+//
+// fs.writeSync(fd, buffer, 0, buffer.length, 0);
+// fs.writeSync(fd, sketchFileContent, 0, sketchFileContent.length, buffer.length);
+// fs.close(fd);
+
+// doucment sync client and server by notifying that the client has opened all the files inside the target directory
+// const sketchFilePath = rootUri + sketchFile;
+// const readableRootUri = rootUri.slice(7);
+// const readableSketchFilePath = sketchFilePath.slice(7);
+// const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 
 fs.readdirSync(readableRootUri).map(fileName => {
   if (fs.lstatSync(readableRootUri + fileName).isFile()) {
@@ -207,12 +225,25 @@ fs.readdirSync(readableRootUri).map(fileName => {
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-const holeContext = getAnnotatedFunctionHoleContext(sketchFileContent);
+const holeContext = getAnnotatedFunctionHoleContext(injectedSketchFileContent);
+const holeContext2 = getHoleContext(injectedSketchFileContent);
+console.log(holeContext2)
+
+const holeHover = await c.hover({
+  textDocument: {
+    uri: injectedSketchFilePath
+  },
+  position: {
+    character: 3,
+    line: 6
+  }
+});
+console.log("holeHover: ", holeHover)
 
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt");
 const foundSoFar = new Map();
-await extractRelevantTypes(c, holeContext.functionName, holeContext.functionTypeSpan, holeContext.linePosition, holeContext.characterPosition, foundSoFar, sketchFilePath, outputFile);
+await extractRelevantTypes(c, holeContext.functionName, holeContext.functionTypeSpan, holeContext.linePosition, holeContext.characterPosition, foundSoFar, injectedSketchFilePath, outputFile);
 console.log(foundSoFar);
 
 logFile.end();
