@@ -197,18 +197,7 @@ const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 fs.writeFileSync(readableInjectedSketchFilePath, `declare function _<T>(): T\n${sketchFileContent}`);
 const injectedSketchFileContent = fs.readFileSync(readableInjectedSketchFilePath, "utf8");
 
-// const fd = fs.openSync(readableSketchFilePath, "w+");
-// const buffer = Buffer.from("declare function _<T>(): T\n");
-//
-// fs.writeSync(fd, buffer, 0, buffer.length, 0);
-// fs.writeSync(fd, sketchFileContent, 0, sketchFileContent.length, buffer.length);
-// fs.close(fd);
-
 // doucment sync client and server by notifying that the client has opened all the files inside the target directory
-// const sketchFilePath = rootUri + sketchFile;
-// const readableRootUri = rootUri.slice(7);
-// const readableSketchFilePath = sketchFilePath.slice(7);
-// const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 
 fs.readdirSync(readableRootUri).map(fileName => {
   if (fs.lstatSync(readableRootUri + fileName).isFile()) {
@@ -225,7 +214,6 @@ fs.readdirSync(readableRootUri).map(fileName => {
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-// const holeContext = getAnnotatedFunctionHoleContext(injectedSketchFileContent);
 const holeContext = await getHoleContext(c, injectedSketchFilePath, injectedSketchFileContent);
 console.log(holeContext)
 
