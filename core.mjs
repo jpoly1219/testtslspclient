@@ -14,15 +14,37 @@ const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
 }
 
-const getHoleContext = (sketchFileContent) => {
-  // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
+const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileContent) => {
   const holePattern = /_\(\)/;
-  const firstPatternIndex = sketchFileContent.search(holePattern);
-  console.log("firstPatternIndex: ", firstPatternIndex)
-  const match = sketchFileContent.match(holePattern);
-  console.log("match: ", match)
-  const linePosition = (sketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
-  console.log("linePosition: ", linePosition)
+  const firstPatternIndex = injectedSketchFileContent.search(holePattern);
+  const linePosition = (injectedSketchFileContent.substring(0, firstPatternIndex).match(/\n/g)).length;
+  const characterPosition = firstPatternIndex - injectedSketchFileContent.split("\n", linePosition).join("\n").length - 1;
+
+  const holeHoverResult = await c.hover({
+    textDocument: {
+      uri: injectedSketchFilePath
+    },
+    position: {
+      character: characterPosition,
+      line: linePosition
+    }
+  });
+
+  const formattedHoverResult = holeHoverResult.contents.value.split("\n").reduce((acc, curr) => {
+    if (curr != "" && curr != "```typescript" && curr != "```") {
+      return acc + curr;
+    } else {
+      return acc;
+    }
+  }, "");
+
+  // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
+  const holeFunctionPattern = /(function _\<.+\>\(\): )(.+)/;
+  const match = formattedHoverResult.match(holeFunctionPattern);
+  const functionName = match[1];
+  const functionTypeSpan = match[2];
+
+  return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
 }
 
 // pattern matching
@@ -129,6 +151,7 @@ const checkFunction = (typeDefinition) => {
 }
 
 const getTypeContext = (typeDefinition) => {
+  // (type parameter) T in _<T>(): T
   if (checkFunction(typeDefinition)) {
     return checkFunction(typeDefinition);
   } else if (checkObject(typeDefinition)) {

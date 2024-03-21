@@ -225,20 +225,9 @@ fs.readdirSync(readableRootUri).map(fileName => {
 
 // get context of the hole
 // currently only matching ES6 arrow functions
-const holeContext = getAnnotatedFunctionHoleContext(injectedSketchFileContent);
-const holeContext2 = getHoleContext(injectedSketchFileContent);
-console.log(holeContext2)
-
-const holeHover = await c.hover({
-  textDocument: {
-    uri: injectedSketchFilePath
-  },
-  position: {
-    character: 3,
-    line: 6
-  }
-});
-console.log("holeHover: ", holeHover)
+// const holeContext = getAnnotatedFunctionHoleContext(injectedSketchFileContent);
+const holeContext = await getHoleContext(c, injectedSketchFilePath, injectedSketchFileContent);
+console.log(holeContext)
 
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt");
