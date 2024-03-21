@@ -41,7 +41,7 @@ const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileConte
   // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
   const holeFunctionPattern = /(function _\<.+\>\(\): )(.+)/;
   const match = formattedHoverResult.match(holeFunctionPattern);
-  const functionName = match[1];
+  const functionName = "hole";
   const functionTypeSpan = match[2];
 
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
@@ -150,9 +150,23 @@ const checkFunction = (typeDefinition) => {
   return null;
 }
 
-const getTypeContext = (typeDefinition) => {
+const checkHole = (typeDefinition) => {
   // (type parameter) T in _<T>(): T
-  if (checkFunction(typeDefinition)) {
+  const holePattern = /(\(type parameter\) T in _\<T\>\(\): T)/;
+  const match = typeDefinition.match(holePattern);
+  if (match) {
+    const typeName = "hole function";
+    const typeSpan = match[1];
+    return { typeName: typeName, typeSpan: typeSpan }
+  }
+
+  return null;
+}
+
+const getTypeContext = (typeDefinition) => {
+  if (checkHole(typeDefinition)) {
+    return checkHole(typeDefinition);
+  } else if (checkFunction(typeDefinition)) {
     return checkFunction(typeDefinition);
   } else if (checkObject(typeDefinition)) {
     return checkObject(typeDefinition);
