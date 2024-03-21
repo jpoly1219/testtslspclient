@@ -12,6 +12,16 @@ const errorRoundsMax = process.argv[3];
 const sourceFolder = process.argv[4];
 const apiKey = process.argv[5];
 
+// inject hole function into sketch.ts
+const sketchFilePath = `${sourceFolder}sketch.ts`;
+const sketchFileContent = fs.readFileSync(sketchFilePath, "utf8");
+const fd = fs.openSync(sketchFilePath, "w+");
+const buffer = Buffer.from("declare function _<T>(): T\n");
+
+fs.writeSync(fd, buffer, 0, buffer.length, 0);
+fs.writeSync(fd, sketchFileContent, 0, sketchFileContent.length, buffer.length);
+fs.close(fd);
+
 // call node app.mjs <dir> sketch.ts
 execSync(`node app.mjs ${sourceFolder} sketch.ts`)
 
@@ -22,8 +32,6 @@ const expectedType = fs.readFileSync("output.txt", "utf8");
 
 // instantiate connection and save conn object
 
-const sketchFilePath = `${sourceFolder}sketch.ts`;
-const sketchFileContent = fs.readFileSync(sketchFilePath, "utf8");
 const prompt =
   `Complete the following typescript program sketch with a hole in it.\n
   Here is the program sketch: \n ${sketchFileContent} \n
