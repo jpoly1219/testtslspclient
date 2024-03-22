@@ -1,4 +1,5 @@
-myFunc: (a: Apple, c: Cherry, b: Banana) => Cherry
+hole: (a: Apple, c: Cherry, b: Banana) => Cherry
+hole function: (type parameter) T in _<T>(): T
 Apple: {    name: string;    b: Banana;    bc: {        b: Banana;        c: Cherry;    };}
 Banana: number
 Cherry: boolean
