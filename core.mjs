@@ -14,6 +14,7 @@ const getAnnotatedFunctionHoleContext = (sketchFileContent) => {
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
 }
 
+// get context of the hole using hole function
 const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileContent) => {
   const holePattern = /_\(\)/;
   const firstPatternIndex = injectedSketchFileContent.search(holePattern);
@@ -53,23 +54,26 @@ const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileConte
 // boolean, number, string, enum, unknown, any, void, null, undefined, never
 // ideally this should be checked for before we do the for loop
 // return typeSpan;
-const checkBasic = (typeDefinition) => {
+
+// check if hover result is from a primitive type
+const checkPrimitive = (typeDefinition) => {
   // type _ = boolean
-  const basicPattern = /(type )(.+)( = )(.+)/;
-  const basicMatch = typeDefinition.match(basicPattern);
-  let basicInterestingIndex = -1;
-  if (basicMatch) {
-    basicInterestingIndex = indexOfRegexGroup(basicMatch, 4);
+  const primitivePattern = /(type )(.+)( = )(.+)/;
+  const primitiveMatch = typeDefinition.match(primitivePattern);
+  let primitiveInterestingIndex = -1;
+  if (primitiveMatch) {
+    primitiveInterestingIndex = indexOfRegexGroup(primitiveMatch, 4);
   }
 
-  if (basicInterestingIndex != -1) {
-    const typeName = basicMatch[2];
-    const typeSpan = basicMatch[4];
-    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: basicInterestingIndex }
+  if (primitiveInterestingIndex != -1) {
+    const typeName = primitiveMatch[2];
+    const typeSpan = primitiveMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: primitiveInterestingIndex }
   }
   return null;
 }
 
+// check if hover result is from an import
 const checkImports = (typeDefinition) => {
   // import { _, _ };
   const importPattern = /(import )(\{.+\})/;
@@ -100,6 +104,7 @@ const checkImports = (typeDefinition) => {
   return null;
 }
 
+// check if hover result is from an object
 const checkObject = (typeDefinition) => {
   // type _ = {
   //   _: t1;
@@ -120,6 +125,7 @@ const checkObject = (typeDefinition) => {
   return null;
 }
 
+// check if hover result is from a function
 const checkFunction = (typeDefinition) => {
   // const myFunc : (arg1: typ1, ...) => _
   const es6AnnotatedFunctionPattern = /(const )(.+)(: )(\(.+\) => .+)/;
@@ -150,6 +156,7 @@ const checkFunction = (typeDefinition) => {
   return null;
 }
 
+// check if hover result is from a hole
 const checkHole = (typeDefinition) => {
   // (type parameter) T in _<T>(): T
   const holePattern = /(\(type parameter\) T in _\<T\>\(\): T)/;
@@ -163,6 +170,7 @@ const checkHole = (typeDefinition) => {
   return null;
 }
 
+// get type context from hover result
 const getTypeContext = (typeDefinition) => {
   if (checkHole(typeDefinition)) {
     return checkHole(typeDefinition);
@@ -173,48 +181,29 @@ const getTypeContext = (typeDefinition) => {
   } else if (checkImports(typeDefinition)) {
     return checkImports(typeDefinition);
   } else {
-    return checkBasic(typeDefinition);
+    return checkPrimitive(typeDefinition);
   }
 }
 
-// recursive type definitions
+// recursively extract type definitions
 // given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
-
-const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, testFile, outputFile) => {
-  // console.log("new iteration");
-  // console.log("args: ", typeDefinition, linePosition, characterPosition, foundSoFar, testFile);
-  // const obj = checkType(typeSpan);
-  // console.log("obj", obj)
-  // console.log("set, ", foundSoFar.get(obj.typeName))
+const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, currentFile, outputFile) => {
   if (foundSoFar.get(typeName) === undefined && typeName !== typeSpan) {
-    // console.log("obj: ", obj)
     foundSoFar.set(typeName, typeSpan);
     outputFile.write(`${typeName}: ${typeSpan}\n`);
 
     for (let i = 0; i < typeSpan.length; i++) {
-      // console.log(obj.typeSpan[i]);
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
-          uri: testFile
+          uri: currentFile
         },
         position: {
           character: characterPosition + i,
           line: linePosition
         }
       });
-      // range: {
-      //   start: {
-      //     line: linePosition,
-      //     character: characterPosition
-      //   },
-      //   end: {
-      //     line: linePosition,
-      //     character: characterPosition
-      //   }
-      // },
-      // uri: 'file:///home/jacob/projects/testtslspclient/test2.ts'
       console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
 
       if (typeDefinitionResult.length != 0) {
@@ -246,8 +235,6 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
         }
       } else {
         // pass
-        // console.log("else path reached");
-        // console.log(obj.typeSpan, linePosition, obj.interestingIndex + i, testFile)
       }
     }
   }

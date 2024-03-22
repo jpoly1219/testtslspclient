@@ -4,6 +4,7 @@ import * as fs from "fs"
 import { getAnnotatedFunctionHoleContext, extractRelevantTypes, getHoleContext } from "./core.mjs";
 
 // expected arguments: directory to run the type extraction
+// an example would be: node app.mjs /home/<username>/path/to/sketch/dir/ sketch.ts
 const logFile = fs.createWriteStream("log.txt");
 let rootUri = "file://";
 let workspaceFolders = [];
@@ -198,7 +199,6 @@ fs.writeFileSync(readableInjectedSketchFilePath, `declare function _<T>(): T\n${
 const injectedSketchFileContent = fs.readFileSync(readableInjectedSketchFilePath, "utf8");
 
 // doucment sync client and server by notifying that the client has opened all the files inside the target directory
-
 fs.readdirSync(readableRootUri).map(fileName => {
   if (fs.lstatSync(readableRootUri + fileName).isFile()) {
     c.didOpen({
