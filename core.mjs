@@ -125,6 +125,24 @@ const checkObject = (typeDefinition) => {
   return null;
 }
 
+// check if hover result is from a union
+const checkUnion = (typeDefinition) => {
+  // type _ = A | B | C
+  const unionPattern = /(type )(.+)( = )((.+ | )+.+)/;
+  const unionMatch = typeDefinition.match(unionPattern);
+  let unionInterestingIndex = -1;
+  if (unionMatch) {
+    unionInterestingIndex = indexOfRegexGroup(unionMatch, 4);
+  }
+
+  if (unionInterestingIndex != -1) {
+    const typeName = unionMatch[2];
+    const typeSpan = unionMatch[4];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: unionInterestingIndex }
+  }
+  return null;
+}
+
 // check if hover result is from a function
 const checkFunction = (typeDefinition) => {
   // const myFunc : (arg1: typ1, ...) => _
@@ -176,6 +194,8 @@ const getTypeContext = (typeDefinition) => {
     return checkHole(typeDefinition);
   } else if (checkFunction(typeDefinition)) {
     return checkFunction(typeDefinition);
+  } else if (checkUnion(typeDefinition)) {
+    return checkUnion(typeDefinition);
   } else if (checkObject(typeDefinition)) {
     return checkObject(typeDefinition);
   } else if (checkImports(typeDefinition)) {
