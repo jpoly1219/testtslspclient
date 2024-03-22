@@ -6,13 +6,13 @@ type Todo = [string, boolean];
 // A description input buffer and a todo list
 type Model = [string, Todo[]];
 
-type AddTodo = string;
+type AddTodo = {};
 
-type RemoveTodo = number;
+type RemoveTodo = { id: number };
 
-type ToggleTodo = number;
+type ToggleTodo = { id: number };
 
-type UpdateBuffer = string;
+type UpdateBuffer = { name: string };
 
 type Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer;
 

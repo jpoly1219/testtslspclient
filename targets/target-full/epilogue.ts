@@ -10,13 +10,13 @@ const num_todos: (m: Model) => number = (m) => {
 
 // Add adds
 const test1 = () => {
-  return num_todos(update(["Breath", []], "AddTodo" as AddTodo)) > num_todos(["Breath", []]);
+  return num_todos(update(["Breath", []], {} as AddTodo)) > num_todos(["Breath", []]);
 };
 
 // Add uses name, initial status set
 const test2 = () => {
   return model_eq(
-    update(["Breath", []], "AddTodo" as AddTodo),
+    update(["Breath", []], {} as AddTodo),
     ["", [["Breath", false]]]
   );
 };
@@ -24,7 +24,7 @@ const test2 = () => {
 // Add nonempty (too impl spec? test add + remove eqs)
 const test3 = () => {
   return model_eq(
-    update(["Chop wood", [["Carry water", false]]], "AddTodo" as AddTodo),
+    update(["Chop wood", [["Carry water", false]]], {} as AddTodo),
     ["", [["Chop wood", false], ["Carry water", false]]]
   );
 };
@@ -33,7 +33,7 @@ const test3 = () => {
 const test4 = () => {
   let todos: Todo[] = [["Breath", false]];
   return model_eq(
-    update(update(["Remove this", todos], "AddTodo" as AddTodo), 0 as RemoveTodo),
+    update(update(["Remove this", todos], {} as AddTodo), { id: 0 } as RemoveTodo),
     ["", todos]
   );
 };
@@ -41,13 +41,13 @@ const test4 = () => {
 // Toggle preserves length
 const test5 = () => {
   let model: Model = ["", [["1", false], ["2", false]]];
-  return num_todos(update(model, 1 as ToggleTodo)) === num_todos(model);
+  return num_todos(update(model, { id: 1 } as ToggleTodo)) === num_todos(model);
 }
 
 // Toggle toggles right index
 const test6 = () => {
   return model_eq(
-    update(["", [["Chop", false], ["Carry", true]]], 1 as ToggleTodo),
+    update(["", [["Chop", false], ["Carry", true]]], { id: 1 } as ToggleTodo),
     ["", [["Chop", false], ["Carry", false]]]
   );
 }
@@ -56,7 +56,7 @@ const test6 = () => {
 const test7 = () => {
   let model: Model = ["", [["Chop", false], ["Carry", false]]];
   return model_eq(
-    update(model, 2 as ToggleTodo),
+    update(model, { id: 2 } as ToggleTodo),
     model
   );
 }
@@ -64,13 +64,13 @@ const test7 = () => {
 // Remove removes
 const test8 = () => {
   let model: Model = ["", [["1", false]]];
-  return num_todos(update(model, 0 as RemoveTodo)) < num_todos(model);
+  return num_todos(update(model, { id: 0 } as RemoveTodo)) < num_todos(model);
 }
 
 // Remove removes right index
 const test9 = () => {
   return model_eq(
-    update(["", [["1", false], ["2", false]]], 1 as RemoveTodo),
+    update(["", [["1", false], ["2", false]]], { id: 1 } as RemoveTodo),
     ["", [["1", false]]]
   );
 }
@@ -79,7 +79,7 @@ const test9 = () => {
 const test10 = () => {
   let model: Model = ["", [["1", false]]];
   return model_eq(
-    update(model, 2 as RemoveTodo),
+    update(model, { id: 2 } as RemoveTodo),
     model
   );
 }
@@ -87,7 +87,7 @@ const test10 = () => {
 // Update Input
 const test11 = () => {
   return model_eq(
-    update(["", []], "Breath" as UpdateBuffer),
+    update(["", []], { name: "breath" } as UpdateBuffer),
     ["Breath", []]
   );
 }
@@ -96,7 +96,7 @@ const test11 = () => {
 const test12 = () => {
   let model: Model = ["", [["1", false]]];
   return model_eq(
-    update(model, "AddTodo" as AddTodo),
+    update(model, {} as AddTodo),
     model
   );
 }
