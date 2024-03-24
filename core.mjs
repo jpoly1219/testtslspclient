@@ -287,7 +287,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           uri: currentFile
         },
         context: {
-          includeDeclaration: false
+          includeDeclaration: true
         },
         position: {
           character: characterPosition + i,
@@ -297,31 +297,33 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
       console.log("referencesResult:", JSON.stringify(referencesResult, "", 4))
 
       if (referencesResult.length != 0) {
-        // try hover on the goto result
-        const hoverResult = await c.hover({
-          textDocument: {
-            uri: referencesResult[0].uri
-          },
-          position: {
-            character: referencesResult[0].range.start.character,
-            line: referencesResult[0].range.start.line
-          }
-        });
-        console.log("hoverResult: ", hoverResult)
-
-        if (hoverResult != null) {
-          const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-            if (curr != "" && curr != "```typescript" && curr != "```") {
-              return acc + curr;
-            } else {
-              return acc;
+        for (let j = 0; j < referencesResult.length; j++) {
+          // try hover on the goto result
+          const hoverResult = await c.hover({
+            textDocument: {
+              uri: referencesResult[j].uri
+            },
+            position: {
+              character: referencesResult[j].range.start.character,
+              line: referencesResult[j].range.start.line
             }
-          }, "");
+          });
+          console.log("hoverResult: ", hoverResult)
 
-          const typeContext = getTypeContext(formattedHoverResult);
-          console.log(typeContext);
+          if (hoverResult != null) {
+            const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+              if (curr != "" && curr != "```typescript" && curr != "```") {
+                return acc + curr;
+              } else {
+                return acc;
+              }
+            }, "");
 
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, referencesResult[0].range.start.line, referencesResult[0].range.start.character, foundSoFar, referencesResult[0].uri, outputFile);
+            const typeContext = getTypeContext(formattedHoverResult);
+            console.log(typeContext);
+
+            await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, referencesResult[j].range.start.line, referencesResult[j].range.start.character, foundSoFar, referencesResult[j].uri, outputFile);
+          }
         }
       } else {
         // pass
