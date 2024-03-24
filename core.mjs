@@ -161,8 +161,16 @@ const checkFunction = (typeDefinition) => {
     es6FunctionTypeDefInterestingIndex = indexOfRegexGroup(es6FunctionTypeDefPatternMatch, 4);
   }
 
-  // function myFunc(args: types): type
-  const functionTypePattern = /(function )(.+)(\(.+\))(: )(.+)/;
+  // function myFunc<T>(args: types, genarg: T): returntype
+  const genericFunctionTypePattern = /(function )(.+)(\<.+\>\(.*\))(: )(.+)/;
+  const genericFunctionTypeMatch = typeDefinition.match(genericFunctionTypePattern);
+  let genericFunctionTypeInterestingIndex = -1;
+  if (genericFunctionTypeMatch) {
+    genericFunctionTypeInterestingIndex = indexOfRegexGroup(genericFunctionTypeMatch, 4);
+  }
+
+  // function myFunc(args: types): returntype
+  const functionTypePattern = /(function )(.+)(\(.*\))(: )(.+)/;
   const functionTypeMatch = typeDefinition.match(functionTypePattern);
   let functionTypeInterestingIndex = -1;
   if (functionTypeMatch) {
@@ -177,6 +185,10 @@ const checkFunction = (typeDefinition) => {
     const typeName = es6FunctionTypeDefPatternMatch[2];
     const typeSpan = es6FunctionTypeDefPatternMatch[4];
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: es6FunctionTypeDefInterestingIndex }
+  } else if (genericFunctionTypeInterestingIndex != -1) {
+    const typeName = genericFunctionTypeMatch[2];
+    const typeSpan = genericFunctionTypeMatch[3] + genericFunctionTypeMatch[4] + genericFunctionTypeMatch[5];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: genericFunctionTypeInterestingIndex }
   } else if (functionTypeInterestingIndex != -1) {
     const typeName = functionTypeMatch[2];
     const typeSpan = functionTypeMatch[3] + functionTypeMatch[4] + functionTypeMatch[5];
