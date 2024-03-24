@@ -161,6 +161,14 @@ const checkFunction = (typeDefinition) => {
     es6FunctionTypeDefInterestingIndex = indexOfRegexGroup(es6FunctionTypeDefPatternMatch, 4);
   }
 
+  // function myFunc(args: types): type
+  const functionTypePattern = /(function )(.+)(\(.+\))(: )(.+)/;
+  const functionTypeMatch = typeDefinition.match(functionTypePattern);
+  let functionTypeInterestingIndex = -1;
+  if (functionTypeMatch) {
+    functionTypeInterestingIndex = indexOfRegexGroup(functionTypeMatch, 4);
+  }
+
   if (es6AnnotatedFunctionInterestingIndex != -1) {
     const typeName = es6AnnotatedFunctionMatch[2];
     const typeSpan = es6AnnotatedFunctionMatch[4];
@@ -169,6 +177,10 @@ const checkFunction = (typeDefinition) => {
     const typeName = es6FunctionTypeDefPatternMatch[2];
     const typeSpan = es6FunctionTypeDefPatternMatch[4];
     return { typeName: typeName, typeSpan: typeSpan, interestingIndex: es6FunctionTypeDefInterestingIndex }
+  } else if (functionTypeInterestingIndex != -1) {
+    const typeName = functionTypeMatch[2];
+    const typeSpan = functionTypeMatch[3] + functionTypeMatch[4] + functionTypeMatch[5];
+    return { typeName: typeName, typeSpan: typeSpan, interestingIndex: functionTypeInterestingIndex }
   }
 
   return null;
