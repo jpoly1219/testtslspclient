@@ -177,7 +177,7 @@ const checkFunction = (typeDefinition) => {
 // check if hover result is from a hole
 const checkHole = (typeDefinition) => {
   // (type parameter) T in _<T>(): T
-  const holePattern = /(\(type parameter\) T in _\<T\>\(\): T)/;
+  const holePattern = /(_\<T\>\(\): T)/;
   const match = typeDefinition.match(holePattern);
   if (match) {
     const typeName = "hole function";
@@ -214,27 +214,73 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
     foundSoFar.set(typeName, typeSpan);
     outputFile.write(`${typeName}: ${typeSpan}\n`);
 
+    // for (let i = 0; i < typeSpan.length; i++) {
+    //   const typeDefinitionResult = await c.typeDefinition({
+    //     textDocument: {
+    //       uri: currentFile
+    //     },
+    //     position: {
+    //       character: characterPosition + i,
+    //       line: linePosition
+    //     }
+    //   });
+    //   console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+    //
+    //   if (typeDefinitionResult.length != 0) {
+    //     // try hover on the goto result
+    //     const hoverResult = await c.hover({
+    //       textDocument: {
+    //         uri: typeDefinitionResult[0].uri
+    //       },
+    //       position: {
+    //         character: typeDefinitionResult[0].range.start.character,
+    //         line: typeDefinitionResult[0].range.start.line
+    //       }
+    //     });
+    //     console.log("hoverResult: ", hoverResult)
+    //
+    //     if (hoverResult != null) {
+    //       const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+    //         if (curr != "" && curr != "```typescript" && curr != "```") {
+    //           return acc + curr;
+    //         } else {
+    //           return acc;
+    //         }
+    //       }, "");
+    //
+    //       const typeContext = getTypeContext(formattedHoverResult);
+    //       console.log(typeContext);
+    //
+    //       await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+    //     }
+    //   } else {
+    //     // pass
+    //   }
+    // }
     for (let i = 0; i < typeSpan.length; i++) {
-      const typeDefinitionResult = await c.typeDefinition({
+      const referencesResult = await c.references({
         textDocument: {
           uri: currentFile
+        },
+        context: {
+          includeDeclaration: false
         },
         position: {
           character: characterPosition + i,
           line: linePosition
         }
       });
-      console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+      console.log("referencesResult:", JSON.stringify(referencesResult, "", 4))
 
-      if (typeDefinitionResult.length != 0) {
+      if (referencesResult.length != 0) {
         // try hover on the goto result
         const hoverResult = await c.hover({
           textDocument: {
-            uri: typeDefinitionResult[0].uri
+            uri: referencesResult[0].uri
           },
           position: {
-            character: typeDefinitionResult[0].range.start.character,
-            line: typeDefinitionResult[0].range.start.line
+            character: referencesResult[0].range.start.character,
+            line: referencesResult[0].range.start.line
           }
         });
         console.log("hoverResult: ", hoverResult)
@@ -251,7 +297,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           const typeContext = getTypeContext(formattedHoverResult);
           console.log(typeContext);
 
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, referencesResult[0].range.start.line, referencesResult[0].range.start.character, foundSoFar, referencesResult[0].uri, outputFile);
         }
       } else {
         // pass
