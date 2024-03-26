@@ -266,7 +266,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
     // where we can find the imports.
     // This is pretty critical and I should fix this asap.
     for (let i = 0; i < typeSpan.length; i++) {
-      console.log("whereami: ", linePosition, characterPosition, i, typeSpan)
+      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, currentFile)
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
           uri: currentFile
@@ -280,31 +280,59 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
 
       if (typeDefinitionResult.length != 0) {
         // try hover on the goto result
-        const hoverResult = await c.hover({
-          textDocument: {
-            uri: typeDefinitionResult[0].uri
-          },
-          position: {
-            character: typeDefinitionResult[0].range.start.character,
-            line: typeDefinitionResult[0].range.start.line
-          }
-        });
-        console.log("hoverResult: ", hoverResult)
+        for (let j = 0; j < typeDefinitionResult[0].range.end.character; j++) {
 
-        if (hoverResult != null) {
-          const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-            if (curr != "" && curr != "```typescript" && curr != "```") {
-              return acc + curr;
-            } else {
-              return acc;
+          const hoverResult = await c.hover({
+            textDocument: {
+              uri: typeDefinitionResult[0].uri
+            },
+            position: {
+              character: typeDefinitionResult[0].range.start.character + j,
+              line: typeDefinitionResult[0].range.start.line
             }
-          }, "");
+          });
+          console.log("hoverResult: ", hoverResult)
 
-          const typeContext = getTypeContext(formattedHoverResult);
-          console.log(typeContext);
+          if (hoverResult != null) {
+            const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+              if (curr != "" && curr != "```typescript" && curr != "```") {
+                return acc + curr;
+              } else {
+                return acc;
+              }
+            }, "");
 
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+            const typeContext = getTypeContext(formattedHoverResult);
+            console.log(typeContext);
+
+            await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          }
         }
+        // const hoverResult = await c.hover({
+        //   textDocument: {
+        //     uri: typeDefinitionResult[0].uri
+        //   },
+        //   position: {
+        //     character: typeDefinitionResult[0].range.start.character,
+        //     line: typeDefinitionResult[0].range.start.line
+        //   }
+        // });
+        // console.log("hoverResult: ", hoverResult)
+        //
+        // if (hoverResult != null) {
+        //   const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+        //     if (curr != "" && curr != "```typescript" && curr != "```") {
+        //       return acc + curr;
+        //     } else {
+        //       return acc;
+        //     }
+        //   }, "");
+        //
+        //   const typeContext = getTypeContext(formattedHoverResult);
+        //   console.log(typeContext);
+        //
+        //   await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+        // }
       } else {
         // pass
       }
