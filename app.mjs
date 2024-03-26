@@ -196,7 +196,7 @@ const readableInjectedSketchFilePath = injectedSketchFilePath.slice(7);
 
 const sketchFileContent = fs.readFileSync(readableSketchFilePath, 'utf8');
 fs.writeFileSync(readableInjectedSketchFilePath, `declare function _<T>(): T\n${sketchFileContent}`);
-const injectedSketchFileContent = fs.readFileSync(readableInjectedSketchFilePath, "utf8");
+let injectedSketchFileContent = fs.readFileSync(readableInjectedSketchFilePath, "utf8");
 
 // doucment sync client and server by notifying that the client has opened all the files inside the target directory
 fs.readdirSync(readableRootUri).map(fileName => {
@@ -216,6 +216,11 @@ fs.readdirSync(readableRootUri).map(fileName => {
 // currently only matching ES6 arrow functions
 const holeContext = await getHoleContext(c, injectedSketchFilePath, injectedSketchFileContent);
 console.log(holeContext)
+
+// rewrite hole function after context has been extracted to make LSP work
+const trueHoleFunction = `declare function _(): ${holeContext.functionTypeSpan}`
+injectedSketchFileContent = `${trueHoleFunction}\n${sketchFileContent}`
+fs.writeFileSync(readableInjectedSketchFilePath, injectedSketchFileContent);
 
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt");
