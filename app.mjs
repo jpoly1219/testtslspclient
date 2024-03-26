@@ -222,6 +222,16 @@ const trueHoleFunction = `declare function _(): ${holeContext.functionTypeSpan}`
 injectedSketchFileContent = `${trueHoleFunction}\n${sketchFileContent}`
 fs.writeFileSync(readableInjectedSketchFilePath, injectedSketchFileContent);
 
+c.didChange({
+  textDocument: {
+    uri: injectedSketchFilePath,
+    version: 2
+  },
+  contentChanges: [{
+    text: injectedSketchFileContent
+  }]
+});
+
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt");
 const foundSoFar = new Map();
