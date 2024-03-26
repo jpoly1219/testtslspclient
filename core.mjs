@@ -40,10 +40,10 @@ const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileConte
   }, "");
 
   // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
-  const holeFunctionPattern = /(function _\<.+\>\(\): )(.+)/;
+  const holeFunctionPattern = /(function _)(\<.+\>)(\(\): )(.+)/;
   const match = formattedHoverResult.match(holeFunctionPattern);
   const functionName = "hole";
-  const functionTypeSpan = match[2];
+  const functionTypeSpan = match[4];
 
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition }
 }
