@@ -1,8 +1,6 @@
-hole: (m: Model, a: Action) => Model
-hole function: (type parameter) T in _<T>(): T
+_(): (m: Model, a: Action) => Model
 Model: [string, Todo[]]
+Todo: [string, boolean]
 Action: AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer
 AddTodo: {}
 RemoveTodo: {    id: number;}
-ToggleTodo: {    id: number;}
-UpdateBuffer: {    name: string;}

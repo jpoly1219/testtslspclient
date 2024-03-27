@@ -18,6 +18,16 @@ type Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer;
 
 type Update = (m: Model, a: Action) => Model;
 
+type MyProductType = [m1: Model, m2: Model, a1: Action];
+
+type MySumType = Action | Model;
+
+type MySumProductType = Action | [m1: Model, a1: Action];
+
+type MySumFunctionType = Action | ((m1: Model) => Model);
+
+type MyUnrelatedType = (i: number) => string;
+
 const todo_eq: (t1: Todo, t2: Todo) => Boolean = ([d1, s1], [d2, s2]) => {
   return d1 === d2 && s1 === s2;
 }

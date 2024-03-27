@@ -4,19 +4,19 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":0,"result":{"capabilities":{"textDocumentSync":2,"completionProvider":{"triggerCharacters":[".","\"","'","/","@","<"],"resolveProvider":true},"codeActionProvider":true,"codeLensProvider":{"resolveProvider":true},"definitionProvider":true,"documentFormattingProvider":true,"documentRangeFormattingProvider":true,"documentHighlightProvider":true,"documentSymbolProvider":true,"executeCommandProvider":{"commands":["_typescript.applyWorkspaceEdit","_typescript.applyCodeAction","_typescript.applyRefactoring","_typescript.configurePlugin","_typescript.organizeImports","_typescript.applyRenameFile","_typescript.goToSourceDefinition"]},"hoverProvider":true,"inlayHintProvider":true,"linkedEditingRangeProvider":false,"renameProvider":true,"referencesProvider":true,"selectionRangeProvider":true,"signatureHelpProvider":{"triggerCharacters":["(",",","<"],"retriggerCharacters":[")"]},"workspaceSymbolProvider":true,"implementationProvider":true,"typeDefinitionProvider":true,"foldingRangeProvider":true,"semanticTokensProvider":{"documentSelector":null,"legend":{"tokenTypes":["class","enum","interface","namespace","typeParameter","type","parameter","variable","enumMember","property","function","member"],"tokenModifiers":["declaration","static","async","readonly","defaultLibrary","local"]},"full":true,"range":true},"workspace":{"fileOperations":{"willRename":{"filters":[{"scheme":"file","pattern":{"glob":"**/*.{ts,js,jsx,tsx,mjs,mts,cjs,cts}","matches":"file"}},{"scheme":"file","pattern":{"glob":"**","matches":"folder"}}]}}}}}}Content-Length: 251
 
-{"jsonrpc":"2.0","id":1,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nfunction _<(m: Model, a: Action) => Model>(): (m: Model, a: Action) => Model\n```\n"},"range":{"start":{"line":4,"character":2},"end":{"line":4,"character":3}}}}Content-Length: 204
+{"jsonrpc":"2.0","id":1,"result":{"contents":{"kind":"markdown","value":"\n```typescript\nfunction _<(m: Model, a: Action) => Model>(): (m: Model, a: Action) => Model\n```\n"},"range":{"start":{"line":6,"character":2},"end":{"line":6,"character":3}}}}Content-Length: 36
 
-{"jsonrpc":"2.0","id":2,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 208
+{"jsonrpc":"2.0","id":2,"result":[]}Content-Length: 36
 
-{"jsonrpc":"2.0","id":3,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 204
+{"jsonrpc":"2.0","id":3,"result":[]}Content-Length: 36
 
-{"jsonrpc":"2.0","id":4,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 208
+{"jsonrpc":"2.0","id":4,"result":[]}Content-Length: 36
 
-{"jsonrpc":"2.0","id":5,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 204
+{"jsonrpc":"2.0","id":5,"result":[]}Content-Length: 195
 
-{"jsonrpc":"2.0","id":6,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 208
+{"jsonrpc":"2.0","id":6,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":7,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 36
+{"jsonrpc":"2.0","id":7,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 36
 
 {"jsonrpc":"2.0","id":8,"result":[]}Content-Length: 36
 
@@ -24,21 +24,21 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":10,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":11,"result":[]}Content-Length: 205
+{"jsonrpc":"2.0","id":11,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":12,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 209
+{"jsonrpc":"2.0","id":12,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":13,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 205
+{"jsonrpc":"2.0","id":13,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":14,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 209
+{"jsonrpc":"2.0","id":14,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":15,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":15,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":16,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":16,"result":[]}Content-Length: 195
 
-{"jsonrpc":"2.0","id":17,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":17,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":18,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":18,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Todo = [string, boolean]\n```\n"},"range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":19,"result":[]}Content-Length: 37
 
@@ -50,113 +50,113 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":23,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":24,"result":[]}Content-Length: 196
+{"jsonrpc":"2.0","id":24,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":25,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":25,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":26,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":26,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":27,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":27,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":28,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":28,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":29,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":29,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":30,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":30,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":31,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":31,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":32,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":32,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":33,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":33,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":34,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":34,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":35,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":35,"result":[]}Content-Length: 195
 
-{"jsonrpc":"2.0","id":36,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":36,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":37,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":37,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Todo = [string, boolean]\n```\n"},"range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}}Content-Length: 195
 
-{"jsonrpc":"2.0","id":38,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":38,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":39,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":39,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Todo = [string, boolean]\n```\n"},"range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}}Content-Length: 195
 
-{"jsonrpc":"2.0","id":40,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":40,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":41,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":41,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Todo = [string, boolean]\n```\n"},"range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}}Content-Length: 195
 
-{"jsonrpc":"2.0","id":42,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":42,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}]}Content-Length: 205
 
-{"jsonrpc":"2.0","id":43,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":43,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Todo = [string, boolean]\n```\n"},"range":{"start":{"line":3,"character":5},"end":{"line":3,"character":9}}}}Content-Length: 37
 
 {"jsonrpc":"2.0","id":44,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":45,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":45,"result":[]}Content-Length: 196
 
-{"jsonrpc":"2.0","id":46,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":46,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
 
-{"jsonrpc":"2.0","id":47,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":47,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":48,"result":[]}Content-Length: 196
+{"jsonrpc":"2.0","id":48,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
 
-{"jsonrpc":"2.0","id":49,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":49,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":50,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":50,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
 
-{"jsonrpc":"2.0","id":51,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":51,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":52,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":52,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
 
-{"jsonrpc":"2.0","id":53,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":53,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":54,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":54,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
 
-{"jsonrpc":"2.0","id":55,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":55,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":56,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":56,"result":[]}Content-Length: 685
 
-{"jsonrpc":"2.0","id":57,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}]}Content-Length: 206
+{"jsonrpc":"2.0","id":57,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":15},"end":{"line":8,"character":17}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":18},"end":{"line":12,"character":1}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":18},"end":{"line":14,"character":32}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":20},"end":{"line":16,"character":36}}}]}Content-Length: 39
 
-{"jsonrpc":"2.0","id":58,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Model = [string, Todo[]]\n```\n"},"range":{"start":{"line":6,"character":5},"end":{"line":6,"character":10}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":58,"result":null}Content-Length: 685
 
-{"jsonrpc":"2.0","id":59,"result":[]}Content-Length: 198
+{"jsonrpc":"2.0","id":59,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":15},"end":{"line":8,"character":17}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":18},"end":{"line":12,"character":1}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":18},"end":{"line":14,"character":32}}},{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":20},"end":{"line":16,"character":36}}}]}Content-Length: 39
 
-{"jsonrpc":"2.0","id":60,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":60,"result":null}Content-Length: 37
 
-{"jsonrpc":"2.0","id":61,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":61,"result":[]}Content-Length: 198
 
-{"jsonrpc":"2.0","id":62,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":62,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":18,"character":5},"end":{"line":18,"character":11}}}]}Content-Length: 241
 
-{"jsonrpc":"2.0","id":63,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":63,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":18,"character":5},"end":{"line":18,"character":11}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":64,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":64,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":65,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":65,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":66,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":66,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":67,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":67,"result":[]}Content-Length: 196
 
-{"jsonrpc":"2.0","id":68,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":68,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":69,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":69,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":70,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":70,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":71,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":71,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":72,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":72,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":73,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 198
+{"jsonrpc":"2.0","id":73,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":74,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 241
+{"jsonrpc":"2.0","id":74,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":75,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 37
+{"jsonrpc":"2.0","id":75,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
 
-{"jsonrpc":"2.0","id":76,"result":[]}Content-Length: 37
+{"jsonrpc":"2.0","id":76,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":77,"result":[]}Content-Length: 196
+{"jsonrpc":"2.0","id":77,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
 
 {"jsonrpc":"2.0","id":78,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
@@ -164,420 +164,18 @@ Content-Length: 245
 
 {"jsonrpc":"2.0","id":80,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
 
-{"jsonrpc":"2.0","id":81,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":81,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":82,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
+{"jsonrpc":"2.0","id":82,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":83,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":83,"result":[]}Content-Length: 198
 
-{"jsonrpc":"2.0","id":84,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
+{"jsonrpc":"2.0","id":84,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 218
 
-{"jsonrpc":"2.0","id":85,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":85,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 37
 
-{"jsonrpc":"2.0","id":86,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
+{"jsonrpc":"2.0","id":86,"result":[]}Content-Length: 37
 
-{"jsonrpc":"2.0","id":87,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
+{"jsonrpc":"2.0","id":87,"result":[]}Content-Length: 2237
 
-{"jsonrpc":"2.0","id":88,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":89,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
-
-{"jsonrpc":"2.0","id":90,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":91,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
-
-{"jsonrpc":"2.0","id":92,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":93,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
-
-{"jsonrpc":"2.0","id":94,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":95,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 196
-
-{"jsonrpc":"2.0","id":96,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}]}Content-Length: 194
-
-{"jsonrpc":"2.0","id":97,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype AddTodo = {}\n```\n"},"range":{"start":{"line":8,"character":5},"end":{"line":8,"character":12}}}}Content-Length: 37
-
-{"jsonrpc":"2.0","id":98,"result":[]}Content-Length: 37
-
-{"jsonrpc":"2.0","id":99,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":100,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":101,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":102,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":103,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":104,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":105,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":106,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":107,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":108,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":109,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":110,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":111,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":112,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":113,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":114,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":115,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":116,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":117,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":118,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":119,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":120,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":121,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":122,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":123,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":124,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":125,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":126,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":127,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":128,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":129,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":130,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":131,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":132,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":133,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":134,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":135,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":136,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":137,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":138,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":139,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":140,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":141,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":142,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":143,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":144,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":145,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":146,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":147,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":148,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":149,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype RemoveTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":10,"character":5},"end":{"line":10,"character":15}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":150,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":151,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":152,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":153,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":154,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":155,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":156,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":157,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":158,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":159,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":160,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":161,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":162,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":163,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":164,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":165,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":166,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":167,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":168,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":169,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":170,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":171,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":172,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":173,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":174,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":175,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":176,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":177,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":178,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":179,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":180,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":181,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":182,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":183,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":184,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":185,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":186,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":187,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":188,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":189,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":190,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":191,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":192,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":193,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":194,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":195,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":196,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":197,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":198,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":199,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":200,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}]}Content-Length: 219
-
-{"jsonrpc":"2.0","id":201,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype ToggleTodo = {\n    id: number;\n}\n```\n"},"range":{"start":{"line":12,"character":5},"end":{"line":12,"character":15}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":202,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":203,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":204,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":205,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":206,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":207,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":208,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":209,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":210,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":211,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":212,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":213,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":214,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":215,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":216,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":217,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":218,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":219,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":220,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":221,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":222,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":223,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":224,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":225,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":226,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":227,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":228,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":229,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":230,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":231,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":232,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":233,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":234,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":235,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":236,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":237,"result":[]}Content-Length: 199
-
-{"jsonrpc":"2.0","id":238,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":239,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":240,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}]}Content-Length: 223
-
-{"jsonrpc":"2.0","id":241,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype UpdateBuffer = {\n    name: string;\n}\n```\n"},"range":{"start":{"line":14,"character":5},"end":{"line":14,"character":17}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":242,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":243,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":244,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":245,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":246,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":247,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":248,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":249,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":250,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":251,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 199
-
-{"jsonrpc":"2.0","id":252,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/prelude.ts","range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}]}Content-Length: 242
-
-{"jsonrpc":"2.0","id":253,"result":{"contents":{"kind":"markdown","value":"\n```typescript\ntype Action = AddTodo | RemoveTodo | ToggleTodo | UpdateBuffer\n```\n"},"range":{"start":{"line":16,"character":5},"end":{"line":16,"character":11}}}}Content-Length: 206
-
-{"jsonrpc":"2.0","id":254,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}]}Content-Length: 210
-
-{"jsonrpc":"2.0","id":255,"result":{"contents":{"kind":"markdown","value":"\n```typescript\n(type parameter) T in _<T>(): T\n```\n"},"range":{"start":{"line":0,"character":19},"end":{"line":0,"character":20}}}}Content-Length: 38
-
-{"jsonrpc":"2.0","id":256,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":257,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":258,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":259,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":260,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":261,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":262,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":263,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":264,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":265,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":266,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":267,"result":[]}Content-Length: 206
-
-{"jsonrpc":"2.0","id":268,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":269,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":270,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":271,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":272,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":273,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":274,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":275,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":276,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":277,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":278,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":279,"result":null}Content-Length: 206
-
-{"jsonrpc":"2.0","id":280,"result":[{"uri":"file:///home/jacob/projects/testtslspclient/targets/target-full/injected_sketch.ts","range":{"start":{"line":3,"character":14},"end":{"line":3,"character":44}}}]}Content-Length: 40
-
-{"jsonrpc":"2.0","id":281,"result":null}Content-Length: 38
-
-{"jsonrpc":"2.0","id":282,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":283,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":284,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":285,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":286,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":287,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":288,"result":[]}Content-Length: 38
-
-{"jsonrpc":"2.0","id":289,"result":[]}
+{"jsonrpc":"2.0","id":88,"error":{"code":1,"message":"<semantic> TypeScript Server Error (5.3.3)\nDebug Failure. False expression.\nError: Debug Failure. False expression.\n    at computePositionOfLineAndCharacter (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:11573:11)\n    at TextStorage.lineOffsetToPosition (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:175900:59)\n    at ScriptInfo.lineOffsetToPosition (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:176221:29)\n    at IpcIOSession.getPosition (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:184412:66)\n    at IpcIOSession.getPositionInFile (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:184416:17)\n    at IpcIOSession.getTypeDefinition (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:184101:27)\n    at typeDefinition (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:182851:43)\n    at /home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:185375:69\n    at IpcIOSession.executeWithRequestId (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:185367:14)\n    at IpcIOSession.executeCommand (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:185375:29)\n    at IpcIOSession.onMessage (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:185417:51)\n    at process.<anonymous> (/home/jacob/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib/tsserver.js:186999:14)\n    at process.emit (node:events:519:28)\n    at emit (node:internal/child_process:951:14)\n    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)"}}
