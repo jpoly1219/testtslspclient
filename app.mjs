@@ -234,7 +234,7 @@ c.didChange({
 
 // recursively define relevant types
 const outputFile = fs.createWriteStream("output.txt");
-const foundSoFar = new Map();
+const foundSoFar = new Set();
 await extractRelevantTypes(c, holeContext.functionName, holeContext.functionTypeSpan, 0, "declare function _(): ".length, foundSoFar, injectedSketchFilePath, outputFile);
 console.log(foundSoFar);
 
