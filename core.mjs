@@ -42,12 +42,8 @@ const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileConte
   // function _<(a: Apple, c: Cherry, b: Banana) => Cherry > (): (a: Apple, c: Cherry, b: Banana) => Cherry
   const holeFunctionPattern = /(function _)(\<.+\>)(\(\): )(.+)/;
   const match = formattedHoverResult.match(holeFunctionPattern);
-  const functionName = "hole";
+  const functionName = "_()";
   const functionTypeSpan = match[4];
-
-  const map1 = new Map();
-  map1.set("Model", "[string, Todo[]]")
-  getTargetTypes("(m: Model, a: Action) => Model", map1)
 
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition };
 }
@@ -327,7 +323,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
 
     // approach 1: go to type definition and hover
     for (let i = 0; i < typeSpan.length; i++) {
-      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, currentFile)
+      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, typeSpan.length, currentFile)
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
           uri: currentFile
@@ -337,7 +333,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           line: linePosition
         }
       });
-      console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+      // console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
 
       if (typeDefinitionResult.length != 0) {
         // try hover on the goto result
@@ -350,7 +346,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
             line: typeDefinitionResult[0].range.start.line
           }
         });
-        console.log("hoverResult: ", hoverResult)
+        // console.log("hoverResult: ", hoverResult)
 
         if (hoverResult != null) {
           const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
@@ -362,9 +358,13 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           }, "");
 
           const typeContext = getTypeContext(formattedHoverResult);
-          console.log(typeContext);
+          // console.log("typeContext: ", typeContext);
 
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          // TODO:
+          // This could be buggy if there are multi-line type signatures.
+          // Because hover returns a formatted type signature, it could also include newlines.
+          // This means that iterating over typeSpan.length might crash if it steps off the edge.
+          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.end.character + 3, foundSoFar, typeDefinitionResult[0].uri, outputFile);
         }
       } else {
         // pass
