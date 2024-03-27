@@ -45,8 +45,43 @@ const getHoleContext = async (c, injectedSketchFilePath, injectedSketchFileConte
   const functionName = "hole";
   const functionTypeSpan = match[4];
 
+  const map1 = new Map();
+  map1.set("Model", "[string, Todo[]]")
+  getTargetTypes("(m: Model, a: Action) => Model", map1)
+
   return { functionName: functionName, functionTypeSpan: functionTypeSpan, linePosition: linePosition, characterPosition: characterPosition };
 }
+
+// get target types given a type span
+const getTargetTypes = (typeSpan, aliasContext) => {
+  // (Model, Action) => Model
+  // if the expected type is an arrow type, the return type is a target type.
+  // if the return type is a product type, its elements are target types.
+
+  const targetTypes = [];
+  targetTypes.push(typeSpan);
+
+  const arrowPattern = /(\(.+\))( => )(.+)/;
+  const arrowMatch = typeSpan.match(arrowPattern);
+  if (arrowMatch) {
+    const returnType = arrowMatch[3];
+    targetTypes.push(returnType);
+
+    const tuplePattern = /(\[.+\])/;
+    if (aliasContext.has(returnType)) {
+      const alias = aliasContext.get(returnType);
+      console.log(alias)
+      const tupleMatch = alias.match(tuplePattern);
+
+      if (tupleMatch) {
+        alias.slice(1, alias.length - 1).split(",").map((typ) => targetTypes.push(typ));
+      }
+    }
+  }
+  console.log("targetTypes: ", targetTypes);
+  return targetTypes;
+}
+
 
 // pattern matching
 // attempts to match strings to corresponding types, then returns an object containing the name, type span, and an interesting index
@@ -279,103 +314,10 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
     foundSoFar.set(typeName, typeSpan);
     outputFile.write(`${typeName}: ${typeSpan}\n`);
 
-    for (let i = 0; i < typeSpan.length; i++) {
-      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, currentFile)
-      const typeDefinitionResult = await c.typeDefinition({
-        textDocument: {
-          uri: currentFile
-        },
-        position: {
-          character: characterPosition + i,
-          line: linePosition
-        }
-      });
-      console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
-
-      if (typeDefinitionResult.length != 0) {
-        // try hover on the goto result
-        const hoverResult = await c.hover({
-          textDocument: {
-            uri: typeDefinitionResult[0].uri
-          },
-          position: {
-            character: typeDefinitionResult[0].range.start.character,
-            line: typeDefinitionResult[0].range.start.line
-          }
-        });
-        console.log("hoverResult: ", hoverResult)
-
-        if (hoverResult != null) {
-          const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-            if (curr != "" && curr != "```typescript" && curr != "```") {
-              return acc + curr;
-            } else {
-              return acc;
-            }
-          }, "");
-
-          const typeContext = getTypeContext(formattedHoverResult);
-          console.log(typeContext);
-
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
-        }
-      } else {
-        // pass
-      }
-    }
+    // approach 1: exact match
 
     // for (let i = 0; i < typeSpan.length; i++) {
-    //   console.log("whereami: ", linePosition, characterPosition, i, typeSpan)
-    //   const referencesResult = await c.references({
-    //     textDocument: {
-    //       uri: currentFile
-    //     },
-    //     context: {
-    //       includeDeclaration: false
-    //     },
-    //     position: {
-    //       character: characterPosition + i,
-    //       line: linePosition
-    //     }
-    //   });
-    //   console.log("referencesResult:", JSON.stringify(referencesResult, "", 4))
-    //
-    //   if (referencesResult.length != 0) {
-    //     for (let j = 0; j < referencesResult.length; j++) {
-    //       // try hover on the goto result
-    //       const hoverResult = await c.hover({
-    //         textDocument: {
-    //           uri: referencesResult[j].uri
-    //         },
-    //         position: {
-    //           character: referencesResult[j].range.start.character,
-    //           line: referencesResult[j].range.start.line
-    //         }
-    //       });
-    //       console.log("hoverResult: ", hoverResult)
-    //
-    //       if (hoverResult != null) {
-    //         const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-    //           if (curr != "" && curr != "```typescript" && curr != "```") {
-    //             return acc + curr;
-    //           } else {
-    //             return acc;
-    //           }
-    //         }, "");
-    //
-    //         const typeContext = getTypeContext(formattedHoverResult);
-    //         console.log("typeContext before recursing: ", typeContext);
-    //
-    //         await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, referencesResult[j].range.start.line, referencesResult[j].range.start.character, foundSoFar, referencesResult[j].uri, outputFile);
-    //       }
-    //     }
-    //   } else {
-    //     // pass
-    //   }
-    // }
-
-    // for (let i = 0; i < typeSpan.length; i++) {
-    //   console.log("whereami: ", linePosition, characterPosition, i, typeSpan)
+    //   console.log("whereami: ", linePosition, characterPosition, i, typeSpan, currentFile)
     //   const typeDefinitionResult = await c.typeDefinition({
     //     textDocument: {
     //       uri: currentFile
@@ -388,54 +330,145 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
     //   console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
     //
     //   if (typeDefinitionResult.length != 0) {
-    //     const referencesResult = await c.references({
+    //     // try hover on the goto result
+    //     const hoverResult = await c.hover({
     //       textDocument: {
-    //         uri: currentFile
-    //       },
-    //       context: {
-    //         includeDeclaration: false
+    //         uri: typeDefinitionResult[0].uri
     //       },
     //       position: {
-    //         character: characterPosition + i,
-    //         line: linePosition
+    //         character: typeDefinitionResult[0].range.start.character,
+    //         line: typeDefinitionResult[0].range.start.line
     //       }
     //     });
-    //     console.log("referencesResult:", JSON.stringify(referencesResult, "", 4))
+    //     console.log("hoverResult: ", hoverResult)
     //
-    //     if (referencesResults != null) {
+    //     if (hoverResult != null) {
+    //       const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+    //         if (curr != "" && curr != "```typescript" && curr != "```") {
+    //           return acc + curr;
+    //         } else {
+    //           return acc;
+    //         }
+    //       }, "");
     //
-    //     }
+    //       const typeContext = getTypeContext(formattedHoverResult);
+    //       console.log(typeContext);
     //
-    // // try hover on the goto result
-    // const hoverResult = await c.hover({
-    //   textDocument: {
-    //     uri: typeDefinitionResult[0].uri
-    //   },
-    //   position: {
-    //     character: typeDefinitionResult[0].range.start.character,
-    //     line: typeDefinitionResult[0].range.start.line
-    //   }
-    // });
-    // console.log("hoverResult: ", hoverResult)
-    //
-    // if (hoverResult != null) {
-    //   const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
-    //     if (curr != "" && curr != "```typescript" && curr != "```") {
-    //       return acc + curr;
-    //     } else {
-    //       return acc;
-    //     }
-    //   }, "");
-    //
-    //   const typeContext = getTypeContext(formattedHoverResult);
-    //   console.log(typeContext);
-    //
-    //   await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+    //       await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
     //     }
     //   } else {
     //     // pass
     //   }
     // }
+
+    // approach 2: relevant type match
+    for (let i = 0; i < typeSpan.length; i++) {
+      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, currentFile)
+      const typeDefinitionResult = await c.typeDefinition({
+        textDocument: {
+          uri: currentFile
+        },
+        position: {
+          character: characterPosition + i,
+          line: linePosition
+        }
+      });
+      // console.log("typeDefinitionResult:", JSON.stringify(typeDefinitionResult, "", 4))
+
+      if (typeDefinitionResult.length != 0) {
+        // try hover on the goto result
+        const hoverResult = await c.hover({
+          textDocument: {
+            uri: typeDefinitionResult[0].uri
+          },
+          position: {
+            character: typeDefinitionResult[0].range.start.character,
+            line: typeDefinitionResult[0].range.start.line
+          }
+        });
+        // console.log("hoverResult: ", hoverResult)
+
+        if (hoverResult != null) {
+          const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+            if (curr != "" && curr != "```typescript" && curr != "```") {
+              return acc + curr;
+            } else {
+              return acc;
+            }
+          }, "");
+
+          const typeContext = getTypeContext(formattedHoverResult);
+          // console.log(typeContext);
+
+          const referenceResult = await c.references({
+            textDocument: {
+              uri: typeDefinitionResult[0].uri
+            },
+            position: {
+              character: typeDefinitionResult[0].range.start.character,
+              line: typeDefinitionResult[0].range.start.line
+            },
+            context: {
+              includeDeclaration: false
+            }
+          })
+
+          // console.log(`referenceResult: ${JSON.stringify(referenceResult, "", 4)}`);
+
+          if (referenceResult != null) {
+            for (let j = 0; j < referenceResult.length; j++) {
+              const completionResult = await c.completion({
+                textDocument: {
+                  uri: referenceResult[j].uri
+                },
+                position: {
+                  character: referenceResult[j].range.start.character,
+                  line: referenceResult[j].range.start.line
+                },
+                completionKind: 1
+              })
+
+              // if (completionResult != null) {
+              //   console.log(`completionResult: ${JSON.stringify(completionResult.items.filter((item) => item.kind === 7 && item.sortText === "11"), "", 4)} `)
+              // }
+
+              await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+            }
+          }
+
+          // await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+        }
+
+        // // try hover on the goto result
+        // const hoverResult = await c.hover({
+        //   textDocument: {
+        //     uri: typeDefinitionResult[0].uri
+        //   },
+        //   position: {
+        //     character: typeDefinitionResult[0].range.start.character,
+        //     line: typeDefinitionResult[0].range.start.line
+        //   }
+        // });
+        // console.log("hoverResult: ", hoverResult)
+        //
+        // if (hoverResult != null) {
+        //   const formattedHoverResult = hoverResult.contents.value.split("\n").reduce((acc, curr) => {
+        //     if (curr != "" && curr != "```typescript" && curr != "```") {
+        //       return acc + curr;
+        //     } else {
+        //       return acc;
+        //     }
+        //   }, "");
+        //
+        //   const typeContext = getTypeContext(formattedHoverResult);
+        //   console.log(typeContext);
+        //
+        //   await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.start.character, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+        // }
+      } else {
+        // pass
+      }
+    }
   }
 }
 
