@@ -364,7 +364,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           // This could be buggy if there are multi-line type signatures.
           // Because hover returns a formatted type signature, it could also include newlines.
           // This means that iterating over typeSpan.length might crash if it steps off the edge.
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.end.character + 3, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.end.character + 2, foundSoFar, typeDefinitionResult[0].uri, outputFile);
         }
       } else {
         // pass
