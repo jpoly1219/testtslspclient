@@ -305,7 +305,7 @@ const getTypeContext = (typeDefinition) => {
 // given the span of a type annotation on a function, return a list of names and positions for all type aliases used in that annotation
 // find the span of a type definition: specialize to the case where it is a single struct
 // recurse through array, tuple, object
-const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, currentFile, outputFile) => {
+const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, characterPosition, foundSoFar, currentFile, outputFile, depth) => {
   if (!foundSoFar.has(typeName) && typeName !== typeSpan) {
     foundSoFar.add(typeName);
     foundSoFar.add(typeSpan);
@@ -323,7 +323,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
 
     // approach 1: go to type definition and hover
     for (let i = 0; i < typeSpan.length; i++) {
-      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, typeSpan.length, currentFile)
+      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, typeSpan.length, currentFile, depth)
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
           uri: currentFile
@@ -364,7 +364,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
           // This could be buggy if there are multi-line type signatures.
           // Because hover returns a formatted type signature, it could also include newlines.
           // This means that iterating over typeSpan.length might crash if it steps off the edge.
-          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.end.character + 2, foundSoFar, typeDefinitionResult[0].uri, outputFile);
+          await extractRelevantTypes(c, typeContext.typeName, typeContext.typeSpan, typeDefinitionResult[0].range.start.line, typeDefinitionResult[0].range.end.character + 2, foundSoFar, typeDefinitionResult[0].uri, outputFile, depth + 1);
         }
       } else {
         // pass
