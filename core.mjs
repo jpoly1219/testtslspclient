@@ -323,7 +323,7 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
 
     // approach 1: go to type definition and hover
     for (let i = 0; i < typeSpan.length; i++) {
-      console.log("whereami: ", linePosition, characterPosition, i, typeSpan, typeSpan.length, currentFile, depth)
+      console.log("whereami: ", linePosition, characterPosition, i, typeName, typeSpan, typeSpan.length, currentFile, depth)
       const typeDefinitionResult = await c.typeDefinition({
         textDocument: {
           uri: currentFile
