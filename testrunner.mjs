@@ -1,7 +1,6 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
 import { generatePrompt, mockLLM } from "./testrunner-core.mjs";
-import { mock } from "node:test";
 
 // testrunner
 // cli args:
@@ -69,3 +68,4 @@ for (let i = 0; i < errorRoundsMax; i++) {
 }
 
 // run the prelude - completed sketch - epilogue suite on specific tests
+execSync(`node ${sourceFolder}epilogue.ts`)
