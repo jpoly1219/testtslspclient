@@ -1,5 +1,8 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
+import { generatePrompt, mockLLM } from "./testrunner-core.mjs";
+import { mock } from "node:test";
+
 // testrunner
 // cli args:
 // runName
@@ -28,24 +31,41 @@ fs.close(fd);
 execSync(`node app.mjs ${sourceFolder} sketch.ts`)
 
 // get the returned types
-const expectedType = fs.readFileSync("output.txt", "utf8");
+const targetTypes = fs.readFileSync("output.txt", "utf8");
 
 // ask LLM to complete the sketch using the returned types
 
 // instantiate connection and save conn object
 
-const prompt =
-  `Complete the following typescript program sketch with a hole in it.\n
-  Here is the program sketch: \n ${sketchFileContent} \n
-  Here are the relevant contexts: \n ${expectedType} \n`;
+const prompt = generatePrompt(sketchFileContent, targetTypes);
+console.log("prompt: \n", prompt);
 
-const response = null;
-const completedSketch = "console.log('hello world!')";
-const erroneousSketch = "console.log(hello world!)";
+const erroneousSketch1 = mockLLM(0);
+const erroneousSketch2 = mockLLM(1);
+const completedSketch = mockLLM(2);
+
 // write completion to sketch
+fs.writeFileSync(`${sourceFolder}erroneous_sketch_1.ts`, erroneousSketch1);
+fs.writeFileSync(`${sourceFolder}erroneous_sketch_2.ts`, erroneousSketch2);
 fs.writeFileSync(`${sourceFolder}completed_sketch.ts`, completedSketch);
-fs.writeFileSync(`${sourceFolder}erroneous_sketch.ts`, erroneousSketch);
+
+// run tsc to check for syntax errors
+for (let i = 0; i < errorRoundsMax; i++) {
+  let res = "";
+  try {
+    switch (i) {
+      case 0:
+        res = execSync(`tsc ${sourceFolder}erroneous_sketch_1.ts`, { stdio: "inherit" });
+      case 1:
+        res = execSync(`tsc ${sourceFolder}erroneous_sketch_2.ts`, { stdio: "inherit" });
+      case 2:
+        res = execSync(`tsc ${sourceFolder}completed_sketch.ts`, { stdio: "inherit" });
+    }
+    console.log(res)
+  } catch (err) {
+    // res = err.toString();
+    // console.log(res);
+  }
+}
 
 // run the prelude - completed sketch - epilogue suite on specific tests
-execSync(`node ${sourceFolder}completed_sketch.ts`, { stdio: "inherit" });
-execSync(`tsc ${sourceFolder}erroneous_sketch.ts`, { stdio: "inherit" });
