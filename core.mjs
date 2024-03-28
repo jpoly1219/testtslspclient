@@ -319,7 +319,8 @@ const extractRelevantTypes = async (c, typeName, typeSpan, linePosition, charact
       })
     }
 
-    outputFile.write(`${typeName}: ${typeSpan}\n`);
+    outputFile.write(`${typeName}\n`);
+    outputFile.write(`${typeSpan}\n`);
 
     // approach 1: go to type definition and hover
     for (let i = 0; i < typeSpan.length; i++) {
