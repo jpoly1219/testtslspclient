@@ -1,5 +1,5 @@
 import { Todo, Model, AddTodo, RemoveTodo, ToggleTodo, UpdateBuffer, model_eq } from "./prelude.ts"
-import { update } from "./sketch.ts"
+import { update } from "./completed_sketch.ts"
 
 // utility
 const num_todos: (m: Model) => number = (m) => {
