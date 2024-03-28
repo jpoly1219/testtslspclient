@@ -27,13 +27,17 @@ const generatePrompt = (sketchFileContent, targetTypes) => {
 };
 
 const mockLLM = (errorRound) => {
+  let completedSketch = "";
   switch (errorRound) {
     case 0:
-      return "console.log(hello world)";
+      completedSketch = "";
+      return completedSketch;
     case 1:
-      return "console.log(helloworld)";
+      completedSketch = "";
+      return completedSketch;
     case 2:
-      return "console.log('hello world')";
+      completedSketch = "";
+      return completedSketch;
   }
 }
 
